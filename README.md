@@ -2,6 +2,8 @@
 
 (temporary name)
 
+[![Initial synth design] (/public/initial-design.png "Synth image")]
+
 There is a short feature list I will use during development phase.
 
 ## Features:

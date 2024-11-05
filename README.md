@@ -2,7 +2,7 @@
 
 (temporary name)
 
-![Initial synth design] (https://github.com/vybukhivka/react-synth/blob/main/public/initial-design.png?raw=true)
+![Synth Image](https://github.com/vybukhivka/react-synth/blob/main/public/initial-design.png?raw=true)
 
 There is a short feature list I will use during development phase.
 

@@ -1,5 +1,5 @@
 function Main() {
-  return <div>hello</div>;
+  return <div className="">hello</div>;
 }
 
 export default Main;

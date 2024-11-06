@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import NarBar from '../components/NavBar';
+import NavBar from '../components/NavBar';
 
 const MainLayout: React.FC = () => {
   return (
     <>
-      <NarBar />
+      <NavBar />
       <main>
         <Outlet />
       </main>

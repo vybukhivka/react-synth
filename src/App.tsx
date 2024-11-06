@@ -3,28 +3,24 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
-import Main from './pages/Main';
-import PageNotFound from './pages/PageNotFound';
+import MainLayout from './layouts/MainLayout';
 import About from './pages/About';
 import Explore from './pages/Explore';
+import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home';
+import Contact from './pages/Contact';
 
 const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <Main />,
+    element: <MainLayout />,
+    children: [
+      { path: '/', element: <Home /> },
+      { path: '/about', element: <About /> },
+      { path: '/explore', element: <Explore /> },
+      { path: '/contact', element: <Contact /> },
+    ],
   },
-  {
-    path: '/about',
-    element: <About />,
-  },
-  {
-    path: '/explore',
-    element: <Explore />,
-  },
-  {
-    path: '*',
-    element: <PageNotFound />,
-  },
+  { path: '*', element: <PageNotFound /> },
 ];
 
 const router = createBrowserRouter(routes);

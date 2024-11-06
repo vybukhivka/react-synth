@@ -2,9 +2,11 @@ import { NavLink } from 'react-router-dom';
 
 function NavBar() {
   return (
-    <nav className="flex justify-between items-center">
+    <nav className="flex h-16 items-center justify-between">
       <div>
-        <NavLink to={'/'}>React Synth</NavLink>
+        <NavLink to={'/'}>
+          <span className="text font-bold">React Synth</span>
+        </NavLink>
       </div>
       <div className="flex justify-between space-x-3">
         <NavLink to={'/about'}>About</NavLink>

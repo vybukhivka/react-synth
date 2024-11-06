@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply h-screen text-slate-50 font-sans mx-24;
+    @apply h-screen text-slate-50 font-sans mx-48;
     background: linear-gradient(to top right, #18181b 40%, #1e293b);
     background-repeat: no-repeat;
     background-attachment: fixed;

@@ -5,8 +5,7 @@ function About() {
         <span className="text-6xl font-bold">What is it?</span>
       </h1>
       <p className="text-lg">
-        This is a simple to use, but powerful instrument. (something like manual
-        is going to be here)
+        I can't tell yet. (something like manual is going to be here)
       </p>
     </div>
   );

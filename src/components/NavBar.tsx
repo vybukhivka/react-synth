@@ -3,10 +3,10 @@ import { FaGithub } from 'react-icons/fa6';
 
 function NavBar() {
   return (
-    <nav className="flex h-32 items-center justify-between">
+    <nav className="flex h-32 items-center justify-between text-slate-400">
       <div>
         <NavLink to={'/'}>
-          <span className="text-lg font-bold">React Synth</span>
+          <span className="text-lg font-bold text-slate-50">React Synth</span>
         </NavLink>
       </div>
       <div className="flex justify-between space-x-8 text-lg">
@@ -19,7 +19,7 @@ function NavBar() {
           className="flex items-start justify-start"
           to={'https://github.com/vybukhivka/react-synth'}
         >
-          <FaGithub size={30} />
+          <FaGithub size={30} className="text-slate-50" />
         </NavLink>
       </div>
     </nav>

@@ -12,3 +12,7 @@
     background-attachment: fixed;
   }
 }
+
+.active {
+  @apply font-bold text-slate-50;
+}

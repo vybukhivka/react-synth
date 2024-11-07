@@ -3,7 +3,7 @@ import { FaGithub } from 'react-icons/fa6';
 
 function NavBar() {
   return (
-    <nav className="flex h-16 items-center justify-between">
+    <nav className="flex h-32 items-center justify-between">
       <div>
         <NavLink to={'/'}>
           <span className="text-lg font-bold">React Synth</span>

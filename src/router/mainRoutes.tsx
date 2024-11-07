@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import { RouteObject } from 'react-router-dom';
 
 import MainLayout from '../layouts/MainLayout';
 import About from '../pages/About';
@@ -8,7 +8,7 @@ import Contact from '../pages/Contact';
 import ErrorBoundary from '../pages/ErrorBoundary';
 import PageNotFound from '../pages/PageNotFound';
 
-const routes: RouteObject[] = [
+const mainRoutes: RouteObject[] = [
   {
     element: <MainLayout />,
     children: [
@@ -29,4 +29,4 @@ const routes: RouteObject[] = [
   { path: '*', element: <PageNotFound /> },
 ];
 
-export default routes
+export default mainRoutes;

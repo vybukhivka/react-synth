@@ -1,4 +1,4 @@
-function SynthContainer() {
+function SynthContainer({}) {
   return <div>synth container</div>;
 }
 

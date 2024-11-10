@@ -1,13 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import SynthContainer from '../components/synth/SynthContainer';
 
 function SynthLayout() {
   return (
     <>
       <NavBar />
       <main>
-        <h2>synth layout</h2>
-        <Outlet />
+        <SynthContainer>
+          <Outlet />
+        </SynthContainer>
       </main>
     </>
   );

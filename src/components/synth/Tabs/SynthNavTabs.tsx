@@ -1,5 +1,5 @@
-import ButtonMedium from '../ui/ButtonMedium';
-import { SynthTabs } from '../../types/synthTabs';
+import ButtonMedium from '../../ui/ButtonMedium';
+import { SynthTabs } from '../../../types/synthTabs';
 
 type SynthNavTabsProps = {
   onTabChange: (tabName: SynthTabs) => void;

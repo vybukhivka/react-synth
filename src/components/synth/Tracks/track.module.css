@@ -1,0 +1,9 @@
+.knobRange {
+  @apply h-[44px] w-[44px] rounded-full border;
+}
+
+.knobRange::-webkit-slider-thumb,
+::-moz-focus-inner,
+::-ms-thumb {
+  -webkit-appearance: none;
+}

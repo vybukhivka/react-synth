@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import Contact from '../pages/Contact';
 import ErrorBoundary from '../pages/ErrorBoundary';
 import PageNotFound from '../pages/PageNotFound';
+import SynthLayout from '../layouts/SynthLayout';
 
 const mainRoutes: RouteObject[] = [
   {
@@ -23,6 +24,11 @@ const mainRoutes: RouteObject[] = [
         path: '/contact',
         element: <Contact />,
         errorElement: <ErrorBoundary />,
+      },
+      {
+        path: '/synth',
+        element: <SynthLayout />,
+        children: [{ path: ':patternId', element: <SynthLayout /> }],
       },
     ],
   },

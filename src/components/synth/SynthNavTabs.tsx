@@ -1,16 +1,17 @@
-import ButtonMedium from '../ui/SynthButtonThin';
+import ButtonMedium from '../ui/ButtonMedium';
+import { SynthTabs } from '../../types/synthTabs';
 
 type SynthNavTabsProps = {
-  onActiveTab: (tab: string) => void;
+  onTabChange: (tabName: SynthTabs) => void;
 };
 
-function SynthNavTabs({ onActiveTab }: SynthNavTabsProps) {
+function SynthNavTabs({ onTabChange }: SynthNavTabsProps) {
   return (
     <div>
-      <ButtonMedium onClick={() => onActiveTab('main')}>main</ButtonMedium>
-      <ButtonMedium onClick={() => onActiveTab('seq')}>seq</ButtonMedium>
-      <ButtonMedium onClick={() => onActiveTab('mod')}>mod</ButtonMedium>
-      <ButtonMedium onClick={() => onActiveTab('proj')}>proj</ButtonMedium>
+      <ButtonMedium text="main" onClick={() => onTabChange('main')} />
+      <ButtonMedium text="seq" onClick={() => onTabChange('seq')} />
+      <ButtonMedium text="mod" onClick={() => onTabChange('mod')} />
+      <ButtonMedium text="proj" onClick={() => onTabChange('proj')} />
     </div>
   );
 }

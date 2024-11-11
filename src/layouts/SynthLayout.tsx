@@ -1,22 +1,20 @@
-import NavBar from '../components/NavBar';
-import SynthContainer from '../components/synth/SynthContainer';
 import { useState } from 'react';
-import SynthMainTab from '../components/synth/SynthMainTab';
+
+import SynthContainer from '../components/synth/SynthContainer';
 import SynthNavTabs from '../components/synth/SynthNavTabs';
+import { SynthTabs } from '../types/synthTabs';
 
 function SynthLayout() {
-  const [activeTab, setActiveTab] = useState('main');
+  const [activeTab, setActiveTab] = useState<SynthTabs>('main');
 
-  console.log(activeTab);
+  function updateActiveTab(tabName: SynthTabs) {
+    setActiveTab(tabName);
+  }
   return (
     <>
-      <NavBar />
-
-      <main className="flex justify-center">
-        <SynthContainer>
-          <SynthNavTabs onActiveTab={setActiveTab} />
-        </SynthContainer>
-      </main>
+      <SynthContainer>
+        <SynthNavTabs onTabChange={updateActiveTab} />
+      </SynthContainer>
     </>
   );
 }

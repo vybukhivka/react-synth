@@ -3,7 +3,11 @@
 }
 
 .knobRange::-webkit-slider-thumb,
-::-moz-focus-inner,
-::-ms-thumb {
-  -webkit-appearance: none;
+::-moz-slider-thumb,
+::-moz-range-thumb {
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  background: red;
+  border: 3px solid white;
 }

@@ -1,12 +1,22 @@
-import { ReactNode } from 'react';
+import { useState } from 'react';
 
-type SynthContainerProps = {
-  children: ReactNode | ReactNode[];
-};
+import SynthNavTabs from './SynthNavTabs';
+import { SynthTabs } from '../../types/synthTabs';
 
-function SynthContainer({ children }: SynthContainerProps) {
+function SynthContainer() {
+  const [activeTab, setActiveTab] = useState<SynthTabs>('main');
+
+  function updateActiveTab(tabName: SynthTabs) {
+    setActiveTab(tabName);
+  }
+
+  // NavBar, 4 Tracks and bottom right corner buttons
+  // rendred on every page. sequencer and params are conditionally
+  // rendered, depending on the selected page
   return (
-    <div className="h-[600px] w-[1064px] rounded-xl border">{children}</div>
+    <div className="grid h-[600px] w-[1064px] grid-cols-6 gap-5 rounded-xl border">
+      <SynthNavTabs onTabChange={updateActiveTab} />
+    </div>
   );
 }
 

@@ -7,7 +7,7 @@ type SynthNavTabsProps = {
 
 function SynthNavTabs({ onTabChange }: SynthNavTabsProps) {
   return (
-    <div>
+    <div className="flex h-[34px] w-[308px] flex-grow-0 items-center justify-between">
       <ButtonMedium text="main" onClick={() => onTabChange('main')} />
       <ButtonMedium text="seq" onClick={() => onTabChange('seq')} />
       <ButtonMedium text="mod" onClick={() => onTabChange('mod')} />

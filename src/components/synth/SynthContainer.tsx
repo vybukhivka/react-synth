@@ -15,7 +15,7 @@ function SynthContainer() {
   // rendred on every page. sequencer and params are conditionally
   // rendered, depending on the selected page
   return (
-    <div className="grid h-[600px] w-[1064px] grid-cols-6 gap-5 rounded-xl border">
+    <div className="grid h-[600px] w-[1064px] grid-cols-6 gap-5 rounded-xl">
       <Track />
       <SynthNavTabs onTabChange={updateActiveTab} />
     </div>

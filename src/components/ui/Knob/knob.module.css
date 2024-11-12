@@ -1,0 +1,17 @@
+.knobRange {
+  @apply h-[44px] w-[44px] appearance-none bg-transparent rounded-full border;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+}
+
+.knobRange::-webkit-slider-thumb,
+::-moz-range-thumb {
+  @apply cursor-pointer h-[4px] w-[4px] rounded-full bg-gray-50 border border-purple-500;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.knobRange::-webkit-slider-runnable-track,
+::-moz-range-track {
+  @apply rounded-full w-full h-[4px] bg-gray-300;
+}

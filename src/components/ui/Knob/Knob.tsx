@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
 function Knob() {
-  const [rotate, setRotate] = useState(-45);
+  const [rotate, setRotate] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
-  const knobRef = useRef<HTMLDivElement>(null);
+  const initialPosition = useRef<{ x: number; y: number } | null>(null);
 
-  function startRotate() {
+  function startRotate(e: React.MouseEvent) {
     setIsRotating(true);
+    initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
   function stopRotate() {
@@ -14,22 +15,17 @@ function Knob() {
   }
 
   function handleMove(e: MouseEvent) {
-    if (!isRotating || !knobRef.current) return;
+    if (!isRotating || !initialPosition.current) return;
 
-    const rect: DOMRect = knobRef.current.getBoundingClientRect();
+    const deltaX = e.clientX - initialPosition.current.x;
+    const deltaY = initialPosition.current.y - e.clientY;
+    const deltaSum = deltaX + deltaY;
 
-    const cordX = rect.left + rect.width / 2;
-    const cordY = rect.top + rect.height / 2;
-    const deltaX = e.clientX - cordX;
-    const deltaY = e.clientY - cordY;
-    const degrees = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-    const rotationAngle = (degrees - 135 + 360) % 360;
+    let newRotate = rotate + deltaSum;
+    newRotate = Math.max(-45, Math.min(newRotate, 225));
+    setRotate(newRotate);
 
-    console.log(
-      `X: ${deltaX.toFixed()} Y: ${deltaY.toFixed()} angle: ${degrees.toFixed(2)}`,
-    );
-
-    if (rotationAngle < 270) setRotate(rotationAngle - 45);
+    initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
   useEffect(() => {
@@ -45,13 +41,12 @@ function Knob() {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', stopRotate);
     };
-  }, [isRotating]);
+  }, [isRotating, rotate]);
 
   return (
     <>
       <div className="flex h-full w-full items-center justify-center">
         <div
-          ref={knobRef}
           onMouseDown={startRotate}
           style={{ transform: `rotate(${rotate}deg)` }}
           className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-slate-600 p-1"
@@ -59,8 +54,7 @@ function Knob() {
           <div className="h-[2px] w-[7px] rounded-lg border bg-white"></div>
         </div>
       </div>
-      <div>value: {Math.round(((rotate + 45) / 270) * 100)}</div>
-      <div></div>
+      <div>value: {rotate + 45}</div>
     </>
   );
 }

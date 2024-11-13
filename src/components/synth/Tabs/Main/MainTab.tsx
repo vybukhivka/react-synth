@@ -1,10 +1,10 @@
-import Mixer from './Mixer/Mixer';
+import MixerContainer from './Mixer/MixerContainer';
 import SequencerControls from './SequencerControls/SequencerControls';
 
 const MainTab: React.FC = () => {
   return (
     <>
-      <Mixer />
+      <MixerContainer />
       <SequencerControls />
     </>
   );

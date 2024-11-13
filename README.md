@@ -6,7 +6,7 @@
 
 There is a short feature list I will use during development phase.
 
-## Features:
+## Features
 
 ### General:
 

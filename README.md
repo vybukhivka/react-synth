@@ -20,7 +20,7 @@ There is a short feature list I will use during development phase.
 #### Sound Engines:
 
 - 4 tracks
-- Each track contains 4 knobs to design a sound
+- Each track contains 4 knobs
 
 #### Sequencer Tab:
 
@@ -30,8 +30,8 @@ There is a short feature list I will use during development phase.
 
 #### Modulations Tab:
 
-- Global LFO with various waveforms for whole project
-- Random generator (probably with Slope and Step options)
+- Global LFO with various waveforms
+- Random generator (probably with Slope and Hold options)
 - 4 x 4 modulation matrix for each track
 - Mod. sources: LFO, RND, MOD SEQ, VEL
 - Mod. destinations: All 4 parameters of active synth track

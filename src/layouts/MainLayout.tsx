@@ -5,7 +5,7 @@ const MainLayout: React.FC = () => {
   return (
     <>
       <NavBar />
-      <main className="flex">
+      <main className="flex justify-center">
         <Outlet />
       </main>
     </>

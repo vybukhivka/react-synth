@@ -1,5 +1,5 @@
 function SequencerButton() {
-  return <div className="h-16 w-16 rounded-lg border">step</div>;
+  return <div className="h-[76px] w-[76px] rounded-lg border"></div>;
 }
 
 export default SequencerButton;

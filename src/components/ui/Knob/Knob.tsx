@@ -53,7 +53,7 @@ function Knob() {
         ref={knobRef}
         onMouseDown={startRotate}
         style={{ transform: `rotate(${rotate}deg)`, userSelect: 'none' }}
-        className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-slate-600 p-1"
+        className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-transparent p-1"
       >
         <div className="h-[2px] w-[7px] rounded-lg border bg-white"></div>
       </div>

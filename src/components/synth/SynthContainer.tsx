@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import SynthNavTabs from './Tabs/SynthNavTabs';
 import { SynthTabs } from '../../types/synthTabs';
-import Track from './Tracks/Track';
+import TracksContainer from './Tracks/TracksContainer';
 
 function SynthContainer() {
   const [activeTab, setActiveTab] = useState<SynthTabs>('main');
@@ -15,8 +15,8 @@ function SynthContainer() {
   // rendred on every page. sequencer and params are conditionally
   // rendered, depending on the selected page
   return (
-    <div className="grid h-[600px] w-[1064px] grid-cols-6 gap-5 rounded-xl">
-      <Track />
+    <div className="grid h-[600px] w-[1064px] grid-cols-6 gap-5 rounded-xl border">
+      <TracksContainer />
       <SynthNavTabs onTabChange={updateActiveTab} />
     </div>
   );

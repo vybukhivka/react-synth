@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 function Knob() {
-  const [rotate, setRotate] = useState(0);
+  const [rotate, setRotate] = useState(-45);
   const [isRotating, setIsRotating] = useState(false);
+  const rotateRef = useRef(-45);
+  const knobRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
 
   function startRotate(e: React.MouseEvent) {
@@ -12,18 +14,20 @@ function Knob() {
 
   function stopRotate() {
     setIsRotating(false);
+    setRotate(rotateRef.current);
   }
 
   function handleMove(e: MouseEvent) {
-    if (!isRotating || !initialPosition.current) return;
+    if (!isRotating || !initialPosition.current || !knobRef.current) return;
 
     const deltaX = e.clientX - initialPosition.current.x;
     const deltaY = initialPosition.current.y - e.clientY;
     const deltaSum = deltaX + deltaY;
 
-    let newRotate = rotate + deltaSum;
+    let newRotate = rotateRef.current + deltaSum;
     newRotate = Math.max(-45, Math.min(newRotate, 225));
-    setRotate(newRotate);
+    rotateRef.current = newRotate;
+    knobRef.current.style.transform = `rotate(${rotateRef.current}deg)`;
 
     initialPosition.current = { x: e.clientX, y: e.clientY };
   }
@@ -41,20 +45,18 @@ function Knob() {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', stopRotate);
     };
-  }, [isRotating, rotate]);
+  }, [isRotating]);
 
   return (
     <>
-      <div className="flex h-full w-full items-center justify-center">
-        <div
-          onMouseDown={startRotate}
-          style={{ transform: `rotate(${rotate}deg)` }}
-          className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-slate-600 p-1"
-        >
-          <div className="h-[2px] w-[7px] rounded-lg border bg-white"></div>
-        </div>
+      <div
+        ref={knobRef}
+        onMouseDown={startRotate}
+        style={{ transform: `rotate(${rotate}deg)`, userSelect: 'none' }}
+        className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-slate-600 p-1"
+      >
+        <div className="h-[2px] w-[7px] rounded-lg border bg-white"></div>
       </div>
-      <div>value: {rotate + 45}</div>
     </>
   );
 }

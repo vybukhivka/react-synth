@@ -7,7 +7,7 @@ type SynthNavTabsProps = {
 
 const SynthNavTabs: React.FC<SynthNavTabsProps> = props => {
   return (
-    <div className="col-span-2 col-start-5 flex h-[34px] w-full flex-grow-0 items-center justify-between">
+    <div className="top-0 col-span-2 col-start-5 row-start-1 flex h-[34px] w-full flex-grow-0 items-center justify-between gap-0">
       <ButtonMedium text="main" onClick={() => props.onTabChange('main')} />
       <ButtonMedium text="seq" onClick={() => props.onTabChange('seq')} />
       <ButtonMedium text="mod" onClick={() => props.onTabChange('mod')} />

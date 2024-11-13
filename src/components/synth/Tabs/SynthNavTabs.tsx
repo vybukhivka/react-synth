@@ -1,19 +1,19 @@
-import ButtonMedium from '../../ui/ButtonMedium';
+import ButtonMedium from '../../ui/ButtomMedium.tsx/ButtonMedium';
 import { SynthTabs } from '../../../types/synthTabs';
 
 type SynthNavTabsProps = {
   onTabChange: (tabName: SynthTabs) => void;
 };
 
-function SynthNavTabs({ onTabChange }: SynthNavTabsProps) {
+const SynthNavTabs: React.FC<SynthNavTabsProps> = props => {
   return (
     <div className="col-span-2 col-start-5 flex h-[34px] w-full flex-grow-0 items-center justify-between">
-      <ButtonMedium text="main" onClick={() => onTabChange('main')} />
-      <ButtonMedium text="seq" onClick={() => onTabChange('seq')} />
-      <ButtonMedium text="mod" onClick={() => onTabChange('mod')} />
-      <ButtonMedium text="proj" onClick={() => onTabChange('proj')} />
+      <ButtonMedium text="main" onClick={() => props.onTabChange('main')} />
+      <ButtonMedium text="seq" onClick={() => props.onTabChange('seq')} />
+      <ButtonMedium text="mod" onClick={() => props.onTabChange('mod')} />
+      <ButtonMedium text="proj" onClick={() => props.onTabChange('proj')} />
     </div>
   );
-}
+};
 
 export default SynthNavTabs;

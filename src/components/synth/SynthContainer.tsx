@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import SynthNavTabs from './Tabs/SynthNavTabs';
-import { SynthTabs } from '../../types/synthTabs';
 import TracksContainer from './Tracks/TracksContainer';
 import SequncerContainer from './Sequencer/SequncerContainer';
 import PlaybackContainer from './Playback/PlaybackContainer';
 import MainTab from './Tabs/Main/MainTab';
+import { SynthTabs } from '../../types/synthTabs';
 
 function SynthContainer() {
   const [activeTab, setActiveTab] = useState<SynthTabs>('main');

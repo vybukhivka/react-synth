@@ -4,6 +4,7 @@ import SynthNavTabs from './Tabs/SynthNavTabs';
 import { SynthTabs } from '../../types/synthTabs';
 import TracksContainer from './Tracks/TracksContainer';
 import SequncerContainer from './Sequencer/SequncerContainer';
+import PlaybackContainer from './Playback/PlaybackContainer';
 
 function SynthContainer() {
   const [activeTab, setActiveTab] = useState<SynthTabs>('main');
@@ -20,6 +21,7 @@ function SynthContainer() {
       <TracksContainer />
       <SynthNavTabs onTabChange={updateActiveTab} />
       <SequncerContainer />
+      <PlaybackContainer />
     </div>
   );
 }

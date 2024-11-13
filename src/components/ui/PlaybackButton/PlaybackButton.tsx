@@ -1,11 +1,18 @@
+import React from 'react';
+
 type PlaybackButtonProps = {
   text: string;
 };
 
-function PlaybackButton({ text }: PlaybackButtonProps) {
+const PlaybackButton: React.FC<PlaybackButtonProps> = props => {
   return (
-    <button className="h-[76px] w-[76px] rounded-lg border">{text}</button>
+    <button
+      className="h-[76px] w-[76px] rounded-lg border"
+      aria-label={props.text}
+    >
+      {props.text}
+    </button>
   );
-}
+};
 
 export default PlaybackButton;

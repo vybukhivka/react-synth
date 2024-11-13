@@ -1,14 +1,16 @@
+import React from 'react';
 import PlaybackButton from '../../ui/PlaybackButton/PlaybackButton';
 
-function PlaybackContainer() {
+const buttons = ['play', 'bpm', 'swing', 'master'];
+
+const PlaybackContainer: React.FC = () => {
   return (
     <div className="col-start-5 col-end-7 row-start-6 flex justify-between">
-      <PlaybackButton text="play" />
-      <PlaybackButton text="bpm" />
-      <PlaybackButton text="swing" />
-      <PlaybackButton text="master" />
+      {buttons.map(button => (
+        <PlaybackButton key={button} text={button} />
+      ))}
     </div>
   );
-}
+};
 
 export default PlaybackContainer;

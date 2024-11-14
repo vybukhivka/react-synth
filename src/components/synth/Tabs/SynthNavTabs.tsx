@@ -1,4 +1,4 @@
-import ButtonMedium from '../../ui/ButtomMedium.tsx/ButtonMedium';
+import ButtonMedium from '../../ui/ButtomMedium/ButtonMedium';
 import { SynthTabs } from '../../../types/synthTabs';
 
 type SynthNavTabsProps = {

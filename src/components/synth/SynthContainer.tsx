@@ -4,11 +4,12 @@ import SynthNavTabs from './Tabs/SynthNavTabs';
 import TracksContainer from './Tracks/TracksContainer';
 import SequncerContainer from './Sequencer/SequncerContainer';
 import PlaybackContainer from './Playback/PlaybackContainer';
-import MainTab from './Tabs/Main/MainTab';
 import { SynthTabs } from '../../types/synthTabs';
+import MainTab from './Tabs/Main/MainTab';
 import ModTab from './Tabs/Mod/ModTab';
+import SeqTab from './Tabs/Seq/SeqTab';
 
-function SynthContainer() {
+const SynthContainer: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SynthTabs>('main');
 
   function updateActiveTab(tabName: SynthTabs) {
@@ -21,10 +22,11 @@ function SynthContainer() {
       <SynthNavTabs onTabChange={updateActiveTab} />
       <SequncerContainer />
       <PlaybackContainer />
-      <ModTab />
+      <SeqTab />
+      {/* <ModTab /> */}
       {/* <MainTab /> */}
     </div>
   );
-}
+};
 
 export default SynthContainer;

@@ -15,7 +15,7 @@ function SynthContainer() {
   }
 
   return (
-    <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-[1fr_1fr_1fr_1fr_2fr] grid-rows-[36px_154px_1fr_68px] gap-[5px] rounded-xl border p-[20px]">
+    <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-[1fr_1fr_1fr_1fr_2fr] grid-rows-[36px_154px_1fr_68px] gap-[20px] rounded-xl border p-[20px]">
       <TracksContainer />
       <SynthNavTabs onTabChange={updateActiveTab} />
       <SequncerContainer />

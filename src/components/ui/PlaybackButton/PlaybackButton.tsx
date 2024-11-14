@@ -7,7 +7,7 @@ type PlaybackButtonProps = {
 const PlaybackButton: React.FC<PlaybackButtonProps> = props => {
   return (
     <button
-      className="h-[76px] w-[76px] rounded-lg border"
+      className="h-[48px] w-[68px] rounded-lg border"
       aria-label={props.text}
     >
       {props.text}

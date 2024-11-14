@@ -2,13 +2,13 @@ import ButtonThin from '../../../../ui/ButtonThin/ButtonThin';
 
 const SequencerControls: React.FC = () => {
   return (
-    <div className="col-start-1 col-end-5 row-start-5 row-end-6 flex items-end justify-between">
-      <div className="flex gap-x-[9px]">
+    <div className="col-start-1 col-end-5 row-start-3 flex items-end justify-between">
+      <div className="flex gap-x-[20px]">
         <ButtonThin text="1:2" />
         <ButtonThin text="1:1" />
         <ButtonThin text="2:1" />
       </div>
-      <div className="flex gap-x-[9px]">
+      <div className="flex gap-x-[20px]">
         <ButtonThin text="PITCH" />
         <ButtonThin text="VEL" />
         <ButtonThin text="PROB" />

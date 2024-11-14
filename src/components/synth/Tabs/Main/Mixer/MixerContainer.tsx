@@ -4,7 +4,7 @@ import Reverb from './Reverb';
 
 const Mixer: React.FC = () => {
   return (
-    <div className="col-start-5 col-end-7 row-start-1 row-end-6 mt-[40px] flex flex-col items-center justify-around">
+    <div className="col-start-5 row-start-2 row-end-4 flex flex-col items-center justify-around">
       <div className="flex items-end justify-around gap-x-4">
         <MixerChannel track={1} />
         <MixerChannel track={2} />

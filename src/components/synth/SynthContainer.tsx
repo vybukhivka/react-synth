@@ -14,11 +14,8 @@ function SynthContainer() {
     setActiveTab(tabName);
   }
 
-  // NavBar, 4 Tracks and bottom right corner buttons
-  // rendred on every page. sequencer and params are conditionally
-  // rendered, depending on the selected page
   return (
-    <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-6 grid-rows-6 gap-5 rounded-xl border p-[20px]">
+    <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-[1fr_1fr_1fr_1fr_2fr] grid-rows-[36px_154px_1fr_68px] gap-[5px] rounded-xl border p-[20px]">
       <TracksContainer />
       <SynthNavTabs onTabChange={updateActiveTab} />
       <SequncerContainer />

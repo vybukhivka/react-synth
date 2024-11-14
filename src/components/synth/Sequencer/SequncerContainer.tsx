@@ -1,12 +1,12 @@
-import SequencerButton from '../../ui/SequencerButton/SequencerButton';
+import SequencerRow from './SequencerRow';
 
 function SequncerContainer() {
-  const steps = Array.from({ length: 8 }, (_, i) => i);
   return (
-    <div className="col-start-1 col-end-5 row-start-4 flex items-end justify-between">
-      {steps.map(step => (
-        <SequencerButton key={step} />
-      ))}
+    <div className="col-start-1 col-end-5 row-start-3 row-end-5 flex flex-col gap-y-[18px]">
+      <SequencerRow />
+      <SequencerRow />
+      <SequencerRow />
+      <SequencerRow />
     </div>
   );
 }

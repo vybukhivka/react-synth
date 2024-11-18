@@ -2,15 +2,20 @@ import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 
 type TrackProps = {
-  className: string
-}
+  className: string;
+};
 
-const Track:React.FC<TrackProps> = ({className}) => {
+const Track: React.FC<TrackProps> = ({ className }) => {
   return (
     <>
       <div className="flex flex-col items-center justify-between">
-        <div className="h-[36px] w-[124px] rounded-md border"></div>
-        <div className={cn("border-2 flex h-[154px] w-[154px] flex-wrap items-center justify-between gap-[20px] rounded-3xl p-[20px]", className)}>
+        <div className="bg h-[36px] w-[124px] rounded-md border border-slate-600"></div>
+        <div
+          className={cn(
+            'flex h-[154px] w-[154px] flex-wrap items-center justify-between gap-[20px] rounded-3xl border-2 p-[20px]',
+            className,
+          )}
+        >
           <Knob />
           <Knob />
           <Knob />
@@ -19,6 +24,6 @@ const Track:React.FC<TrackProps> = ({className}) => {
       </div>
     </>
   );
-}
+};
 
 export default Track;

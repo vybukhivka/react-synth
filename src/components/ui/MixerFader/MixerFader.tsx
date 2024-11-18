@@ -1,7 +1,17 @@
-const MixerFader: React.FC = () => {
+import { cn } from '../../../utils/cn';
+
+type FaderProps = {
+  color: string;
+};
+
+const MixerFader: React.FC<FaderProps> = ({ color }) => {
   return (
-    <div className="flex h-[154px] w-[48px] items-end gap-x-4 overflow-hidden rounded-lg border">
-      <div className="h-[40px] w-full bg-white opacity-20"></div>
+    <div
+      className={cn(
+        'flex h-[154px] w-[48px] items-end gap-x-4 overflow-hidden rounded-lg border border-slate-600',
+      )}
+    >
+      <div className={cn('h-[40px] w-full opacity-20', color)}></div>
     </div>
   );
 };

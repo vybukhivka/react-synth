@@ -4,7 +4,7 @@ import RND from './RND';
 
 const Modulators: React.FC = () => {
   return (
-    <div className="col-start-5 row-start-2 row-end-4 flex flex-col items-center justify-between gap-y-[20px] px-[20px]">
+    <div className="col-start-5 row-start-2 row-end-5 flex h-full flex-col items-center justify-between gap-y-[20px] px-[20px]">
       <div>
         <Matrix />
       </div>

@@ -5,8 +5,8 @@ import TracksContainer from './Tracks/TracksContainer';
 import SequncerContainer from './Sequencer/SequncerContainer';
 import PlaybackContainer from './Playback/PlaybackContainer';
 import { SynthTabs } from '../../types/synthTabs';
-import MainTab from './Tabs/Main/MainTab';
-import ModTab from './Tabs/Mod/ModTab';
+// import MainTab from './Tabs/Main/MainTab';
+// import ModTab from './Tabs/Mod/ModTab';
 import SeqTab from './Tabs/Seq/SeqTab';
 
 const SynthContainer: React.FC = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-function Knob() {
+const Knob:React.FC = () => {
   const [rotate, setRotate] = useState(-45);
   const [isRotating, setIsRotating] = useState(false);
   const rotateRef = useRef(-45);
@@ -53,9 +53,9 @@ function Knob() {
         ref={knobRef}
         onMouseDown={startRotate}
         style={{ transform: `rotate(${rotate}deg)`, userSelect: 'none' }}
-        className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border-2 bg-transparent p-1"
+        className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border border-slate-400 bg-transparent p-[6px]"
       >
-        <div className="h-[2px] w-[7px] rounded-lg border bg-white"></div>
+        <div className="h-[2px] w-[5px] rounded-lg border bg-white"></div>
       </div>
     </>
   );

@@ -10,7 +10,7 @@ const Track:React.FC<TrackProps> = ({className}) => {
     <>
       <div className="flex flex-col items-center justify-between">
         <div className="h-[36px] w-[124px] rounded-md border"></div>
-        <div className={cn("border flex h-[154px] w-[154px] flex-wrap items-center justify-between gap-[20px] rounded-3xl p-[20px]", className)}>
+        <div className={cn("border-2 flex h-[154px] w-[154px] flex-wrap items-center justify-between gap-[20px] rounded-3xl p-[20px]", className)}>
           <Knob />
           <Knob />
           <Knob />

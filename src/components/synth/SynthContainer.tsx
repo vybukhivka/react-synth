@@ -20,7 +20,7 @@ const SynthContainer: React.FC = () => {
     <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-[154px_154px_154px_154px_2fr] grid-rows-[36px_154px_1fr_68px] gap-[20px] rounded-xl border border-slate-700 p-[20px]">
       <TracksContainer />
       <SynthNavTabs onTabChange={updateActiveTab} />
-      <SequncerContainer />
+      <SequncerContainer tab={activeTab} />
       <PlaybackContainer />
       {activeTab === 'main' && <MainTab />}
       {activeTab === 'seq' && <SeqTab />}

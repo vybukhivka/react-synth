@@ -8,7 +8,7 @@ type UseRotateResults = {
 
 type UseRotateProps = {
   initialAngle: number;
-  type: 'fader' | 'knob';
+  type: 'fader' | 'knob' | 'send';
 };
 
 function useRotate({
@@ -20,6 +20,8 @@ function useRotate({
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isRotating, setIsRotating] = useState(false);
+
+  console.log(angle);
 
   function startRotate(e: React.MouseEvent) {
     setIsRotating(true);
@@ -42,16 +44,28 @@ function useRotate({
       let newAngle = angleRef.current + deltaSum;
       newAngle = Math.max(-45, Math.min(newAngle, 225));
       angleRef.current = newAngle;
+
       elementRef.current.style.transform = `rotate(${angleRef.current}deg)`;
 
       initialPosition.current = { x: e.clientX, y: e.clientY };
     }
 
     if (type === 'fader') {
-      let newAngle = angleRef.current + deltaY;
-      newAngle = Math.max(0, Math.min(newAngle, 154));
-      angleRef.current = newAngle;
+      let newHeight = angleRef.current + deltaY;
+      newHeight = Math.max(0, Math.min(newHeight, 154));
+      angleRef.current = newHeight;
+
       elementRef.current.style.height = `${angleRef.current}px`;
+
+      initialPosition.current = { x: e.clientX, y: e.clientY };
+    }
+
+    if (type === 'send') {
+      let newWidth = angleRef.current + deltaX;
+      newWidth = Math.max(0, Math.min(newWidth, 48));
+      angleRef.current = newWidth;
+
+      elementRef.current.style.width = `${angleRef.current}px`;
 
       initialPosition.current = { x: e.clientX, y: e.clientY };
     }

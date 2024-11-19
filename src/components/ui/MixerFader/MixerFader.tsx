@@ -16,9 +16,7 @@ const MixerFader: React.FC<FaderProps> = ({ color }) => {
   return (
     <div
       onMouseDown={startRotate}
-      className={cn(
-        'flex h-[154px] w-[48px] items-end gap-x-4 overflow-hidden rounded-lg border border-slate-600',
-      )}
+      className="flex h-[154px] w-[48px] items-end gap-x-4 overflow-hidden rounded-lg border border-slate-600"
     >
       <div
         ref={fader}

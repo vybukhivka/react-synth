@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 type UseRotateResults = {
-  knob: React.MutableRefObject<HTMLDivElement>;
+  knob: React.MutableRefObject<HTMLDivElement | null>;
   rotate: number;
   startRotate: (e: React.MouseEvent) => void;
 };
@@ -10,22 +10,21 @@ function useRotate(initialRotate: number): UseRotateResults {
   const [rotate, setRotate] = useState(initialRotate);
   const rotateRef = useRef(initialRotate);
   const knobRef = useRef<HTMLDivElement | null>(null);
-  const isRotatingRef = useRef(false);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
+  const [isRotating, setIsRotating] = useState(false);
 
   function startRotate(e: React.MouseEvent) {
-    isRotatingRef.current = true;
+    setIsRotating(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
   function stopRotate() {
-    isRotatingRef.current = false;
+    setIsRotating(false);
     setRotate(rotateRef.current);
   }
 
   function handleMove(e: MouseEvent) {
-    if (!isRotatingRef.current || !initialPosition.current || !knobRef.current)
-      return;
+    if (!isRotating || !initialPosition.current || !knobRef.current) return;
 
     const deltaX = e.clientX - initialPosition.current.x;
     const deltaY = initialPosition.current.y - e.clientY;
@@ -40,7 +39,7 @@ function useRotate(initialRotate: number): UseRotateResults {
   }
 
   useEffect(() => {
-    if (isRotatingRef.current) {
+    if (isRotating) {
       document.addEventListener('mousemove', handleMove);
       document.addEventListener('mouseup', stopRotate);
     } else {
@@ -52,10 +51,10 @@ function useRotate(initialRotate: number): UseRotateResults {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', stopRotate);
     };
-  }, [isRotatingRef.current]);
+  }, [isRotating]);
 
   return {
-    knobRef,
+    knob: knobRef,
     rotate,
     startRotate,
   };

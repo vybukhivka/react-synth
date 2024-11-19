@@ -4,7 +4,7 @@ type SeqContainerProps = {
   activeTab: string;
 };
 
-const SequncerContainer: React.FC<SeqContainerProps> = ({ activeTab }) => {
+const SequencerContainer: React.FC<SeqContainerProps> = ({ activeTab }) => {
   return (
     <>
       {activeTab === 'main' && (
@@ -32,4 +32,4 @@ const SequncerContainer: React.FC<SeqContainerProps> = ({ activeTab }) => {
   );
 };
 
-export default SequncerContainer;
+export default SequencerContainer;

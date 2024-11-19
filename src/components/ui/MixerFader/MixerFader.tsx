@@ -7,12 +7,12 @@ type FaderProps = {
 
 const MixerFader: React.FC<FaderProps> = ({ color }) => {
   const {
-    rotateRef: fader,
-    rotate,
+    elementRef: fader,
+    angle,
     startRotate,
   } = useRotate({ initialAngle: 10, type: 'fader' });
 
-  console.log(rotate);
+  console.log(angle);
   return (
     <div
       onMouseDown={startRotate}
@@ -22,7 +22,7 @@ const MixerFader: React.FC<FaderProps> = ({ color }) => {
     >
       <div
         ref={fader}
-        style={{ height: `${rotate}px`, userSelect: 'none' }}
+        style={{ height: `${angle}px`, userSelect: 'none' }}
         className={cn('w-full opacity-20', color)}
       ></div>
     </div>

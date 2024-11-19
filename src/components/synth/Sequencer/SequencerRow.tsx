@@ -10,7 +10,7 @@ const SequencerRow: React.FC<SequencerRowProps> = ({ className }) => {
   return (
     <div className="flex items-end justify-between">
       {steps.map(step => (
-        <SequencerButton color={className} key={step} />
+        <SequencerButton color={className} isTriggered={false} key={step} />
       ))}
     </div>
   );

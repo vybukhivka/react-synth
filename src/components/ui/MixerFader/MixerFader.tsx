@@ -1,3 +1,4 @@
+import useRotate from '../../../hooks/useRotate';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {
@@ -5,13 +6,25 @@ type FaderProps = {
 };
 
 const MixerFader: React.FC<FaderProps> = ({ color }) => {
+  const {
+    rotateRef: fader,
+    rotate,
+    startRotate,
+  } = useRotate({ initialAngle: 10, type: 'fader' });
+
+  console.log(rotate);
   return (
     <div
+      onMouseDown={startRotate}
       className={cn(
         'flex h-[154px] w-[48px] items-end gap-x-4 overflow-hidden rounded-lg border border-slate-600',
       )}
     >
-      <div className={cn('h-[40px] w-full opacity-20', color)}></div>
+      <div
+        ref={fader}
+        style={{ height: `${rotate}px`, userSelect: 'none' }}
+        className={cn('w-full opacity-20', color)}
+      ></div>
     </div>
   );
 };

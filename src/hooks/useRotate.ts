@@ -16,7 +16,7 @@ function useRotate({
   type = 'knob',
 }: Partial<UseRotateProps> = {}): UseRotateResults {
   const [rotate, setRotate] = useState(initialAngle);
-  const rotateRef = useRef(initialAngle);
+  const angleRef = useRef(initialAngle);
   const knobRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isRotating, setIsRotating] = useState(false);
@@ -28,22 +28,35 @@ function useRotate({
 
   function stopRotate() {
     setIsRotating(false);
-    setRotate(rotateRef.current);
+    setRotate(angleRef.current);
   }
 
   function handleMove(e: MouseEvent) {
     if (!isRotating || !initialPosition.current || !knobRef.current) return;
 
-    const deltaX = e.clientX - initialPosition.current.x;
-    const deltaY = initialPosition.current.y - e.clientY;
-    const deltaSum = deltaX + deltaY;
+    if (type === 'knob') {
+      const deltaX = e.clientX - initialPosition.current.x;
+      const deltaY = initialPosition.current.y - e.clientY;
+      const deltaSum = deltaX + deltaY;
 
-    let newRotate = rotateRef.current + deltaSum;
-    newRotate = Math.max(-45, Math.min(newRotate, 225));
-    rotateRef.current = newRotate;
-    knobRef.current.style.transform = `rotate(${rotateRef.current}deg)`;
+      let newRotate = angleRef.current + deltaSum;
+      newRotate = Math.max(-45, Math.min(newRotate, 225));
+      angleRef.current = newRotate;
+      knobRef.current.style.transform = `rotate(${angleRef.current}deg)`;
 
-    initialPosition.current = { x: e.clientX, y: e.clientY };
+      initialPosition.current = { x: e.clientX, y: e.clientY };
+    }
+
+    if (type === 'fader') {
+      const deltaY = initialPosition.current.y - e.clientY;
+
+      let newRotate = angleRef.current + deltaY;
+      newRotate = Math.max(0, Math.min(newRotate, 154));
+      angleRef.current = newRotate;
+      knobRef.current.style.height = `${angleRef.current}px`;
+
+      initialPosition.current = { x: e.clientX, y: e.clientY };
+    }
   }
 
   useEffect(() => {

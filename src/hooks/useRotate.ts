@@ -6,7 +6,12 @@ type UseRotateResults = {
   startRotate: (e: React.MouseEvent) => void;
 };
 
-function useRotate(initialRotate: number): UseRotateResults {
+type UseRotateProps = {
+  initialRotate: number;
+  type: 'fader' | 'knob';
+};
+
+function useRotate({ initialRotate, type }: UseRotateProps): UseRotateResults {
   const [rotate, setRotate] = useState(initialRotate);
   const rotateRef = useRef(initialRotate);
   const knobRef = useRef<HTMLDivElement | null>(null);

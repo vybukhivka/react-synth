@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 
 type UseRotateResults = {
-  knob: React.MutableRefObject<HTMLDivElement | null>;
+  rotateRef: React.MutableRefObject<HTMLDivElement | null>;
   rotate: number;
   startRotate: (e: React.MouseEvent) => void;
 };
 
 type UseRotateProps = {
-  initialRotate: number;
+  initialAngle: number;
   type: 'fader' | 'knob';
 };
 
-function useRotate({ initialRotate, type }: UseRotateProps): UseRotateResults {
-  const [rotate, setRotate] = useState(initialRotate);
-  const rotateRef = useRef(initialRotate);
+function useRotate({
+  initialAngle = -45,
+  type = 'knob',
+}: Partial<UseRotateProps> = {}): UseRotateResults {
+  const [rotate, setRotate] = useState(initialAngle);
+  const rotateRef = useRef(initialAngle);
   const knobRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isRotating, setIsRotating] = useState(false);
@@ -59,7 +62,7 @@ function useRotate({ initialRotate, type }: UseRotateProps): UseRotateResults {
   }, [isRotating]);
 
   return {
-    knob: knobRef,
+    rotateRef: knobRef,
     rotate,
     startRotate,
   };

@@ -1,7 +1,7 @@
 import useRotate from '../../../hooks/useRotate';
 
 const Knob: React.FC = () => {
-  const { knob, rotate, startRotate } = useRotate(-45);
+  const { rotateRef: knob, rotate, startRotate } = useRotate();
 
   return (
     <>

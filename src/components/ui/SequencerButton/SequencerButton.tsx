@@ -4,6 +4,7 @@ import { cn } from '../../../utils/cn';
 type SequencerButtonProps = {
   color: string;
   isTriggered: boolean;
+  // isActive: boolean
 };
 
 const SequencerButton: React.FC<SequencerButtonProps> = ({
@@ -13,11 +14,18 @@ const SequencerButton: React.FC<SequencerButtonProps> = ({
   const [trigger, setTrigger] = useState(isTriggered);
   return (
     <button
+      onClick={() => setTrigger(!trigger)}
       className={cn(
-        'h-[68px] w-[68px] rounded-lg border opacity-60 hover:opacity-90',
+        'flex h-[68px] w-[68px] items-center justify-center rounded-lg border opacity-60 hover:opacity-80',
         color,
       )}
-    ></button>
+    >
+      {trigger && (
+        <div
+          className={cn('h-[10px] w-[10px] rounded-full bg-slate-300', color)}
+        ></div>
+      )}
+    </button>
   );
 };
 

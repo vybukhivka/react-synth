@@ -3,15 +3,12 @@ import { cn } from '../../../utils/cn';
 
 type SequencerButtonProps = {
   color: string;
-  isTriggered: boolean;
+  // isTriggered: boolean;
   // isActive: boolean
 };
 
-const SequencerButton: React.FC<SequencerButtonProps> = ({
-  color,
-  isTriggered,
-}) => {
-  const [trigger, setTrigger] = useState(isTriggered);
+const SequencerButton: React.FC<SequencerButtonProps> = ({ color }) => {
+  const [trigger, setTrigger] = useState(false);
   return (
     <button
       onClick={() => setTrigger(!trigger)}

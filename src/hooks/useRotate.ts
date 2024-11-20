@@ -21,8 +21,6 @@ function useRotate({
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isRotating, setIsRotating] = useState(false);
 
-  console.log(angle);
-
   function startRotate(e: React.MouseEvent) {
     setIsRotating(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };

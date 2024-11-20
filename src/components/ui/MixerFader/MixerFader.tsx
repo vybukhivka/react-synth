@@ -12,7 +12,6 @@ const MixerFader: React.FC<FaderProps> = ({ color }) => {
     startRotate,
   } = useRotate({ initialAngle: 10, type: 'fader' });
 
-  console.log(angle);
   return (
     <div
       onMouseDown={startRotate}

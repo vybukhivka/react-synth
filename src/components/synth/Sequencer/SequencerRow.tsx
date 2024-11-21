@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import SequencerButton from '../../ui/SequencerButton/SequencerButton';
 
 type SequencerRowProps = {

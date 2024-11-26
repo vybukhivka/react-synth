@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import useRotate from '../../../hooks/useRotate';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
@@ -16,7 +15,11 @@ const Knob: React.FC = () => {
   const value = useAppSelector(state =>
     selectTrackParameter(state, 'track1', 'param2'),
   );
-  const { elementRef: knob, angle, startRotate } = useRotate();
+  const {
+    elementRef: knob,
+    angle,
+    startRotate,
+  } = useRotate({ initialAngle: value });
 
   return (
     <>

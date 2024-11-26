@@ -1,10 +1,11 @@
+import { TrackParams } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 
 type TrackProps = {
   className: string;
   trackId: string;
-  params: {};
+  params: keyof TrackParams;
 };
 
 const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {

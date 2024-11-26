@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import useRotate from '../../../hooks/useRotate';
 import { useAppDispatch } from '../../../store/hooks';
+import { updateParameter } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {
   trackId: string;
-  param: number | unknown;
+  param: number;
 };
 
 const Knob: React.FC<KnobProps> = ({ trackId, param }) => {
@@ -12,7 +14,11 @@ const Knob: React.FC<KnobProps> = ({ trackId, param }) => {
     elementRef: knob,
     angle,
     startRotate,
-  } = useRotate({ initialAngle: param });
+  } = useRotate({ initialAngle: param || -45 });
+
+  useEffect(() => {
+    dispatch(() => updateParameter({ trackId: trackId }));
+  }, [angle]);
 
   return (
     <>

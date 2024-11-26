@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { TrackParams, updateParameter } from '../store/slices/tracksSlice';
 
 type UseRotateResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -9,12 +11,17 @@ type UseRotateResults = {
 type UseRotateProps = {
   initialAngle: number;
   type: 'fader' | 'knob' | 'send';
+  trackId: string;
+  param: keyof TrackParams;
 };
 
 function useRotate({
   initialAngle = -45,
   type = 'knob',
+  trackId,
+  param,
 }: Partial<UseRotateProps> = {}): UseRotateResults {
+  const dispatch = useAppDispatch();
   const [angle, setAngle] = useState(initialAngle);
   const angleRef = useRef(initialAngle);
   const elementRef = useRef<HTMLDivElement | null>(null);
@@ -29,6 +36,12 @@ function useRotate({
   function stopRotate() {
     setIsRotating(false);
     setAngle(angleRef.current);
+
+    console.log(trackId, param);
+    if (type === 'knob' && trackId && param) {
+      dispatch(updateParameter({ trackId, param, value: angleRef.current }));
+      console.log(trackId, param);
+    }
   }
 
   function handleMove(e: MouseEvent) {

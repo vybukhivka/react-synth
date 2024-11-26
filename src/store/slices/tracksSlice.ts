@@ -13,10 +13,10 @@ export type TrackState = {
 };
 
 const initialState: TrackState = {
-  track1: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track2: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track3: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track4: { param1: 0, param2: 45, param3: 90, param4: 120 },
+  track1: { param1: 0, param2: 45, param3: 120, param4: 220 },
+  track2: { param1: 0, param2: 45, param3: 120, param4: 220 },
+  track3: { param1: 0, param2: 45, param3: 120, param4: 220 },
+  track4: { param1: 0, param2: 45, param3: 120, param4: 220 },
 };
 
 const trackSlice = createSlice({
@@ -24,7 +24,7 @@ const trackSlice = createSlice({
   initialState,
   reducers: {
     updateParameter: (
-      state,
+      state: TrackState,
       action: PayloadAction<{
         trackId: keyof TrackState;
         param: keyof TrackParams;

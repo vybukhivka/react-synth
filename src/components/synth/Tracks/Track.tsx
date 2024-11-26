@@ -9,6 +9,7 @@ type TrackProps = {
 };
 
 const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {
+  const paramsValues = Object.entries(params);
   return (
     <>
       <div className="flex flex-col items-center justify-between">
@@ -19,8 +20,13 @@ const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {
             className,
           )}
         >
-          {Object.entries(params).map(param => (
-            <Knob trackId={trackId} param={param[1]} key={param[0]} />
+          {paramsValues.map(([name, value]) => (
+            <Knob
+              trackId={trackId}
+              paramName={name}
+              paramValue={value}
+              key={name}
+            />
           ))}
         </div>
       </div>

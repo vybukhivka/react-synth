@@ -9,7 +9,6 @@ import Track from './Track';
 const TracksContainer: React.FC = () => {
   const tracksState: TrackState = useAppSelector(selectTracks);
   const tracksValues: [string, TrackParams][] = Object.entries(tracksState);
-  tracksValues.flatMap(track => console.log(track));
 
   return (
     <>

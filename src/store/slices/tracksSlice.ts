@@ -26,7 +26,7 @@ const trackSlice = createSlice({
     updateParameter: (
       state,
       action: PayloadAction<{
-        trackId: string;
+        trackId: keyof TrackState;
         param: keyof TrackParams;
         value: number;
       }>,
@@ -38,7 +38,7 @@ const trackSlice = createSlice({
 });
 
 export const { updateParameter } = trackSlice.actions;
-export const selectTracks = (state: RootState) => state.tracks ?? null;
+export const selectTracks = (state: RootState): TrackState => state.tracks;
 export const selectTrackParameter = (
   state: RootState,
   trackId: string,

@@ -3,9 +3,9 @@ import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 
 type TrackProps = {
-  className: string;
   trackId: string;
-  params: keyof TrackParams;
+  params: TrackParams;
+  className?: string;
 };
 
 const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {

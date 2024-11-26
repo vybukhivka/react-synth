@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export type TrackParameter = {
+export type TrackParams = {
   param1: number;
   param2: number;
   param3: number;
@@ -9,7 +9,7 @@ export type TrackParameter = {
 };
 
 export type TrackState = {
-  [trackId: string]: TrackParameter;
+  [trackId: string]: TrackParams;
 };
 
 const initialState: TrackState = {
@@ -27,7 +27,7 @@ const trackSlice = createSlice({
       state,
       action: PayloadAction<{
         trackId: string;
-        param: keyof TrackParameter;
+        param: keyof TrackParams;
         value: number;
       }>,
     ) => {
@@ -38,10 +38,11 @@ const trackSlice = createSlice({
 });
 
 export const { updateParameter } = trackSlice.actions;
+export const selectTracks = (state: RootState) => state.tracks ?? null;
 export const selectTrackParameter = (
   state: RootState,
   trackId: string,
-  param: keyof TrackParameter,
+  param: keyof TrackParams,
 ) => state.tracks[trackId]?.[param] ?? null;
 
 export default trackSlice.reducer;

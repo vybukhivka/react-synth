@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../store/hooks';
-import { TrackParams, updateParameter } from '../store/slices/tracksSlice';
+import {
+  TrackParams,
+  TrackState,
+  updateParameter,
+} from '../store/slices/tracksSlice';
 
 type UseRotateResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -11,7 +15,7 @@ type UseRotateResults = {
 type UseRotateProps = {
   initialAngle: number;
   type: 'fader' | 'knob' | 'send';
-  trackId: string;
+  trackId: keyof TrackState;
   param: keyof TrackParams;
 };
 

@@ -8,12 +8,13 @@ import Track from './Track';
 
 const TracksContainer: React.FC = () => {
   const tracksState: TrackState = useAppSelector(selectTracks);
-  const tracksValues: [string, TrackParams][] = Object.entries(tracksState);
+  const tracksValues: [keyof TrackState, TrackParams][] =
+    Object.entries(tracksState);
 
   return (
     <>
       <div className="col-start-1 col-end-5 row-start-1 row-end-3 flex gap-x-[20px]">
-        {!tracksState && <div>No tracks available</div>}
+        {/* {!tracksState && <div>No tracks available</div>} */}
         {tracksState &&
           tracksValues.map(([trackId, params]) => (
             <Track

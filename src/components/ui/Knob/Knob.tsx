@@ -1,8 +1,8 @@
 import useRotate from '../../../hooks/useRotate';
-import { TrackParams } from '../../../store/slices/tracksSlice';
+import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {
-  trackId: string;
+  trackId: keyof TrackState;
   paramName: keyof TrackParams;
   paramValue: number;
 };

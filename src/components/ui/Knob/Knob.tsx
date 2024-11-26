@@ -1,32 +1,25 @@
 import useRotate from '../../../hooks/useRotate';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import {
-  selectTrackParameter,
-  TrackParameter,
-} from '../../../store/slices/tracksSlice';
+import { useAppDispatch } from '../../../store/hooks';
 
 type KnobProps = {
-  trackId: number;
-  param: keyof TrackParameter;
+  trackId: string;
+  param: number | unknown;
 };
 
-const Knob: React.FC = () => {
+const Knob: React.FC<KnobProps> = ({ trackId, param }) => {
   const dispatch = useAppDispatch();
-  const value = useAppSelector(state =>
-    selectTrackParameter(state, 'track1', 'param2'),
-  );
   const {
     elementRef: knob,
     angle,
     startRotate,
-  } = useRotate({ initialAngle: value });
+  } = useRotate({ initialAngle: param });
 
   return (
     <>
       <div
         ref={knob}
         onMouseDown={startRotate}
-        style={{ transform: `rotate(${value}deg)`, userSelect: 'none' }}
+        style={{ transform: `rotate(${angle}deg)`, userSelect: 'none' }}
         className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border border-slate-400 bg-transparent p-[6px]"
       >
         <div className="h-[2px] w-[5px] rounded-lg border bg-white"></div>

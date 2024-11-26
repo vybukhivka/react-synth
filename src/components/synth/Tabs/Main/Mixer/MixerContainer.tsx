@@ -11,9 +11,10 @@ const Mixer: React.FC = () => {
         <MixerChannel className="bg-sky-400" track={3} />
         <MixerChannel className="bg-teal-400" track={4} />
       </div>
-      <Delay />
-      <Reverb />
-      <div className="flex justify-center gap-x-5"></div>
+      <div className="flex justify-center gap-x-5">
+        <Delay />
+        <Reverb />
+      </div>
     </div>
   );
 };

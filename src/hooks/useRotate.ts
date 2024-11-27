@@ -5,6 +5,9 @@ import {
   TrackState,
   updateParameter,
 } from '../store/slices/tracksSlice';
+import { DragElement } from '../types/dragTypes';
+import angleToValue from '../utils/angleToValue';
+import valueToAngle from '../utils/valueToAngle';
 
 type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -14,23 +17,26 @@ type UseDragResults = {
 
 type UseDragProps = {
   initialAngle: number;
-  type: 'fader' | 'knob' | 'send';
+  type: DragElement;
   trackId: keyof TrackState;
   param: keyof TrackParams;
 };
 
 function useDrag({
   initialAngle = -45,
-  type = 'knob',
+  type = 'knob' as DragElement,
   trackId,
   param,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [angle, setAngle] = useState(initialAngle);
+  const [value, setValue] = useState(() => angleToValue(angle, 'knob'));
   const angleRef = useRef(initialAngle);
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+
+  console.log(Math.round(value));
 
   function startDrag(e: React.MouseEvent) {
     setIsDragging(true);
@@ -43,6 +49,7 @@ function useDrag({
 
     if (type === 'knob' && trackId && param) {
       dispatch(updateParameter({ trackId, param, value: angleRef.current }));
+      setValue(() => valueToAngle(angleRef.current, 'knob'));
     }
   }
 

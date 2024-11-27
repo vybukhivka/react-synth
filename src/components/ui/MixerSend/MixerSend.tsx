@@ -10,7 +10,7 @@ const MixerSend: React.FC<MixerSendProps> = ({ color }) => {
     elementRef: send,
     angle,
     startDrag: startRotate,
-  } = useDrag({ initialAngle: 24, type: 'send' });
+  } = useDrag({ initialValue: 24, type: 'send' });
   return (
     <div
       onMouseDown={startRotate}

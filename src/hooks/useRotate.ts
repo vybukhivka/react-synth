@@ -17,22 +17,22 @@ type UseDragResults = {
 };
 
 type UseDragProps = {
-  initialAngle: number;
+  initialValue: number;
   type: DragElement;
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
 };
 
 function useDrag({
-  initialAngle = -45,
+  initialValue = 0,
   type = 'knob' as DragElement,
   trackId,
   paramName,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
-  const [angle, setAngle] = useState(initialAngle);
-  const [value, setValue] = useState(() => angleToValue(angle, 'knob'));
-  const angleRef = useRef(initialAngle);
+  const [value, setValue] = useState(initialValue);
+  const [angle, setAngle] = useState(() => angleToValue(value, 'knob'));
+  const angleRef = useRef(valueToAngle(initialValue, 'knob'));
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -44,17 +44,18 @@ function useDrag({
 
   function stopDrag() {
     setIsDragging(false);
+    const newValue = angleToValue(angleRef.current, 'knob');
     setAngle(angleRef.current);
+    setValue(newValue);
 
     if (type === 'knob' && trackId && paramName) {
       dispatch(
         updateParameter({
           trackId,
           paramName: paramName,
-          paramValue: angleRef.current,
+          paramValue: newValue,
         }),
       );
-      setValue(() => valueToAngle(angleRef.current, 'knob'));
     }
   }
 

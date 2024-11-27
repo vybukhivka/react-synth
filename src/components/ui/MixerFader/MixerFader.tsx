@@ -10,7 +10,7 @@ const MixerFader: React.FC<FaderProps> = ({ color }) => {
     elementRef: fader,
     angle,
     startDrag: startRotate,
-  } = useDrag({ initialAngle: 10, type: 'fader' });
+  } = useDrag({ initialValue: 10, type: 'fader' });
 
   return (
     <div

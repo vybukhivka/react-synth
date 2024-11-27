@@ -6,50 +6,48 @@ import {
   updateParameter,
 } from '../store/slices/tracksSlice';
 
-type UseRotateResults = {
+type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
   angle: number;
-  startRotate: (e: React.MouseEvent) => void;
+  startDrag: (e: React.MouseEvent) => void;
 };
 
-type UseRotateProps = {
+type UseDragProps = {
   initialAngle: number;
   type: 'fader' | 'knob' | 'send';
   trackId: keyof TrackState;
   param: keyof TrackParams;
 };
 
-function useRotate({
+function useDrag({
   initialAngle = -45,
   type = 'knob',
   trackId,
   param,
-}: Partial<UseRotateProps> = {}): UseRotateResults {
+}: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [angle, setAngle] = useState(initialAngle);
   const angleRef = useRef(initialAngle);
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
-  const [isRotating, setIsRotating] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
-  function startRotate(e: React.MouseEvent) {
-    setIsRotating(true);
+  function startDrag(e: React.MouseEvent) {
+    setIsDragging(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
-  function stopRotate() {
-    setIsRotating(false);
+  function stopDrag() {
+    setIsDragging(false);
     setAngle(angleRef.current);
 
-    console.log(trackId, param);
     if (type === 'knob' && trackId && param) {
       dispatch(updateParameter({ trackId, param, value: angleRef.current }));
-      console.log(trackId, param);
     }
   }
 
   function handleMove(e: MouseEvent) {
-    if (!isRotating || !initialPosition.current || !elementRef.current) return;
+    if (!isDragging || !initialPosition.current || !elementRef.current) return;
 
     const deltaX = e.clientX - initialPosition.current.x;
     const deltaY = initialPosition.current.y - e.clientY;
@@ -87,25 +85,25 @@ function useRotate({
   }
 
   useEffect(() => {
-    if (isRotating) {
+    if (isDragging) {
       document.addEventListener('mousemove', handleMove);
-      document.addEventListener('mouseup', stopRotate);
+      document.addEventListener('mouseup', stopDrag);
     } else {
       document.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseup', stopRotate);
+      document.removeEventListener('mouseup', stopDrag);
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseup', stopRotate);
+      document.removeEventListener('mouseup', stopDrag);
     };
-  }, [isRotating]);
+  }, [isDragging]);
 
   return {
     elementRef,
     angle,
-    startRotate,
+    startDrag,
   };
 }
 
-export default useRotate;
+export default useDrag;

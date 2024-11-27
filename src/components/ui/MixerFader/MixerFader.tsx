@@ -1,4 +1,4 @@
-import useRotate from '../../../hooks/useRotate';
+import useDrag from '../../../hooks/useRotate';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {
@@ -9,8 +9,8 @@ const MixerFader: React.FC<FaderProps> = ({ color }) => {
   const {
     elementRef: fader,
     angle,
-    startRotate,
-  } = useRotate({ initialAngle: 10, type: 'fader' });
+    startDrag: startRotate,
+  } = useDrag({ initialAngle: 10, type: 'fader' });
 
   return (
     <div

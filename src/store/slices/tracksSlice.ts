@@ -2,10 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export type TrackParams = {
-  param1: number;
-  param2: number;
-  param3: number;
-  param4: number;
+  [paramId: string]: number;
 };
 
 export type TrackState = {

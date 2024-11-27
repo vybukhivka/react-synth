@@ -1,4 +1,4 @@
-import useRotate from '../../../hooks/useRotate';
+import useDrag from '../../../hooks/useRotate';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {
@@ -11,14 +11,14 @@ const Knob: React.FC<KnobProps> = ({ trackId, paramName, paramValue }) => {
   const {
     elementRef: knob,
     angle,
-    startRotate,
-  } = useRotate({ initialAngle: paramValue || -45, trackId, param: paramName });
+    startDrag,
+  } = useDrag({ initialAngle: paramValue || -45, trackId, param: paramName });
 
   return (
     <>
       <div
         ref={knob}
-        onMouseDown={startRotate}
+        onMouseDown={startDrag}
         style={{ transform: `rotate(${angle}deg)`, userSelect: 'none' }}
         className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border border-slate-400 bg-transparent p-[6px]"
       >

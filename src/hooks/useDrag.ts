@@ -12,7 +12,6 @@ import valueToAngle from '../utils/valueToAngle';
 type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
   angle: number;
-  value: number;
   startDrag: (e: React.MouseEvent) => void;
 };
 
@@ -31,13 +30,12 @@ function useDrag({
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(initialValue);
-  const [angle, setAngle] = useState(() => angleToValue(value, 'knob'));
-  const angleRef = useRef(valueToAngle(initialValue, 'knob'));
+  const [angle, setAngle] = useState(() => valueToAngle(value, 'knob'));
+  const angleRef = useRef(valueToAngle(value, 'knob'));
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  console.log(value);
   function startDrag(e: React.MouseEvent) {
     setIsDragging(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };
@@ -45,7 +43,7 @@ function useDrag({
 
   function stopDrag() {
     setIsDragging(false);
-    const newValue = angleToValue(angleRef.current, 'knob');
+    const newValue: number = angleToValue(angleRef.current, 'knob');
     setAngle(angleRef.current);
     setValue(newValue);
 
@@ -116,7 +114,6 @@ function useDrag({
   return {
     elementRef,
     angle,
-    value,
     startDrag,
   };
 }

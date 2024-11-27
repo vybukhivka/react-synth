@@ -1,4 +1,4 @@
-import useRotate from '../../../hooks/useRotate';
+import useDrag from '../../../hooks/useRotate';
 import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
@@ -9,8 +9,8 @@ const MixerSend: React.FC<MixerSendProps> = ({ color }) => {
   const {
     elementRef: send,
     angle,
-    startRotate,
-  } = useRotate({ initialAngle: 24, type: 'send' });
+    startDrag: startRotate,
+  } = useDrag({ initialValue: 24, type: 'send' });
   return (
     <div
       onMouseDown={startRotate}

@@ -2,10 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export type TrackParams = {
-  param1: number;
-  param2: number;
-  param3: number;
-  param4: number;
+  [paramId: string]: number;
 };
 
 export type TrackState = {
@@ -13,10 +10,10 @@ export type TrackState = {
 };
 
 const initialState: TrackState = {
-  track1: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track2: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track3: { param1: 0, param2: 45, param3: 90, param4: 120 },
-  track4: { param1: 0, param2: 45, param3: 90, param4: 120 },
+  track1: { param1: 0, param2: 33, param3: 66, param4: 100 },
+  track2: { param1: 0, param2: 33, param3: 66, param4: 100 },
+  track3: { param1: 0, param2: 33, param3: 66, param4: 100 },
+  track4: { param1: 0, param2: 33, param3: 66, param4: 100 },
 };
 
 const trackSlice = createSlice({
@@ -24,21 +21,21 @@ const trackSlice = createSlice({
   initialState,
   reducers: {
     updateParameter: (
-      state,
+      state: TrackState,
       action: PayloadAction<{
-        trackId: string;
-        param: keyof TrackParams;
-        value: number;
+        trackId: keyof TrackState;
+        paramName: keyof TrackParams;
+        paramValue: number;
       }>,
     ) => {
-      const { trackId, param, value } = action.payload;
-      state[trackId][param] = value;
+      const { trackId, paramName, paramValue } = action.payload;
+      state[trackId][paramName] = paramValue;
     },
   },
 });
 
 export const { updateParameter } = trackSlice.actions;
-export const selectTracks = (state: RootState) => state.tracks ?? null;
+export const selectTracks = (state: RootState): TrackState => state.tracks;
 export const selectTrackParameter = (
   state: RootState,
   trackId: string,

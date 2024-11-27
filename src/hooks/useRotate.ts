@@ -1,38 +1,66 @@
 import { useEffect, useRef, useState } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import {
+  TrackParams,
+  TrackState,
+  updateParameter,
+} from '../store/slices/tracksSlice';
+import { DragElement } from '../types/dragTypes';
+import angleToValue from '../utils/angleToValue';
+import valueToAngle from '../utils/valueToAngle';
 
-type UseRotateResults = {
+type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
   angle: number;
-  startRotate: (e: React.MouseEvent) => void;
+  value: number;
+  startDrag: (e: React.MouseEvent) => void;
 };
 
-type UseRotateProps = {
-  initialAngle: number;
-  type: 'fader' | 'knob' | 'send';
+type UseDragProps = {
+  initialValue: number;
+  type: DragElement;
+  trackId: keyof TrackState;
+  paramName: keyof TrackParams;
 };
 
-function useRotate({
-  initialAngle = -45,
-  type = 'knob',
-}: Partial<UseRotateProps> = {}): UseRotateResults {
-  const [angle, setAngle] = useState(initialAngle);
-  const angleRef = useRef(initialAngle);
+function useDrag({
+  initialValue = 0,
+  type = 'knob' as DragElement,
+  trackId,
+  paramName,
+}: Partial<UseDragProps> = {}): UseDragResults {
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(initialValue);
+  const [angle, setAngle] = useState(() => angleToValue(value, 'knob'));
+  const angleRef = useRef(valueToAngle(initialValue, 'knob'));
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
-  const [isRotating, setIsRotating] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
-  function startRotate(e: React.MouseEvent) {
-    setIsRotating(true);
+  function startDrag(e: React.MouseEvent) {
+    setIsDragging(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
-  function stopRotate() {
-    setIsRotating(false);
+  function stopDrag() {
+    setIsDragging(false);
+    const newValue = angleToValue(angleRef.current, 'knob');
     setAngle(angleRef.current);
+    setValue(newValue);
+
+    if (type === 'knob' && trackId && paramName) {
+      dispatch(
+        updateParameter({
+          trackId,
+          paramName: paramName,
+          paramValue: newValue,
+        }),
+      );
+    }
   }
 
   function handleMove(e: MouseEvent) {
-    if (!isRotating || !initialPosition.current || !elementRef.current) return;
+    if (!isDragging || !initialPosition.current || !elementRef.current) return;
 
     const deltaX = e.clientX - initialPosition.current.x;
     const deltaY = initialPosition.current.y - e.clientY;
@@ -70,25 +98,26 @@ function useRotate({
   }
 
   useEffect(() => {
-    if (isRotating) {
+    if (isDragging) {
       document.addEventListener('mousemove', handleMove);
-      document.addEventListener('mouseup', stopRotate);
+      document.addEventListener('mouseup', stopDrag);
     } else {
       document.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseup', stopRotate);
+      document.removeEventListener('mouseup', stopDrag);
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseup', stopRotate);
+      document.removeEventListener('mouseup', stopDrag);
     };
-  }, [isRotating]);
+  }, [isDragging]);
 
   return {
     elementRef,
     angle,
-    startRotate,
+    value,
+    startDrag,
   };
 }
 
-export default useRotate;
+export default useDrag;

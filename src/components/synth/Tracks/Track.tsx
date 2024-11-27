@@ -1,14 +1,15 @@
-import { TrackParams } from '../../../store/slices/tracksSlice';
+import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 
 type TrackProps = {
-  className: string;
-  trackId: string;
-  params: keyof TrackParams;
+  trackData: [keyof TrackState, TrackParams];
+  className?: string;
 };
 
-const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {
+const Track: React.FC<TrackProps> = ({ trackData, className }) => {
+  const [trackId, trackParams]: [keyof TrackState, TrackParams] = trackData;
+
   return (
     <>
       <div className="flex flex-col items-center justify-between">
@@ -19,9 +20,16 @@ const Track: React.FC<TrackProps> = ({ trackId, params, className }) => {
             className,
           )}
         >
-          {Object.entries(params).map(param => (
-            <Knob trackId={trackId} param={param[1]} key={param[0]} />
-          ))}
+          {(Object.entries(trackParams) as [keyof TrackParams, number][]).map(
+            ([paramName, value]) => (
+              <Knob
+                trackId={trackId}
+                paramName={paramName}
+                paramValue={value}
+                key={paramName}
+              />
+            ),
+          )}
         </div>
       </div>
     </>

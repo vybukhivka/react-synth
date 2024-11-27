@@ -1,30 +1,24 @@
-import { useEffect } from 'react';
-import useRotate from '../../../hooks/useRotate';
-import { useAppDispatch } from '../../../store/hooks';
-import { updateParameter } from '../../../store/slices/tracksSlice';
+import useDrag from '../../../hooks/useRotate';
+import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {
-  trackId: string;
-  param: number;
+  trackId: keyof TrackState;
+  paramName: keyof TrackParams;
+  paramValue: number;
 };
 
-const Knob: React.FC<KnobProps> = ({ trackId, param }) => {
-  const dispatch = useAppDispatch();
+const Knob: React.FC<KnobProps> = ({ trackId, paramName, paramValue }) => {
   const {
     elementRef: knob,
     angle,
-    startRotate,
-  } = useRotate({ initialAngle: param || -45 });
-
-  useEffect(() => {
-    dispatch(() => updateParameter({ trackId: trackId }));
-  }, [angle]);
+    startDrag,
+  } = useDrag({ initialValue: paramValue, trackId, paramName });
 
   return (
     <>
       <div
         ref={knob}
-        onMouseDown={startRotate}
+        onMouseDown={startDrag}
         style={{ transform: `rotate(${angle}deg)`, userSelect: 'none' }}
         className="flex h-[40px] w-[40px] origin-center items-center justify-start rounded-full border border-slate-400 bg-transparent p-[6px]"
       >

@@ -20,6 +20,7 @@ type UseDragProps = {
   type: DragElement;
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
+  angleRef: React.MutableRefObject<number>;
 };
 
 function useDrag({

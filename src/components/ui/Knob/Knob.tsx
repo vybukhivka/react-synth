@@ -5,9 +5,15 @@ type KnobProps = {
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
   paramValue: number;
+  angleRef: React.MutableRefObject<number>;
 };
 
-const Knob: React.FC<KnobProps> = ({ trackId, paramName, paramValue }) => {
+const Knob: React.FC<KnobProps> = ({
+  trackId,
+  paramName,
+  paramValue,
+  angleRef,
+}) => {
   const {
     elementRef: knob,
     angle,

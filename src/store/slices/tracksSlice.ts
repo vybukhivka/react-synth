@@ -10,10 +10,10 @@ export type TrackState = {
 };
 
 const initialState: TrackState = {
-  track1: { param1: 0, param2: 45, param3: 120, param4: 220 },
-  track2: { param1: 0, param2: 45, param3: 120, param4: 220 },
-  track3: { param1: 0, param2: 45, param3: 120, param4: 220 },
-  track4: { param1: 0, param2: 45, param3: 120, param4: 220 },
+  track1: { param1: 0, param2: 45, param3: 120, param4: 225 },
+  track2: { param1: 0, param2: 45, param3: 120, param4: 225 },
+  track3: { param1: 0, param2: 45, param3: 120, param4: 225 },
+  track4: { param1: 0, param2: 45, param3: 120, param4: 225 },
 };
 
 const trackSlice = createSlice({

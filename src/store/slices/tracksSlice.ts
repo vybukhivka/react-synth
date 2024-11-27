@@ -24,12 +24,12 @@ const trackSlice = createSlice({
       state: TrackState,
       action: PayloadAction<{
         trackId: keyof TrackState;
-        param: keyof TrackParams;
-        value: number;
+        paramName: keyof TrackParams;
+        paramValue: number;
       }>,
     ) => {
-      const { trackId, param, value } = action.payload;
-      state[trackId][param] = value;
+      const { trackId, paramName, paramValue } = action.payload;
+      state[trackId][paramName] = paramValue;
     },
   },
 });

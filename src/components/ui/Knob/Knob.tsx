@@ -12,7 +12,7 @@ const Knob: React.FC<KnobProps> = ({ trackId, paramName, paramValue }) => {
     elementRef: knob,
     angle,
     startDrag,
-  } = useDrag({ initialAngle: paramValue || -45, trackId, param: paramName });
+  } = useDrag({ initialAngle: paramValue || 0, trackId, paramName });
 
   return (
     <>

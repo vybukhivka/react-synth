@@ -1,8 +1,9 @@
 import { DragElement } from '../types/dragTypes';
 
-export default function valueToAngle(value: number, type: DragElement) {
-  if (type === 'knob' && value > -45 && value < 225) {
-    return ((value + 45) / 270) * 100;
+export default function valueToAngle(angle: number, type: DragElement) {
+  if (type === 'knob') {
+    const degrees = (angle / 100) * 270 - 45;
+    return degrees.toFixed(2);
   }
   return 0;
 }

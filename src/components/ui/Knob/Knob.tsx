@@ -1,4 +1,4 @@
-import useDrag from '../../../hooks/useRotate';
+import useDrag from '../../../hooks/useDrag';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {

@@ -37,6 +37,7 @@ function useDrag({
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  console.log(value);
   function startDrag(e: React.MouseEvent) {
     setIsDragging(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };

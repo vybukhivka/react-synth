@@ -1,4 +1,4 @@
-import useDrag from '../../../hooks/useRotate';
+import useDrag from '../../../hooks/useDrag';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {

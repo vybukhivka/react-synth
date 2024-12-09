@@ -5,6 +5,7 @@ import {
   TrackState,
 } from '../../../store/slices/tracksSlice';
 import Track from './Track';
+import { TracksProvider } from './TracksContext';
 
 const BORDERS = [
   'border-purple-400',
@@ -21,14 +22,14 @@ const TracksContainer: React.FC = () => {
   ][];
 
   return (
-    <>
+    <TracksProvider>
       <div className="col-start-1 col-end-5 row-start-1 row-end-3 flex gap-x-[20px]">
         {tracksState &&
           trackData.map((track, i) => (
             <Track className={BORDERS[i]} trackData={track} key={i} />
           ))}
       </div>
-    </>
+    </TracksProvider>
   );
 };
 

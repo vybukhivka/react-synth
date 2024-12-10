@@ -21,6 +21,7 @@ type UseDragProps = {
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
   angleRef: React.MutableRefObject<number>;
+  setActiveParam: any;
 };
 
 function useDrag({
@@ -28,6 +29,7 @@ function useDrag({
   type = 'knob' as DragElement,
   trackId,
   paramName,
+  setActiveParam,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(initialValue);
@@ -47,6 +49,10 @@ function useDrag({
     const newValue: number = angleToValue(angleRef.current, 'knob');
     setAngle(angleRef.current);
     setValue(newValue);
+    setActiveParam({
+      paramName: 'inactive',
+      value: 0,
+    });
 
     if (type === 'knob' && trackId && paramName) {
       dispatch(
@@ -72,6 +78,10 @@ function useDrag({
       angleRef.current = newAngle;
 
       elementRef.current.style.transform = `rotate(${angleRef.current}deg)`;
+      setActiveParam({
+        paramName: paramName,
+        value: angleToValue(newAngle, 'knob'),
+      });
 
       initialPosition.current = { x: e.clientX, y: e.clientY };
     }

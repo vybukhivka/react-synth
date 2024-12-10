@@ -5,20 +5,20 @@ type KnobProps = {
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
   paramValue: number;
-  angleRef: React.MutableRefObject<number>;
+  setActiveParam: any;
 };
 
 const Knob: React.FC<KnobProps> = ({
   trackId,
   paramName,
   paramValue,
-  angleRef,
+  setActiveParam,
 }) => {
   const {
     elementRef: knob,
     angle,
     startDrag,
-  } = useDrag({ initialValue: paramValue, trackId, paramName });
+  } = useDrag({ initialValue: paramValue, trackId, paramName, setActiveParam });
 
   return (
     <>

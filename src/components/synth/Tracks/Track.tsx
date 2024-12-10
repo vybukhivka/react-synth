@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 import TrackDisplay from './TrackDisplay';
-import React, { useRef } from 'react';
 
 type TrackProps = {
   trackData: [keyof TrackState, TrackParams];
@@ -16,11 +16,14 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     number,
   ][];
   // create ref ad pass it to knob and display
-  const angleRef = useRef(0);
+  const [activeParam, setActiveParam] = useState({
+    paramName: 'inactive',
+    value: 0,
+  });
 
   return (
     <div className="flex flex-col items-center justify-between">
-      <TrackDisplay trackParams={trackParamsArray} />
+      <TrackDisplay trackParams={trackParamsArray} activeParam={activeParam} />
       <div
         className={cn(
           'flex h-[154px] w-[154px] flex-wrap items-center justify-between gap-[20px] rounded-3xl border-2 p-[20px]',
@@ -34,7 +37,7 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
               paramName={paramName}
               paramValue={value}
               key={paramName}
-              angleRef={angleRef}
+              setActiveParam={setActiveParam}
             />
           ),
         )}

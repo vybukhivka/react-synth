@@ -1,11 +1,14 @@
 import useDrag from '../../../hooks/useDrag';
 import { useAppSelector } from '../../../store/hooks';
-import { selectMixerChannels } from '../../../store/slices/mixerSlice';
+import {
+  MixerState,
+  selectMixerChannels,
+} from '../../../store/slices/mixerSlice';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {
+  trackId: keyof MixerState['channels'];
   color: string;
-  trackId: string;
 };
 
 const MixerFader: React.FC<FaderProps> = ({ color, trackId }) => {

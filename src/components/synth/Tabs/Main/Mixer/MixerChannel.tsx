@@ -1,8 +1,9 @@
+import { MixerState } from '../../../../../store/slices/mixerSlice';
 import MixerFader from '../../../../ui/MixerFader/MixerFader';
 import MixerSend from '../../../../ui/MixerSend/MixerSend';
 
 type MixerChannelProps = {
-  trackId: string;
+  trackId: keyof MixerState['channels'];
   className: string;
 };
 

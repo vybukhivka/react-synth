@@ -19,7 +19,7 @@ export type MixerReverbParams = {
 };
 
 export type MixerState = {
-  tracks: {
+  channels: {
     [trackId: string]: MixerChannelParams;
   };
   returnFx: {
@@ -29,7 +29,7 @@ export type MixerState = {
 };
 
 const initialState: MixerState = {
-  tracks: {
+  channels: {
     track1: { volume: 80, revSend: 0, delSend: 0 },
     track2: { volume: 80, revSend: 0, delSend: 0 },
     track3: { volume: 80, revSend: 0, delSend: 0 },
@@ -48,16 +48,16 @@ const mixerSlice = createSlice({
     updateFader: (
       state: MixerState,
       action: PayloadAction<{
-        trackId: keyof MixerState['tracks'];
+        trackId: keyof MixerState['channels'];
         paramValue: number;
       }>,
     ) => {
       const { trackId, paramValue } = action.payload;
-      if (!state.tracks[trackId]) {
+      if (!state.channels[trackId]) {
         console.error(`Track ID ${trackId} doesnt exist in the mixer state`);
         return;
       }
-      state.tracks[trackId].volume = paramValue;
+      state.channels[trackId].volume = paramValue;
     },
   },
 });
@@ -65,7 +65,7 @@ const mixerSlice = createSlice({
 export const { updateFader } = mixerSlice.actions;
 export const selectMixer = (state: { mixer: MixerState }) => state.mixer;
 export const selectMixerChannels = (state: { mixer: MixerState }) =>
-  state.mixer.tracks;
+  state.mixer.channels;
 export const selectMixerFx = (state: { mixer: MixerState }) =>
   state.mixer.returnFx;
 

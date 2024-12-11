@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tracksReducer from './slices/tracksSlice';
+import mixerReducer from './slices/mixerSlice';
 
 const store = configureStore({
   reducer: {
     tracks: tracksReducer,
+    mixer: mixerReducer,
     // modulation: modulationReducer,
     // sequencer: sequencerReducer,
-    // mixer: mixerReducer,
   },
 });
 

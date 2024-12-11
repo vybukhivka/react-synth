@@ -15,7 +15,6 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     keyof TrackParams,
     number,
   ][];
-  // create ref ad pass it to knob and display
   const [activeParam, setActiveParam] = useState({
     paramName: 'inactive',
     value: 0,

@@ -2,7 +2,7 @@ import useDrag from '../../../hooks/useDrag';
 import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
-  color: string;
+  color?: string;
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({ color }) => {

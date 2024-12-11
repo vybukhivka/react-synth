@@ -13,16 +13,14 @@ const mixerSlice = createSlice({
   name: 'mixer',
   initialState,
   reducers: {
-    updateParameter: (state, action) => {
-      const { trackId, paramName, paramValue } = action.payload;
-      state[trackId][paramName] = paramValue;
+    updateFader: (state, action) => {
+      const { trackId, paramValue } = action.payload;
+      state[trackId].volume = paramValue;
     },
   },
 });
 
-export const { updateParameter } = mixerSlice.actions;
+export const { updateFader } = mixerSlice.actions;
 export const selectMixer = state => state.mixer;
-export const selectMixerParameter = (state, trackId, param) =>
-  state.mixer[trackId]?.[param] ?? null;
 
 export default mixerSlice.reducer;

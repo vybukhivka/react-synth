@@ -2,14 +2,14 @@ import MixerFader from '../../../../ui/MixerFader/MixerFader';
 import MixerSend from '../../../../ui/MixerSend/MixerSend';
 
 type MixerChannelProps = {
-  track: number;
+  trackId: string;
   className: string;
 };
 
-const MixerChannel: React.FC<MixerChannelProps> = ({ className }) => {
+const MixerChannel: React.FC<MixerChannelProps> = ({ className, trackId }) => {
   return (
     <div className="flex flex-col gap-3">
-      <MixerFader color={className} />
+      <MixerFader color={className} trackId={trackId} />
       <div className="flex flex-col gap-2">
         <MixerSend color={className} />
         <MixerSend color={className} />

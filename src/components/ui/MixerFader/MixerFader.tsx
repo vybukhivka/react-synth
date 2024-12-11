@@ -1,16 +1,25 @@
 import useDrag from '../../../hooks/useDrag';
+import { useAppSelector } from '../../../store/hooks';
+import { selectMixer } from '../../../store/slices/mixerSlice';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {
   color: string;
+  trackId: string;
 };
 
-const MixerFader: React.FC<FaderProps> = ({ color }) => {
+const MixerFader: React.FC<FaderProps> = ({ color, trackId }) => {
+  const mixerValues = useAppSelector(selectMixer);
+  console.log(mixerValues[trackId].volume);
   const {
     elementRef: fader,
     angle,
     startDrag: startRotate,
-  } = useDrag({ initialValue: 10, type: 'fader' });
+  } = useDrag({
+    initialValue: mixerValues[trackId].volume,
+    type: 'fader',
+    trackId,
+  });
 
   return (
     <div

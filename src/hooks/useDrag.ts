@@ -8,6 +8,7 @@ import {
 import { DragElement } from '../types/dragTypes';
 import angleToValue from '../utils/angleToValue';
 import valueToAngle from '../utils/valueToAngle';
+import { updateFader } from '../store/slices/mixerSlice';
 
 type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -59,6 +60,19 @@ function useDrag({
         updateParameter({
           trackId,
           paramName: paramName,
+          paramValue: newValue,
+        }),
+      );
+    }
+
+    if (type === 'fader' && trackId) {
+      // setActiveParam({
+      //   paramName: 'inactive',
+      //   value: 0,
+      // });
+      dispatch(
+        updateFader({
+          trackId,
           paramValue: newValue,
         }),
       );

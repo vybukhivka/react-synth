@@ -49,12 +49,12 @@ function useDrag({
     const newValue: number = angleToValue(angleRef.current, 'knob');
     setAngle(angleRef.current);
     setValue(newValue);
-    setActiveParam({
-      paramName: 'inactive',
-      value: 0,
-    });
 
     if (type === 'knob' && trackId && paramName) {
+      setActiveParam({
+        paramName: 'inactive',
+        value: 0,
+      });
       dispatch(
         updateParameter({
           trackId,

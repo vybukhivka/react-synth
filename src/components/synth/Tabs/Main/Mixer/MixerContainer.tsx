@@ -1,8 +1,7 @@
 import { useAppSelector } from '../../../../../store/hooks';
 import { selectMixerChannels } from '../../../../../store/slices/mixerSlice';
-import Delay from './Delay';
 import MixerChannel from './MixerChannel';
-import Reverb from './Reverb';
+import MixerFx from './MixerFx';
 
 const BACKGROUNDS: Record<string, string> = {
   track1: 'bg-purple-400',
@@ -27,8 +26,8 @@ const Mixer: React.FC = () => {
           ))}
       </div>
       <div className="flex justify-center gap-x-5">
-        <Delay />
-        <Reverb />
+        <MixerFx fxName="rev" />
+        <MixerFx fxName="del" />
       </div>
     </div>
   );

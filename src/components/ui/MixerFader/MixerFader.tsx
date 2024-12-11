@@ -1,6 +1,6 @@
 import useDrag from '../../../hooks/useDrag';
 import { useAppSelector } from '../../../store/hooks';
-import { selectMixer } from '../../../store/slices/mixerSlice';
+import { selectMixerChannels } from '../../../store/slices/mixerSlice';
 import { cn } from '../../../utils/cn';
 
 type FaderProps = {
@@ -9,7 +9,7 @@ type FaderProps = {
 };
 
 const MixerFader: React.FC<FaderProps> = ({ color, trackId }) => {
-  const mixerValues = useAppSelector(selectMixer);
+  const mixerValues = useAppSelector(selectMixerChannels);
   console.log(mixerValues[trackId].volume);
   const {
     elementRef: fader,

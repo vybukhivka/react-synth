@@ -1,26 +1,72 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
-  track1: { volume: 80, revSend: 50, delSend: 50 },
-  track2: { volume: 80, revSend: 50, delSend: 50 },
-  track3: { volume: 80, revSend: 50, delSend: 50 },
-  track4: { volume: 80, revSend: 50, delSend: 50 },
-  delay: { time: 80, feedback: 50, lowpass: 50 },
-  reverb: { decay: 80, preDelay: 50, damp: 50 },
+export type MixerChannelParams = {
+  volume: number;
+  revSend: number;
+  delSend: number;
+};
+
+export type MixerDelayParams = {
+  time: number;
+  feedback: number;
+  lowpass: number;
+};
+
+export type MixerReverbParams = {
+  decay: number;
+  preDelay: number;
+  damp: number;
+};
+
+export type MixerState = {
+  tracks: {
+    [trackId: string]: MixerChannelParams;
+  };
+  returnFx: {
+    delay: MixerDelayParams;
+    reverb: MixerReverbParams;
+  };
+};
+
+const initialState: MixerState = {
+  tracks: {
+    track1: { volume: 80, revSend: 0, delSend: 0 },
+    track2: { volume: 80, revSend: 0, delSend: 0 },
+    track3: { volume: 80, revSend: 0, delSend: 0 },
+    track4: { volume: 80, revSend: 0, delSend: 0 },
+  },
+  returnFx: {
+    delay: { time: 80, feedback: 50, lowpass: 50 },
+    reverb: { decay: 80, preDelay: 50, damp: 50 },
+  },
 };
 
 const mixerSlice = createSlice({
   name: 'mixer',
   initialState,
   reducers: {
-    updateFader: (state, action) => {
+    updateFader: (
+      state: MixerState,
+      action: PayloadAction<{
+        trackId: keyof MixerState['tracks'];
+        paramValue: number;
+      }>,
+    ) => {
       const { trackId, paramValue } = action.payload;
-      state[trackId].volume = paramValue;
+      if (!state.tracks[trackId]) {
+        console.error(`Track ID ${trackId} doesnt exist in the mixer state`);
+        return;
+      }
+      state.tracks[trackId].volume = paramValue;
     },
   },
 });
 
 export const { updateFader } = mixerSlice.actions;
-export const selectMixer = state => state.mixer;
+export const selectMixer = (state: { mixer: MixerState }) => state.mixer;
+export const selectMixerChannels = (state: { mixer: MixerState }) =>
+  state.mixer.tracks;
+export const selectMixerFx = (state: { mixer: MixerState }) =>
+  state.mixer.returnFx;
 
 export default mixerSlice.reducer;

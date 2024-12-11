@@ -13,15 +13,12 @@ const BACKGROUNDS: Record<string, string> = {
 
 const Mixer: React.FC = () => {
   const mixerChannels = useAppSelector(selectMixerChannels);
-  const filteredChannels = Object.entries(mixerChannels).filter(
-    ([trackId]) => trackId !== 'delay' && trackId !== 'reverb',
-  );
 
   return (
     <div className="col-start-5 row-start-2 row-end-5 flex h-full flex-col items-center justify-between gap-y-[20px] px-[20px]">
       <div className="flex items-end justify-between gap-x-5">
-        {filteredChannels &&
-          filteredChannels.map(([trackId], i) => (
+        {mixerChannels &&
+          Object.entries(mixerChannels).map(([trackId], i) => (
             <MixerChannel
               className={BACKGROUNDS[trackId] || 'bg-slate-400'}
               trackId={trackId}

@@ -2,10 +2,10 @@ import useDrag from '../../../hooks/useDrag';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 
 type KnobProps = {
-  trackId: keyof TrackState;
-  paramName: keyof TrackParams;
+  trackId?: keyof TrackState;
+  paramName: keyof TrackParams | 'time';
   paramValue: number;
-  setActiveParam: any;
+  setActiveParam?: any;
 };
 
 const Knob: React.FC<KnobProps> = ({

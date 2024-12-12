@@ -49,15 +49,18 @@ const mixerSlice = createSlice({
       state: MixerState,
       action: PayloadAction<{
         trackId: keyof MixerState['channels'];
+        paramName: string;
         paramValue: number;
       }>,
     ) => {
-      const { trackId, paramValue } = action.payload;
+      const { trackId, paramValue, paramName } = action.payload;
       if (!state.channels[trackId]) {
         console.error(`Track ID ${trackId} doesnt exist in the mixer state`);
         return;
       }
-      state.channels[trackId].volume = paramValue;
+      if (paramName === 'volume') state.channels[trackId].volume = paramValue;
+      if (paramName === 'delay') state.channels[trackId].delSend = paramValue;
+      if (paramName === 'reverb') state.channels[trackId].revSend = paramValue;
     },
   },
 });

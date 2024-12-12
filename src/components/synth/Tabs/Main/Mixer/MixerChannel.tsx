@@ -3,7 +3,7 @@ import MixerFader from '../../../../ui/MixerFader/MixerFader';
 import MixerSend from '../../../../ui/MixerSend/MixerSend';
 
 type MixerChannelProps = {
-  trackId: keyof MixerState['channels'];
+  trackId: keyof MixerState['returnFx'];
   className: string;
 };
 
@@ -12,8 +12,8 @@ const MixerChannel: React.FC<MixerChannelProps> = ({ className, trackId }) => {
     <div className="flex flex-col gap-3">
       <MixerFader color={className} trackId={trackId} />
       <div className="flex flex-col gap-2">
-        <MixerSend color={className} />
-        <MixerSend color={className} />
+        <MixerSend color={className} trackId={trackId} sendName="revSend" />
+        <MixerSend color={className} trackId={trackId} sendName="delSend" />
       </div>
     </div>
   );

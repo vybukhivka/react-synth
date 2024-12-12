@@ -1,16 +1,29 @@
 import useDrag from '../../../hooks/useDrag';
+import { useAppSelector } from '../../../store/hooks';
+import {
+  MixerState,
+  selectMixerChannels,
+} from '../../../store/slices/mixerSlice';
 import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
   color?: string;
+  trackId: keyof MixerState['returnFx'];
+  sendName: 'revSend' | 'delSend';
 };
 
-const MixerSend: React.FC<MixerSendProps> = ({ color }) => {
+const MixerSend: React.FC<MixerSendProps> = ({ color, trackId, sendName }) => {
+  const mixerValues = useAppSelector(selectMixerChannels);
+  // const initialValue = mixer;
   const {
     elementRef: send,
     angle,
     startDrag: startRotate,
-  } = useDrag({ initialValue: 24, type: 'send' });
+  } = useDrag({ initialValue: 24, type: 'send', trackId });
+
+  if (sendName === 'revSend') console.log(mixerValues[trackId]);
+  if (sendName === 'delSend') console.log(mixerValues[trackId]);
+
   return (
     <div
       onMouseDown={startRotate}

@@ -26,8 +26,8 @@ const Mixer: React.FC = () => {
           ))}
       </div>
       <div className="flex justify-center gap-x-5">
-        <MixerFx fxName="rev" />
-        <MixerFx fxName="del" />
+        <MixerFx fxName="reverb" />
+        <MixerFx fxName="delay" />
       </div>
     </div>
   );

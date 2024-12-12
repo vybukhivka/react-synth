@@ -11,8 +11,8 @@ const MixerFx: React.FC<MixerFxProps> = ({ fxName }) => {
       <span>{fxName}</span>
       <Knob paramValue={35} paramName="time" />
       <div className="flex w-full justify-between p-[16px]">
-        {/* <MixerSend />
-        <MixerSend /> */}
+        <MixerSend type="damp" />
+        <MixerSend type="feedback" />
       </div>
     </div>
   );

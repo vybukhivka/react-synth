@@ -8,21 +8,21 @@ import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
   color?: string;
-  trackId: keyof MixerState['returnFx'];
+  trackId: keyof MixerState['channels'];
   sendName: 'revSend' | 'delSend';
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({ color, trackId, sendName }) => {
   const mixerValues = useAppSelector(selectMixerChannels);
-  // const initialValue = mixer;
   const {
     elementRef: send,
     angle,
     startDrag: startRotate,
-  } = useDrag({ initialValue: 24, type: 'send', trackId });
-
-  if (sendName === 'revSend') console.log(mixerValues[trackId]);
-  if (sendName === 'delSend') console.log(mixerValues[trackId]);
+  } = useDrag({
+    initialValue: mixerValues[trackId].volume,
+    type: 'send',
+    trackId,
+  });
 
   return (
     <div

@@ -3,7 +3,7 @@ import MixerFader from '../../../../ui/MixerFader/MixerFader';
 import MixerSend from '../../../../ui/MixerSend/MixerSend';
 
 type MixerChannelProps = {
-  trackId: keyof MixerState['returnFx'];
+  trackId: keyof MixerState['channels'];
   className: string;
 };
 

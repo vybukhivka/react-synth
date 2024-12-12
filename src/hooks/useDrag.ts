@@ -34,8 +34,8 @@ function useDrag({
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(initialValue);
-  const [angle, setAngle] = useState(() => valueToAngle(value, 'knob'));
-  const angleRef = useRef(valueToAngle(value, 'knob'));
+  const [angle, setAngle] = useState(() => valueToAngle(value, type));
+  const angleRef = useRef(valueToAngle(value, type));
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -47,7 +47,7 @@ function useDrag({
 
   function stopDrag() {
     setIsDragging(false);
-    const newValue: number = angleToValue(angleRef.current, 'knob');
+    const newValue: number = angleToValue(angleRef.current, type);
     setAngle(angleRef.current);
     setValue(newValue);
 
@@ -65,14 +65,21 @@ function useDrag({
       );
     }
 
-    if (type === 'fader' && trackId) {
-      // setActiveParam({
-      //   paramName: 'inactive',
-      //   value: 0,
-      // });
+    if (type === 'fader' && trackId && paramName) {
       dispatch(
         updateFader({
           trackId,
+          paramName: 'volume',
+          paramValue: newValue,
+        }),
+      );
+    }
+
+    if (type === 'send' && trackId && paramName) {
+      dispatch(
+        updateFader({
+          trackId,
+          paramName,
           paramValue: newValue,
         }),
       );

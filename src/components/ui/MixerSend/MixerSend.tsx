@@ -19,8 +19,9 @@ const MixerSend: React.FC<MixerSendProps> = ({ color, trackId, sendName }) => {
     angle,
     startDrag: startRotate,
   } = useDrag({
-    initialValue: mixerValues[trackId].volume,
+    initialValue: mixerValues[trackId][sendName],
     type: 'send',
+    paramName: sendName,
     trackId,
   });
 

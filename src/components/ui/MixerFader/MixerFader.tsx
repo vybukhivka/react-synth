@@ -13,7 +13,6 @@ type FaderProps = {
 
 const MixerFader: React.FC<FaderProps> = ({ color, trackId }) => {
   const mixerValues = useAppSelector(selectMixerChannels);
-  console.log(mixerValues[trackId].volume);
   const {
     elementRef: fader,
     angle,
@@ -21,6 +20,7 @@ const MixerFader: React.FC<FaderProps> = ({ color, trackId }) => {
   } = useDrag({
     initialValue: mixerValues[trackId].volume,
     type: 'fader',
+    paramName: 'volume',
     trackId,
   });
 

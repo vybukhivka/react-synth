@@ -30,10 +30,10 @@ export type MixerState = {
 
 const initialState: MixerState = {
   channels: {
-    track1: { volume: 80, revSend: 0, delSend: 0 },
-    track2: { volume: 80, revSend: 0, delSend: 0 },
-    track3: { volume: 80, revSend: 0, delSend: 0 },
-    track4: { volume: 80, revSend: 0, delSend: 0 },
+    track1: { volume: 80, revSend: 0, delSend: 10 },
+    track2: { volume: 85, revSend: 25, delSend: 5 },
+    track3: { volume: 45, revSend: 10, delSend: 45 },
+    track4: { volume: 25, revSend: 80, delSend: 0 },
   },
   returnFx: {
     delay: { time: 80, feedback: 50, lowpass: 50 },
@@ -59,8 +59,8 @@ const mixerSlice = createSlice({
         return;
       }
       if (paramName === 'volume') state.channels[trackId].volume = paramValue;
-      if (paramName === 'delay') state.channels[trackId].delSend = paramValue;
-      if (paramName === 'reverb') state.channels[trackId].revSend = paramValue;
+      if (paramName === 'delSend') state.channels[trackId].delSend = paramValue;
+      if (paramName === 'revSend') state.channels[trackId].revSend = paramValue;
     },
   },
 });

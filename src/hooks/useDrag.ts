@@ -59,13 +59,11 @@ function useDrag({
       dispatch(
         updateParameter({
           trackId,
-          paramName: paramName,
+          paramName,
           paramValue: newValue,
         }),
       );
-    }
-
-    if (type === 'fader' && trackId && paramName) {
+    } else if (type === 'fader' && trackId && paramName) {
       dispatch(
         updateFader({
           trackId,
@@ -73,9 +71,7 @@ function useDrag({
           paramValue: newValue,
         }),
       );
-    }
-
-    if (type === 'send' && trackId && paramName) {
+    } else if (type === 'send' && trackId && paramName) {
       dispatch(
         updateFader({
           trackId,

@@ -45,6 +45,7 @@ const mixerSlice = createSlice({
   name: 'mixer',
   initialState,
   reducers: {
+    // the same reducer is in trackSlice, probably should try just reuse it here
     updateFader: (
       state: MixerState,
       action: PayloadAction<{

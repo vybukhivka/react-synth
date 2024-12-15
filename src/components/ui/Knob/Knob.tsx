@@ -1,14 +1,15 @@
 import useDrag from '../../../hooks/useDrag';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
+import { setActiveType } from '../../synth/Tracks/Track';
 
 type KnobProps = {
   trackId?: keyof TrackState;
   paramName: keyof TrackParams | 'time';
   paramValue: number;
-  setActiveParam?: any;
+  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
 };
 
-const Knob: React.FC<KnobProps> = ({
+const Knob: React.FC<Partial<KnobProps>> = ({
   trackId,
   paramName,
   paramValue,

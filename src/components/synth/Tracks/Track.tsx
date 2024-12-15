@@ -9,13 +9,18 @@ type TrackProps = {
   className?: string;
 };
 
+export type setActiveType = {
+  paramName: string;
+  value: number;
+};
+
 const Track: React.FC<TrackProps> = ({ trackData, className }) => {
   const [trackId, trackParams]: [keyof TrackState, TrackParams] = trackData;
   const trackParamsArray = Object.entries(trackParams) as [
     keyof TrackParams,
     number,
   ][];
-  const [activeParam, setActiveParam] = useState({
+  const [activeParam, setActiveParam] = useState<setActiveType>({
     paramName: 'inactive',
     value: 0,
   });

@@ -9,6 +9,7 @@ import { DragElement } from '../types/dragTypes';
 import angleToValue from '../utils/angleToValue';
 import valueToAngle from '../utils/valueToAngle';
 import { updateFader } from '../store/slices/mixerSlice';
+import { setActiveType } from '../components/synth/Tracks/Track';
 
 type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -22,7 +23,7 @@ type UseDragProps = {
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
   angleRef: React.MutableRefObject<number>;
-  setActiveParam: any;
+  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
 };
 
 function useDrag({
@@ -51,7 +52,7 @@ function useDrag({
     setAngle(angleRef.current);
     setValue(newValue);
 
-    if (type === 'knob' && trackId && paramName) {
+    if (type === 'knob' && trackId && paramName && setActiveParam) {
       setActiveParam({
         paramName: 'inactive',
         value: 0,

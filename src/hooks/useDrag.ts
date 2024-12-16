@@ -34,9 +34,7 @@ function useDrag({
   setActiveParam,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(initialValue);
-  const [angle, setAngle] = useState(() => valueToAngle(value, type));
-  const angleRef = useRef(valueToAngle(value, type));
+  const [angle, setAngle] = useState(() => valueToAngle(initialValue, type));
   const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -48,9 +46,6 @@ function useDrag({
 
   function stopDrag() {
     setIsDragging(false);
-    const newValue: number = angleToValue(angleRef.current, type);
-    setAngle(angleRef.current);
-    // setValue(newValue);
 
     if (type === 'knob' && trackId && paramName && setActiveParam) {
       setActiveParam({
@@ -61,7 +56,7 @@ function useDrag({
         updateParameter({
           trackId,
           paramName,
-          paramValue: newValue,
+          paramValue: angleToValue(angle, 'knob'),
         }),
       );
     } else if (type === 'fader' && trackId && paramName) {
@@ -90,15 +85,13 @@ function useDrag({
     const deltaY = initialPosition.current.y - e.clientY;
 
     if (type === 'knob') {
-      // if (paramName && value && setActiveParam) {
-      if (paramName && value) {
+      if (paramName && angle) {
         const deltaSum = deltaX + deltaY;
-        let newAngle = angleRef.current + deltaSum;
+        let newAngle = angle + deltaSum;
         newAngle = Math.max(-45, Math.min(newAngle, 225));
-        // angleRef.current = newAngle;
 
-        // elementRef.current.style.transform = `rotate(${angleRef.current}deg)`;
-        setValue(angleToValue(newAngle, 'knob'));
+        setAngle(newAngle);
+
         // setActiveParam({
         //   paramName: paramName,
         //   value: angleToValue(newAngle, 'knob'),
@@ -147,7 +140,6 @@ function useDrag({
   return {
     elementRef,
     angle,
-    value,
     startDrag,
   };
 }

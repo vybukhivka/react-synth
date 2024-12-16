@@ -13,7 +13,7 @@ export type MixerDelayParams = {
 };
 
 export type MixerReverbParams = {
-  decay: number;
+  time: number;
   preDelay: number;
   damp: number;
 };
@@ -37,7 +37,7 @@ const initialState: MixerState = {
   },
   returnFx: {
     delay: { time: 80, feedback: 50, lowpass: 50 },
-    reverb: { decay: 80, preDelay: 50, damp: 50 },
+    reverb: { time: 80, preDelay: 50, damp: 50 },
   },
 };
 

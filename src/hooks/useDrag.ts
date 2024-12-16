@@ -50,7 +50,7 @@ function useDrag({
     setIsDragging(false);
     const newValue: number = angleToValue(angleRef.current, type);
     setAngle(angleRef.current);
-    setValue(newValue);
+    // setValue(newValue);
 
     if (type === 'knob' && trackId && paramName && setActiveParam) {
       setActiveParam({
@@ -90,18 +90,22 @@ function useDrag({
     const deltaY = initialPosition.current.y - e.clientY;
 
     if (type === 'knob') {
-      const deltaSum = deltaX + deltaY;
-      let newAngle = angleRef.current + deltaSum;
-      newAngle = Math.max(-45, Math.min(newAngle, 225));
-      angleRef.current = newAngle;
+      // if (paramName && value && setActiveParam) {
+      if (paramName && value) {
+        const deltaSum = deltaX + deltaY;
+        let newAngle = angleRef.current + deltaSum;
+        newAngle = Math.max(-45, Math.min(newAngle, 225));
+        // angleRef.current = newAngle;
 
-      elementRef.current.style.transform = `rotate(${angleRef.current}deg)`;
-      setActiveParam({
-        paramName: paramName,
-        value: angleToValue(newAngle, 'knob'),
-      });
+        // elementRef.current.style.transform = `rotate(${angleRef.current}deg)`;
+        setValue(angleToValue(newAngle, 'knob'));
+        // setActiveParam({
+        //   paramName: paramName,
+        //   value: angleToValue(newAngle, 'knob'),
+        // });
 
-      initialPosition.current = { x: e.clientX, y: e.clientY };
+        initialPosition.current = { x: e.clientX, y: e.clientY };
+      }
     }
 
     if (type === 'fader') {
@@ -143,6 +147,7 @@ function useDrag({
   return {
     elementRef,
     angle,
+    value,
     startDrag,
   };
 }

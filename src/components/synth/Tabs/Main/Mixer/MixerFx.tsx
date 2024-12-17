@@ -1,7 +1,5 @@
 import { useAppSelector } from '../../../../../store/hooks';
 import {
-  MixerDelayParams,
-  MixerReverbParams,
   MixerState,
   selectMixerFx,
 } from '../../../../../store/slices/mixerSlice';

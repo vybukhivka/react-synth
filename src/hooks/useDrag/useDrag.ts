@@ -6,6 +6,7 @@ import angleToValue from '../../utils/angleToValue';
 import valueToAngle from '../../utils/valueToAngle';
 import {
   MixerChannelParams,
+  updateFxParameter,
   updateMixerParameter,
 } from '../../store/slices/mixerSlice';
 import calcDelta from '../../utils/calcDelta';
@@ -65,30 +66,55 @@ function useDrag({
   }
 
   function stopDrag(e: MouseEvent) {
-    if (!state.initialPosition || !trackId || !paramName) return;
-
+    if (!state.initialPosition || !paramName) return;
     const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
+    console.log(paramName);
 
-    updateDraggable(type, state.angle, deltaX, deltaY, value => {
-      if (type === 'knob') {
-        dispatch(
-          updateTrackParameter({
-            trackId,
-            paramName,
-            paramValue: angleToValue(value, type),
-          }),
-        );
-      } else {
-        dispatch(
-          updateMixerParameter({
-            trackId,
-            paramName: paramName as keyof MixerChannelParams,
-            paramValue: angleToValue(value, type),
-          }),
-        );
-      }
-    });
+    if (paramName !== 'decay' && paramName !== 'time') {
+      updateDraggable(type, state.angle, deltaX, deltaY, value => {
+        if (type === 'knob' && trackId) {
+          // track knob
+          dispatch(
+            updateTrackParameter({
+              trackId,
+              paramName,
+              paramValue: angleToValue(value, type),
+            }),
+          );
+        } else if (trackId) {
+          // fader with sends
+          dispatch(
+            updateMixerParameter({
+              trackId,
+              paramName: paramName as keyof MixerChannelParams,
+              paramValue: angleToValue(value, type),
+            }),
+          );
+        } else {
+          // mixer fx
+          dispatch(
+            updateFxParameter({
+              paramName,
+              paramValue: angleToValue(value, type),
+            }),
+          );
+        }
+      });
+    } else {
+      updateDraggable(type, state.angle, deltaX, deltaY, value => {
+        // fx knob
 
+        if (type === 'knob') {
+          console.log('yes');
+          dispatch(
+            updateFxParameter({
+              paramName,
+              paramValue: angleToValue(value, type),
+            }),
+          );
+        }
+      });
+    }
     localDispatch({ type: 'STOP_DRAG' });
   }
 

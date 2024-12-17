@@ -14,7 +14,7 @@ const MixerFx: React.FC<MixerFxProps> = ({ fxName }) => {
   const time = mixerReturnFx[fxName].time;
   const paramName: 'time' | 'decay' | null =
     fxName === 'reverb' ? 'decay' : fxName === 'delay' ? 'time' : null;
-  console.log(paramName);
+  // console.log(paramName);
 
   return (
     <div className="flex h-[134px] w-[134px] flex-col items-center justify-end gap-y-2 rounded-3xl border border-slate-600">

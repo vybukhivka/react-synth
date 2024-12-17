@@ -28,7 +28,6 @@ const Knob: React.FC<Partial<KnobProps>> = ({
     angle,
     startDrag,
   } = useDrag({ initialValue: paramValue, trackId, paramName, setActiveParam });
-  if (paramName === 'time') console.log(paramName, paramValue);
 
   return (
     <>

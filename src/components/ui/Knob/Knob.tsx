@@ -4,6 +4,7 @@ import {
   MixerReverbParams,
 } from '../../../store/slices/mixerSlice';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
+import { DragElement } from '../../../types/dragTypes';
 import { setActiveType } from '../../synth/Tracks/Track';
 
 type KnobProps = {

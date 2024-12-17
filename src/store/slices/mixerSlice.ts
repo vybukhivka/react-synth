@@ -46,7 +46,7 @@ const mixerSlice = createSlice({
   initialState,
   reducers: {
     // the same reducer is in trackSlice, probably should try just reuse it here
-    updateFader: (
+    updateMixerParameter: (
       state: MixerState,
       action: PayloadAction<{
         trackId: keyof MixerState['channels'];
@@ -66,7 +66,7 @@ const mixerSlice = createSlice({
   },
 });
 
-export const { updateFader } = mixerSlice.actions;
+export const { updateMixerParameter } = mixerSlice.actions;
 export const selectMixer = (state: { mixer: MixerState }) => state.mixer;
 export const selectMixerChannels = (state: { mixer: MixerState }) =>
   state.mixer.channels;

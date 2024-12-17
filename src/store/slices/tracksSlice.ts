@@ -20,7 +20,7 @@ const trackSlice = createSlice({
   name: 'tracks',
   initialState,
   reducers: {
-    updateParameter: (
+    updateTrackParameter: (
       state: TrackState,
       action: PayloadAction<{
         trackId: keyof TrackState;
@@ -34,7 +34,7 @@ const trackSlice = createSlice({
   },
 });
 
-export const { updateParameter } = trackSlice.actions;
+export const { updateTrackParameter } = trackSlice.actions;
 export const selectTracks = (state: RootState): TrackState => state.tracks;
 export const selectTrackParameter = (
   state: RootState,

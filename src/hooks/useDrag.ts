@@ -22,7 +22,6 @@ type UseDragProps = {
   type: DragElement;
   trackId: keyof TrackState;
   paramName: keyof TrackParams;
-  angleRef: React.MutableRefObject<number>;
   setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
 };
 
@@ -34,92 +33,90 @@ function useDrag({
   setActiveParam,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
-  const [angle, setAngle] = useState(() => valueToAngle(initialValue, type));
-  const elementRef = useRef<HTMLDivElement | null>(null);
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
+  const [angle, setAngle] = useState(valueToAngle(initialValue, type));
+  const elementRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-
-  function startDrag(e: React.MouseEvent) {
-    setIsDragging(true);
-    initialPosition.current = { x: e.clientX, y: e.clientY };
-  }
-
-  function stopDrag() {
-    setIsDragging(false);
-
-    if (type === 'knob' && trackId && paramName && setActiveParam) {
-      setActiveParam({
-        paramName: 'inactive',
-        value: 0,
-      });
-      dispatch(
-        updateParameter({
-          trackId,
-          paramName,
-          paramValue: angleToValue(angle, 'knob'),
-        }),
-      );
-    } else if (type === 'fader' && trackId && paramName) {
-      dispatch(
-        updateFader({
-          trackId,
-          paramName: 'volume',
-          paramValue: newValue,
-        }),
-      );
-    } else if (type === 'send' && trackId && paramName) {
-      dispatch(
-        updateFader({
-          trackId,
-          paramName,
-          paramValue: newValue,
-        }),
-      );
-    }
-  }
 
   function handleMove(e: MouseEvent) {
     if (!isDragging || !initialPosition.current || !elementRef.current) return;
 
     const deltaX = e.clientX - initialPosition.current.x;
     const deltaY = initialPosition.current.y - e.clientY;
+    const deltaSum = deltaX + deltaY;
 
-    if (type === 'knob') {
-      if (paramName && angle) {
-        const deltaSum = deltaX + deltaY;
-        let newAngle = angle + deltaSum;
-        newAngle = Math.max(-45, Math.min(newAngle, 225));
-
-        setAngle(newAngle);
-
-        // setActiveParam({
-        //   paramName: paramName,
-        //   value: angleToValue(newAngle, 'knob'),
-        // });
-
-        initialPosition.current = { x: e.clientX, y: e.clientY };
-      }
+    if (type === 'knob' && setActiveParam && paramName) {
+      let newAngle = angle + deltaSum;
+      newAngle = Math.max(-45, Math.min(newAngle, 225));
+      setActiveParam({
+        paramName: String(paramName),
+        value: angleToValue(angle, type),
+      });
+      setAngle(newAngle);
     }
 
     if (type === 'fader') {
-      let newHeight = angleRef.current + deltaY;
+      let newHeight = angle + deltaY;
       newHeight = Math.max(0, Math.min(newHeight, 154));
-      angleRef.current = newHeight;
-
-      elementRef.current.style.height = `${angleRef.current}px`;
-
-      initialPosition.current = { x: e.clientX, y: e.clientY };
+      setAngle(newHeight);
     }
 
     if (type === 'send') {
-      let newWidth = angleRef.current + deltaX;
+      let newWidth = angle + deltaX;
       newWidth = Math.max(0, Math.min(newWidth, 48));
-      angleRef.current = newWidth;
-
-      elementRef.current.style.width = `${angleRef.current}px`;
-
-      initialPosition.current = { x: e.clientX, y: e.clientY };
+      setAngle(newWidth);
     }
+  }
+
+  function startDrag(e: MouseEvent) {
+    setIsDragging(true);
+    initialPosition.current = { x: e.clientX, y: e.clientY };
+  }
+
+  function stopDrag(e: MouseEvent) {
+    setIsDragging(false);
+    if (!initialPosition.current) return;
+    const deltaX = e.clientX - initialPosition.current.x;
+    const deltaY = initialPosition.current.y - e.clientY;
+    const deltaSum = deltaX + deltaY;
+
+    if (type === 'knob' && trackId && paramName) {
+      let newAngle = angle + deltaSum;
+      newAngle = Math.max(-45, Math.min(newAngle, 225));
+      dispatch(
+        updateParameter({
+          trackId,
+          paramName,
+          paramValue: angleToValue(newAngle, 'knob'),
+        }),
+      );
+    }
+
+    if (type === 'fader' && trackId && paramName) {
+      let newHeight = angle + deltaY;
+      newHeight = Math.max(0, Math.min(newHeight, 154));
+      dispatch(
+        updateFader({
+          trackId,
+          paramName: 'volume',
+          paramValue: angleToValue(newHeight, type),
+        }),
+      );
+    }
+
+    if (type === 'send' && trackId && paramName) {
+      let newWidth = angle + deltaX;
+      newWidth = Math.max(0, Math.min(newWidth, 48));
+      dispatch(
+        updateFader({
+          trackId,
+          paramName: String(paramName),
+          paramValue: angleToValue(newWidth, type),
+        }),
+      );
+    }
+
+    initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import useDrag from '../../../hooks/useDrag';
+import useDrag from '../../../hooks/useDrag/useDrag';
 import { useAppSelector } from '../../../store/hooks';
 import {
   MixerState,

@@ -68,7 +68,6 @@ function useDrag({
   function stopDrag(e: MouseEvent) {
     if (!state.initialPosition || !paramName) return;
     const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
-    console.log(paramName);
 
     if (paramName !== 'decay' && paramName !== 'time') {
       updateDraggable(type, state.angle, deltaX, deltaY, value => {
@@ -83,7 +82,6 @@ function useDrag({
           );
         } else if (trackId) {
           // fader with sends
-          console.log(paramName, trackId, value);
           dispatch(
             updateMixerParameter({
               trackId,
@@ -106,7 +104,6 @@ function useDrag({
         // fx knob
 
         if (type === 'knob') {
-          console.log('yes');
           dispatch(
             updateFxParameter({
               paramName,

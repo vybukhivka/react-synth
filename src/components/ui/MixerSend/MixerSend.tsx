@@ -1,33 +1,34 @@
 import useDrag from '../../../hooks/useDrag/useDrag';
-import { useAppSelector } from '../../../store/hooks';
-import {
-  MixerState,
-  selectMixerChannels,
-  selectMixerFx,
-} from '../../../store/slices/mixerSlice';
+import { MixerState } from '../../../store/slices/mixerSlice';
 import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
-  type: 'revSend' | 'delSend' | 'damp' | 'feedback';
   color?: string;
+  paramValue?: number;
+  paramName:
+    | 'revSend'
+    | 'delSend'
+    | 'feedback'
+    | 'damp'
+    | 'preDelay'
+    | 'lowpass';
   trackId?: keyof MixerState['channels'];
 };
 
-const MixerSend: React.FC<MixerSendProps> = ({ color, type, trackId }) => {
-  const mixerValues = useAppSelector(selectMixerChannels);
-  const mixerFx = useAppSelector(selectMixerFx);
-  const initValue = trackId
-    ? mixerValues[trackId][type]
-    : mixerFx?.delay[type] || mixerFx?.reverb[type];
-
+const MixerSend: React.FC<MixerSendProps> = ({
+  color,
+  paramName,
+  paramValue,
+  trackId,
+}) => {
   const {
     elementRef: send,
     angle,
     startDrag: startRotate,
   } = useDrag({
-    initialValue: initValue,
+    initialValue: paramValue,
     type: 'send',
-    paramName: type,
+    paramName,
     trackId,
   });
 

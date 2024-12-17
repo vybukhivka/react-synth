@@ -10,11 +10,12 @@ import angleToValue from '../utils/angleToValue';
 import valueToAngle from '../utils/valueToAngle';
 import { updateFader } from '../store/slices/mixerSlice';
 import { setActiveType } from '../components/synth/Tracks/Track';
+import calcDelta from '../utils/calcDelta';
 
 type UseDragResults = {
   elementRef: React.MutableRefObject<HTMLDivElement | null>;
   angle: number;
-  startDrag: (e: React.MouseEvent) => void;
+  startDrag: (e: MouseEvent) => void;
 };
 
 type UseDragProps = {
@@ -38,20 +39,19 @@ function useDrag({
   const elementRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
+  // 1. Calculate delta +
+  // 2. Clamp values
+  // 3. Type based updates
+
   function handleMove(e: MouseEvent) {
     if (!isDragging || !initialPosition.current || !elementRef.current) return;
 
-    const deltaX = e.clientX - initialPosition.current.x;
-    const deltaY = initialPosition.current.y - e.clientY;
-    const deltaSum = deltaX + deltaY;
+    const { deltaX, deltaY } = calcDelta(e, initialPosition.current);
 
     if (type === 'knob' && setActiveParam && paramName) {
+      const deltaSum = deltaX + deltaY;
       let newAngle = angle + deltaSum;
       newAngle = Math.max(-45, Math.min(newAngle, 225));
-      setActiveParam({
-        paramName: String(paramName),
-        value: angleToValue(angle, type),
-      });
       setAngle(newAngle);
     }
 
@@ -76,11 +76,10 @@ function useDrag({
   function stopDrag(e: MouseEvent) {
     setIsDragging(false);
     if (!initialPosition.current) return;
-    const deltaX = e.clientX - initialPosition.current.x;
-    const deltaY = initialPosition.current.y - e.clientY;
-    const deltaSum = deltaX + deltaY;
+    const { deltaX, deltaY } = calcDelta(e, initialPosition.current);
 
     if (type === 'knob' && trackId && paramName) {
+      const deltaSum = deltaX + deltaY;
       let newAngle = angle + deltaSum;
       newAngle = Math.max(-45, Math.min(newAngle, 225));
       dispatch(

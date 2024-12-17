@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import {
   TrackParams,
@@ -31,6 +31,37 @@ type UseDragProps = {
   setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
 };
 
+type DragState = {
+  angle: number;
+  isDragging: boolean;
+  initialPosition: { x: number; y: number } | null;
+};
+
+type DragAction =
+  | { type: 'START_DRAG'; payload: { x: number; y: number } }
+  | { type: 'UPDATE_ANGLE'; payload: number }
+  | { type: 'STOP_DRAG' };
+
+function dragReducer(state: DragState, action: DragAction): DragState {
+  switch (action.type) {
+    case 'START_DRAG':
+      return {
+        ...state,
+        isDragging: true,
+        initialPosition: { x: action.payload.x, y: action.payload.y },
+      };
+    case 'UPDATE_ANGLE':
+      return { ...state, angle: action.payload };
+    case 'STOP_DRAG':
+      return {
+        ...state,
+        isDragging: false,
+      };
+    default:
+      return state;
+  }
+}
+
 function useDrag({
   initialValue = 0,
   type = 'knob' as DragElement,
@@ -38,32 +69,37 @@ function useDrag({
   paramName,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
-  const initialPosition = useRef<{ x: number; y: number } | null>(null);
-  const [angle, setAngle] = useState(valueToAngle(initialValue, type));
+  const [state, localDispatch] = useReducer(dragReducer, {
+    angle: valueToAngle(initialValue, type),
+    isDragging: false,
+    initialPosition: null,
+  });
   const elementRef = useRef<HTMLDivElement | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
 
   function handleMove(e: MouseEvent) {
-    if (!isDragging || !initialPosition.current || !elementRef.current) return;
+    if (!state.isDragging || !state.initialPosition || !elementRef.current)
+      return;
 
-    const { deltaX, deltaY } = calcDelta(e, initialPosition.current);
+    const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
 
-    updateDraggable(type, angle, deltaX, deltaY, newValue =>
-      setAngle(newValue),
+    updateDraggable(type, state.angle, deltaX, deltaY, newValue =>
+      localDispatch({ type: 'UPDATE_ANGLE', payload: newValue }),
     );
   }
 
   function startDrag(e: MouseEvent | React.MouseEvent) {
-    setIsDragging(true);
-    initialPosition.current = { x: e.clientX, y: e.clientY };
+    localDispatch({
+      type: 'START_DRAG',
+      payload: { x: e.clientX, y: e.clientY },
+    });
   }
 
   function stopDrag(e: MouseEvent) {
-    setIsDragging(false);
-    if (!initialPosition.current || !trackId || !paramName) return;
-    const { deltaX, deltaY } = calcDelta(e, initialPosition.current);
+    if (!state.initialPosition || !trackId || !paramName) return;
 
-    updateDraggable(type, angle, deltaX, deltaY, value => {
+    const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
+
+    updateDraggable(type, state.angle, deltaX, deltaY, value => {
       if (type === 'knob') {
         dispatch(
           updateTrackParameter({
@@ -83,11 +119,11 @@ function useDrag({
       }
     });
 
-    initialPosition.current = { x: e.clientX, y: e.clientY };
+    localDispatch({ type: 'STOP_DRAG' });
   }
 
   useEffect(() => {
-    if (isDragging) {
+    if (state.isDragging) {
       document.addEventListener('mousemove', handleMove);
       document.addEventListener('mouseup', stopDrag);
     } else {
@@ -99,11 +135,11 @@ function useDrag({
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', stopDrag);
     };
-  }, [isDragging]);
+  }, [state.isDragging]);
 
   return {
     elementRef,
-    angle,
+    angle: state.angle,
     startDrag,
   };
 }

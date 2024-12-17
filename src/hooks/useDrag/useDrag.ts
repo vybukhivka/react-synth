@@ -1,46 +1,16 @@
 import { useEffect, useReducer, useRef } from 'react';
-import { useAppDispatch } from '../store/hooks';
-import {
-  TrackParams,
-  TrackState,
-  updateTrackParameter,
-} from '../store/slices/tracksSlice';
-import { DragElement } from '../types/dragTypes';
-import angleToValue from '../utils/angleToValue';
-import valueToAngle from '../utils/valueToAngle';
+import { useAppDispatch } from '../../store/hooks';
+import { updateTrackParameter } from '../../store/slices/tracksSlice';
+import { DragElement } from '../../types/dragTypes';
+import angleToValue from '../../utils/angleToValue';
+import valueToAngle from '../../utils/valueToAngle';
 import {
   MixerChannelParams,
-  MixerState,
   updateMixerParameter,
-} from '../store/slices/mixerSlice';
-import { setActiveType } from '../components/synth/Tracks/Track';
-import calcDelta from '../utils/calcDelta';
-import updateDraggable from '../utils/updateDraggable';
-
-type UseDragResults = {
-  elementRef: React.MutableRefObject<HTMLDivElement | null>;
-  angle: number;
-  startDrag: (e: React.MouseEvent) => void;
-};
-
-type UseDragProps = {
-  initialValue: number;
-  type: DragElement;
-  trackId: keyof TrackState | keyof MixerState['channels'];
-  paramName: keyof TrackParams | keyof MixerChannelParams;
-  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
-};
-
-type DragState = {
-  angle: number;
-  isDragging: boolean;
-  initialPosition: { x: number; y: number } | null;
-};
-
-type DragAction =
-  | { type: 'START_DRAG'; payload: { x: number; y: number } }
-  | { type: 'UPDATE_ANGLE'; payload: number }
-  | { type: 'STOP_DRAG' };
+} from '../../store/slices/mixerSlice';
+import calcDelta from '../../utils/calcDelta';
+import updateDraggable from '../../utils/updateDraggable';
+import { DragAction, DragState, UseDragProps, UseDragResults } from './types';
 
 function dragReducer(state: DragState, action: DragAction): DragState {
   switch (action.type) {

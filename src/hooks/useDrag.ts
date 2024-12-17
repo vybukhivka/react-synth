@@ -15,7 +15,6 @@ import {
 } from '../store/slices/mixerSlice';
 import { setActiveType } from '../components/synth/Tracks/Track';
 import calcDelta from '../utils/calcDelta';
-import clamp from '../utils/clamp';
 import updateDraggable from '../utils/updateDraggable';
 
 type UseDragResults = {
@@ -27,7 +26,7 @@ type UseDragResults = {
 type UseDragProps = {
   initialValue: number;
   type: DragElement;
-  trackId: keyof TrackState | keyof MixerState;
+  trackId: keyof TrackState | keyof MixerState['channels'];
   paramName: keyof TrackParams | keyof MixerChannelParams;
   setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
 };
@@ -37,7 +36,6 @@ function useDrag({
   type = 'knob' as DragElement,
   trackId,
   paramName,
-  setActiveParam,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const initialPosition = useRef<{ x: number; y: number } | null>(null);
@@ -55,14 +53,14 @@ function useDrag({
     );
   }
 
-  function startDrag(e: MouseEvent) {
+  function startDrag(e: MouseEvent | React.MouseEvent) {
     setIsDragging(true);
     initialPosition.current = { x: e.clientX, y: e.clientY };
   }
 
   function stopDrag(e: MouseEvent) {
     setIsDragging(false);
-    if (!initialPosition.current) return;
+    if (!initialPosition.current || !trackId || !paramName) return;
     const { deltaX, deltaY } = calcDelta(e, initialPosition.current);
 
     updateDraggable(type, angle, deltaX, deltaY, value => {
@@ -78,7 +76,7 @@ function useDrag({
         dispatch(
           updateMixerParameter({
             trackId,
-            paramName,
+            paramName: paramName as keyof MixerChannelParams,
             paramValue: angleToValue(value, type),
           }),
         );

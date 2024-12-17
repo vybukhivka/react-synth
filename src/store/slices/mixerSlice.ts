@@ -50,7 +50,7 @@ const mixerSlice = createSlice({
       state: MixerState,
       action: PayloadAction<{
         trackId: keyof MixerState['channels'];
-        paramName: string;
+        paramName: keyof MixerChannelParams;
         paramValue: number;
       }>,
     ) => {

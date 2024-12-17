@@ -83,6 +83,7 @@ function useDrag({
           );
         } else if (trackId) {
           // fader with sends
+          console.log(paramName, trackId, value);
           dispatch(
             updateMixerParameter({
               trackId,

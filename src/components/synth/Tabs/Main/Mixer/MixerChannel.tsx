@@ -12,8 +12,8 @@ const MixerChannel: React.FC<MixerChannelProps> = ({ className, trackId }) => {
     <div className="flex flex-col gap-3">
       <MixerFader color={className} trackId={trackId} />
       <div className="flex flex-col gap-2">
-        <MixerSend color={className} trackId={trackId} type="revSend" />
-        <MixerSend color={className} trackId={trackId} type="delSend" />
+        <MixerSend color={className} trackId={trackId} paramName="revSend" />
+        <MixerSend color={className} trackId={trackId} paramName="delSend" />
       </div>
     </div>
   );

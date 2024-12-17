@@ -13,9 +13,9 @@ export type MixerDelayParams = {
 };
 
 export type MixerReverbParams = {
-  time: number;
-  preDelay: number;
+  decay: number;
   damp: number;
+  preDelay: number;
 };
 
 export type MixerState = {
@@ -36,8 +36,8 @@ const initialState: MixerState = {
     track4: { volume: 25, revSend: 80, delSend: 0 },
   },
   returnFx: {
-    delay: { time: 80, feedback: 50, lowpass: 50 },
-    reverb: { time: 80, preDelay: 50, damp: 50 },
+    delay: { time: 80, feedback: 10, lowpass: 20 },
+    reverb: { decay: 40, damp: 40, preDelay: 80 },
   },
 };
 
@@ -63,10 +63,30 @@ const mixerSlice = createSlice({
       if (paramName === 'delSend') state.channels[trackId].delSend = paramValue;
       if (paramName === 'revSend') state.channels[trackId].revSend = paramValue;
     },
+    updateFxParameter: (
+      state: MixerState,
+      action: PayloadAction<{
+        paramName: keyof MixerDelayParams | keyof MixerReverbParams;
+        paramValue: number;
+      }>,
+    ) => {
+      const { paramName, paramValue } = action.payload;
+      if (!state.returnFx) {
+        console.error(`Return fx doesn't exists in the mixer state`);
+        return;
+      }
+      if (paramName === 'decay') state.returnFx.reverb.decay = paramValue;
+      if (paramName === 'damp') state.returnFx.reverb.damp = paramValue;
+      if (paramName === 'preDelay') state.returnFx.reverb.preDelay = paramValue;
+      if (paramName === 'time') state.returnFx.delay.time = paramValue;
+      if (paramName === 'feedback') state.returnFx.delay.feedback = paramValue;
+      if (paramName === 'lowpass') state.returnFx.delay.lowpass = paramValue;
+    },
   },
 });
 
 export const { updateMixerParameter } = mixerSlice.actions;
+export const { updateFxParameter } = mixerSlice.actions;
 export const selectMixer = (state: { mixer: MixerState }) => state.mixer;
 export const selectMixerChannels = (state: { mixer: MixerState }) =>
   state.mixer.channels;

@@ -1,6 +1,9 @@
 import { useEffect, useReducer, useRef } from 'react';
 import { useAppDispatch } from '../../store/hooks';
-import { updateTrackParameter } from '../../store/slices/tracksSlice';
+import {
+  TrackState,
+  updateTrackParameter,
+} from '../../store/slices/tracksSlice';
 import { DragElement } from '../../types/dragTypes';
 import angleToValue from '../../utils/angleToValue';
 import valueToAngle from '../../utils/valueToAngle';
@@ -41,6 +44,7 @@ function useDrag({
   trackId,
   paramName,
   fxName,
+  setActiveParam,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [state, localDispatch] = useReducer(dragReducer, {
@@ -56,9 +60,15 @@ function useDrag({
 
     const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
 
-    updateDraggable(type, state.angle, deltaX, deltaY, newValue =>
-      localDispatch({ type: 'UPDATE_ANGLE', payload: newValue }),
-    );
+    updateDraggable(type, state.angle, deltaX, deltaY, newValue => {
+      localDispatch({ type: 'UPDATE_ANGLE', payload: newValue });
+      if (setActiveParam) {
+        setActiveParam({
+          paramName: paramName as keyof TrackState,
+          value: angleToValue(newValue, type),
+        });
+      }
+    });
   }
 
   function startDrag(e: MouseEvent | React.MouseEvent) {
@@ -85,6 +95,13 @@ function useDrag({
                 paramValue,
               });
         dispatch(action);
+
+        if (setActiveParam) {
+          setActiveParam({
+            paramName: 'inactive',
+            value: angleToValue(state.angle, type),
+          });
+        }
       }
 
       if (fxName) {

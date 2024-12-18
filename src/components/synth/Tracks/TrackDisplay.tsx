@@ -1,11 +1,10 @@
-import { TrackParams } from '../../../store/slices/tracksSlice';
+import { TrackState } from '../../../store/slices/tracksSlice';
 
 type DisplayProps = {
-  trackParams: [keyof TrackParams, number][];
-  activeParam: { paramName: string; value: number };
+  activeParam: { paramName: keyof TrackState; value: number };
 };
 
-const TrackDisplay: React.FC<DisplayProps> = ({ trackParams, activeParam }) => {
+const TrackDisplay: React.FC<DisplayProps> = ({ activeParam }) => {
   return (
     <div className="bg flex h-[36px] w-[124px] items-center justify-center rounded-md border border-slate-500">
       <span>

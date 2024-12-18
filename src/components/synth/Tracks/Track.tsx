@@ -10,7 +10,7 @@ type TrackProps = {
 };
 
 export type setActiveType = {
-  paramName: string;
+  paramName: keyof TrackState;
   value: number;
 };
 

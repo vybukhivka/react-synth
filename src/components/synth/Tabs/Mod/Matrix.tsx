@@ -1,4 +1,6 @@
 import useDrag from '../../../../hooks/useDrag/useDrag';
+import angleToValue from '../../../../utils/angleToValue';
+import valueToAngle from '../../../../utils/valueToAngle';
 
 const matrixSlots: number[] = Array.from({ length: 16 }, (_, i) => i);
 
@@ -28,7 +30,7 @@ const Matrix: React.FC = () => {
             }}
             className="absolute bottom-1/2 left-0 w-full bg-slate-600 opacity-50"
           >
-            {angle}
+            {angleToValue(angle, 'modMatrixCell')}
           </div>
         </div>
       ))}

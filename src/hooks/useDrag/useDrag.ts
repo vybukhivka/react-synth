@@ -17,6 +17,10 @@ import {
 import calcDelta from '../../utils/calcDelta';
 import updateDraggable from '../../utils/updateDraggable';
 import { DragAction, DragState, UseDragProps, UseDragResults } from './types';
+import {
+  ModulationDestinations,
+  updateModulationParameter,
+} from '../../store/slices/modulationSlice';
 
 function dragReducer(state: DragState, action: DragAction): DragState {
   switch (action.type) {
@@ -85,7 +89,7 @@ function useDrag({
     updateDraggable(type, state.angle, deltaX, deltaY, value => {
       const paramValue = angleToValue(value, type);
 
-      if (trackId) {
+      if (trackId && type !== 'modMatrixCell') {
         const action =
           type === 'knob'
             ? updateTrackParameter({ trackId, paramName, paramValue })
@@ -104,7 +108,7 @@ function useDrag({
         }
       }
 
-      if (fxName) {
+      if (fxName && type !== 'modMatrixCell') {
         dispatch(
           updateFxParameter({
             fxName,
@@ -112,6 +116,17 @@ function useDrag({
               | keyof MixerDelayParams
               | keyof MixerReverbParams,
             paramValue,
+          }),
+        );
+      }
+
+      if (type === 'modMatrixCell') {
+        dispatch(
+          updateModulationParameter({
+            trackId,
+            modSource: fxName,
+            modDestination: paramName,
+            modValue: paramValue,
           }),
         );
       }

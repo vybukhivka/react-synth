@@ -20,10 +20,10 @@ export type ModulationState = {
 };
 
 const createMatrix = (): ModulationSources => ({
-  LFO: { P1: 10, P2: 0, P3: 0, P4: 0 },
-  RND: { P1: 0, P2: 20, P3: 0, P4: 0 },
-  SEQ: { P1: 0, P2: 0, P3: 30, P4: 0 },
-  VEL: { P1: 0, P2: 0, P3: 0, P4: 40 },
+  LFO: { P1: 0.2, P2: 0, P3: 0, P4: 0 },
+  RND: { P1: 0, P2: 0.1, P3: 0, P4: 0 },
+  SEQ: { P1: 0, P2: 0, P3: 0, P4: 0 },
+  VEL: { P1: 0, P2: 0, P3: 0, P4: -0.5 },
 });
 
 const initialState: ModulationState = {
@@ -40,14 +40,14 @@ const modulationSlice = createSlice({
     updateModulationParameter: (
       state: ModulationState,
       action: PayloadAction<{
-        track: keyof ModulationState;
-        source: keyof ModulationSources;
-        destination: keyof ModulationDestinations;
-        value: number;
+        trackId: keyof ModulationState;
+        modSource: keyof ModulationSources;
+        modDestination: keyof ModulationDestinations;
+        modValue: number;
       }>,
     ) => {
-      const { track, source, destination, value } = action.payload;
-      state[track][source][destination] = value;
+      const { trackId, modSource, modDestination, modValue } = action.payload;
+      state[trackId][modSource][modDestination] = modValue;
     },
   },
 });

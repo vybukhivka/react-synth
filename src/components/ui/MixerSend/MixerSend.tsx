@@ -1,19 +1,17 @@
 import useDrag from '../../../hooks/useDrag/useDrag';
-import { MixerState } from '../../../store/slices/mixerSlice';
+import {
+  MixerChannelParams,
+  MixerState,
+} from '../../../store/slices/mixerSlice';
+import { TrackParams } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 
 type MixerSendProps = {
   color?: string;
   paramValue?: number;
-  paramName:
-    | 'revSend'
-    | 'delSend'
-    | 'feedback'
-    | 'damp'
-    | 'preDelay'
-    | 'lowpass';
+  paramName: keyof TrackParams | keyof MixerChannelParams;
   trackId?: keyof MixerState['channels'];
-  fxName: 'delay' | 'reverb';
+  fxName?: 'delay' | 'reverb';
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({

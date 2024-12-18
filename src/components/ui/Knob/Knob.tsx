@@ -1,22 +1,5 @@
 import useDrag from '../../../hooks/useDrag/useDrag';
-import {
-  MixerDelayParams,
-  MixerReverbParams,
-} from '../../../store/slices/mixerSlice';
-import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
-import { setActiveType } from '../../synth/Tracks/Track';
-
-type KnobProps = {
-  trackId: keyof TrackState;
-  paramName:
-    | keyof TrackParams
-    | keyof MixerDelayParams
-    | keyof MixerReverbParams;
-  paramValue: number;
-  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
-  size: number;
-  fxName: 'reverb' | 'delay';
-};
+import { KnobProps } from './types';
 
 const Knob: React.FC<Partial<KnobProps>> = ({
   trackId,

@@ -8,8 +8,8 @@ export default function angleToValue(angle: number, type: DragElement) {
   if (type === 'fader') return Math.round((angle / 154) * 100);
   if (type === 'send') return Math.round((angle / 48) * 100);
   if (type === 'modMatrixCell') {
-    const percents = (angle / 50) * 2;
-    return Number(percents.toFixed(2));
+    const value = (angle / 50) * 2;
+    return Number(value.toFixed(2));
   }
   return 0;
 }

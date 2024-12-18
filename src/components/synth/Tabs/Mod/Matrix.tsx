@@ -1,15 +1,30 @@
 import useDrag from '../../../../hooks/useDrag/useDrag';
+import { useAppSelector } from '../../../../store/hooks';
+import {
+  ModulationState,
+  selectMatrix,
+} from '../../../../store/slices/modulationSlice';
 import angleToValue from '../../../../utils/angleToValue';
 
 const matrixSlots: number[] = Array.from({ length: 16 }, (_, i) => i);
 
-const Matrix: React.FC = () => {
+function readMatrixValues(track: keyof ModulationState, matrix) {
+  const test = Object.entries(matrix[track]);
+  console.log(test);
+  // 1. loop over each mod source
+  // 2. push values of each track to output array
+}
+
+const Matrix: React.FC = ({ selectedTrack }) => {
+  const matrix = useAppSelector(selectMatrix);
+  readMatrixValues('track1', matrix);
+
   const {
     elementRef: modMatrixCell,
     angle,
     startDrag,
   } = useDrag({
-    initialValue: 10,
+    initialValue: 20,
     type: 'modMatrixCell',
   });
   return (

@@ -6,6 +6,8 @@ import angleToValue from '../../utils/angleToValue';
 import valueToAngle from '../../utils/valueToAngle';
 import {
   MixerChannelParams,
+  MixerDelayParams,
+  MixerReverbParams,
   updateFxParameter,
   updateMixerParameter,
 } from '../../store/slices/mixerSlice';
@@ -70,51 +72,33 @@ function useDrag({
     if (!state.initialPosition || !paramName) return;
     const { deltaX, deltaY } = calcDelta(e, state.initialPosition);
 
-    if (paramName !== 'decay' && paramName !== 'time') {
-      updateDraggable(type, state.angle, deltaX, deltaY, value => {
-        if (type === 'knob' && trackId) {
-          // track knob
-          dispatch(
-            updateTrackParameter({
-              trackId,
-              paramName,
-              paramValue: angleToValue(value, type),
-            }),
-          );
-        } else if (trackId) {
-          // fader with sends
-          dispatch(
-            updateMixerParameter({
-              trackId,
-              paramName: paramName as keyof MixerChannelParams,
-              paramValue: angleToValue(value, type),
-            }),
-          );
-        } else {
-          // mixer fx
-          dispatch(
-            updateFxParameter({
-              fxName,
-              paramName,
-              paramValue: angleToValue(value, type),
-            }),
-          );
-        }
-      });
-    } else {
-      updateDraggable(type, state.angle, deltaX, deltaY, value => {
-        // fx knob
-        if (type === 'knob') {
-          dispatch(
-            updateFxParameter({
-              fxName,
-              paramName,
-              paramValue: angleToValue(value, type),
-            }),
-          );
-        }
-      });
-    }
+    updateDraggable(type, state.angle, deltaX, deltaY, value => {
+      const paramValue = angleToValue(value, type);
+
+      if (trackId) {
+        const action =
+          type === 'knob'
+            ? updateTrackParameter({ trackId, paramName, paramValue })
+            : updateMixerParameter({
+                trackId,
+                paramName: paramName as keyof MixerChannelParams,
+                paramValue,
+              });
+        dispatch(action);
+      }
+
+      if (fxName) {
+        dispatch(
+          updateFxParameter({
+            fxName,
+            paramName: paramName as
+              | keyof MixerDelayParams
+              | keyof MixerReverbParams,
+            paramValue,
+          }),
+        );
+      }
+    });
     localDispatch({ type: 'STOP_DRAG' });
   }
 

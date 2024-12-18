@@ -1,14 +1,22 @@
 import useDrag from '../../../hooks/useDrag/useDrag';
 import angleToValue from '../../../utils/angleToValue';
 
-const ModCell: React.FC = () => {
+const ModCell: React.FC = ({
+  trackId,
+  modSource,
+  modDestination,
+  modValue,
+}) => {
   const {
     elementRef: modMatrixCell,
     angle,
     startDrag,
   } = useDrag({
-    initialValue: 20,
+    initialValue: modValue,
     type: 'modMatrixCell',
+    trackId,
+    fxName: modSource,
+    paramName: modDestination,
   });
   return (
     <div

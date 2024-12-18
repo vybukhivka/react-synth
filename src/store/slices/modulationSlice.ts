@@ -1,12 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ModulationState = {};
+export type ModulationDestinations = {
+  P1: number;
+  P2: number;
+  P3: number;
+  P4: number;
+};
 
-const createMatrix = () => ({
-  LFO: { P1: 0.0, P2: 0.0, P3: 0.0, P4: 0.0 },
-  RND: { P1: 0.0, P2: 0.0, P3: 0.0, P4: 0.0 },
-  SEQ: { P1: 0.0, P2: 0.0, P3: 0.0, P4: 0.0 },
-  VEL: { P1: 0.0, P2: 0.0, P3: 0.0, P4: 0.0 },
+export type ModulationSources = {
+  LFO: ModulationDestinations;
+  RND: ModulationDestinations;
+  SEQ: ModulationDestinations;
+  VEL: ModulationDestinations;
+};
+
+export type ModulationState = {
+  [trackId: string]: ModulationSources;
+};
+
+const createMatrix = (): ModulationSources => ({
+  LFO: { P1: 0, P2: 0, P3: 0, P4: 0 },
+  RND: { P1: 0, P2: 0, P3: 0, P4: 0 },
+  SEQ: { P1: 0, P2: 0, P3: 0, P4: 0 },
+  VEL: { P1: 0, P2: 0, P3: 0, P4: 0 },
 });
 
 const initialState: ModulationState = {
@@ -26,6 +42,6 @@ const modulationSlice = createSlice({
   },
 });
 
-export const { updateModulationParameter } = mixerSlice.actions;
+export const { updateModulationParameter } = modulationSlice.actions;
 
 export default modulationSlice.reducer;

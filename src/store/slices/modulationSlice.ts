@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 export type ModulationDestinations = {
   P1: number;
@@ -19,10 +20,10 @@ export type ModulationState = {
 };
 
 const createMatrix = (): ModulationSources => ({
-  LFO: { P1: 0, P2: 0, P3: 0, P4: 0 },
-  RND: { P1: 0, P2: 0, P3: 0, P4: 0 },
-  SEQ: { P1: 0, P2: 0, P3: 0, P4: 0 },
-  VEL: { P1: 0, P2: 0, P3: 0, P4: 0 },
+  LFO: { P1: 10, P2: 0, P3: 0, P4: 0 },
+  RND: { P1: 0, P2: 20, P3: 0, P4: 0 },
+  SEQ: { P1: 0, P2: 0, P3: 30, P4: 0 },
+  VEL: { P1: 0, P2: 0, P3: 0, P4: 40 },
 });
 
 const initialState: ModulationState = {
@@ -52,5 +53,7 @@ const modulationSlice = createSlice({
 });
 
 export const { updateModulationParameter } = modulationSlice.actions;
+export const selectMatrix = (state: RootState): ModulationState =>
+  state.modulation;
 
 export default modulationSlice.reducer;

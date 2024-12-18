@@ -1,6 +1,5 @@
 import useDrag from '../../../../hooks/useDrag/useDrag';
 import angleToValue from '../../../../utils/angleToValue';
-import valueToAngle from '../../../../utils/valueToAngle';
 
 const matrixSlots: number[] = Array.from({ length: 16 }, (_, i) => i);
 

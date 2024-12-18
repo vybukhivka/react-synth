@@ -38,6 +38,7 @@ function useDrag({
   type = 'knob' as DragElement,
   trackId,
   paramName,
+  fxName,
 }: Partial<UseDragProps> = {}): UseDragResults {
   const dispatch = useAppDispatch();
   const [state, localDispatch] = useReducer(dragReducer, {
@@ -93,6 +94,7 @@ function useDrag({
           // mixer fx
           dispatch(
             updateFxParameter({
+              fxName,
               paramName,
               paramValue: angleToValue(value, type),
             }),
@@ -102,10 +104,10 @@ function useDrag({
     } else {
       updateDraggable(type, state.angle, deltaX, deltaY, value => {
         // fx knob
-
         if (type === 'knob') {
           dispatch(
             updateFxParameter({
+              fxName,
               paramName,
               paramValue: angleToValue(value, type),
             }),

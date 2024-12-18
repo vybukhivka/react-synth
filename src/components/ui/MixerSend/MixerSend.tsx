@@ -13,6 +13,7 @@ type MixerSendProps = {
     | 'preDelay'
     | 'lowpass';
   trackId?: keyof MixerState['channels'];
+  fxName: 'delay' | 'reverb';
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({
@@ -20,6 +21,7 @@ const MixerSend: React.FC<MixerSendProps> = ({
   paramName,
   paramValue,
   trackId,
+  fxName,
 }) => {
   const {
     elementRef: send,
@@ -30,6 +32,7 @@ const MixerSend: React.FC<MixerSendProps> = ({
     type: 'send',
     paramName,
     trackId,
+    fxName,
   });
 
   return (

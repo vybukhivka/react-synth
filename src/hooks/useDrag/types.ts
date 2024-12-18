@@ -15,6 +15,7 @@ export type UseDragProps = {
   trackId: keyof TrackState | keyof MixerState['channels'];
   paramName: keyof TrackParams | keyof MixerChannelParams;
   setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
+  fxName: 'reverb' | 'delay';
 };
 
 export type DragState = {

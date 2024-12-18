@@ -36,8 +36,17 @@ const modulationSlice = createSlice({
   name: 'modulation',
   initialState,
   reducers: {
-    updateModulationParameter: (state, action: PayloadAction<{}>) => {
-      const payload = action.payload;
+    updateModulationParameter: (
+      state: ModulationState,
+      action: PayloadAction<{
+        track: keyof ModulationState;
+        source: keyof ModulationSources;
+        destination: keyof ModulationDestinations;
+        value: number;
+      }>,
+    ) => {
+      const { track, source, destination, value } = action.payload;
+      state[track][source][destination] = value;
     },
   },
 });

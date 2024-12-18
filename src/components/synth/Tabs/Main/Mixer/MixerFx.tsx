@@ -25,10 +25,18 @@ const MixerFx: React.FC<MixerFxProps> = ({ fxName }) => {
   return (
     <div className="flex h-[134px] w-[134px] flex-col items-center justify-end gap-y-2 rounded-3xl border border-slate-600">
       <span>{fxName}</span>
-      <Knob paramName={knobName} paramValue={knobValue} />
+      <Knob fxName={fxName} paramName={knobName} paramValue={knobValue} />
       <div className="flex w-full justify-between p-[16px]">
-        <MixerSend paramName={firstParamName} paramValue={firstParamValue} />
-        <MixerSend paramName={secondParamName} paramValue={secondParamValue} />
+        <MixerSend
+          fxName={fxName}
+          paramName={firstParamName}
+          paramValue={firstParamValue}
+        />
+        <MixerSend
+          fxName={fxName}
+          paramName={secondParamName}
+          paramValue={secondParamValue}
+        />
       </div>
     </div>
   );

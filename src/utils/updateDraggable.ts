@@ -24,6 +24,11 @@ export default function updateDraggable(
       onUpdate(newWidth);
       break;
     }
+    case 'modulator': {
+      const newWidth = clamp(angle + deltaX / 4, 0, 48);
+      onUpdate(newWidth);
+      break;
+    }
     case 'modMatrixCell': {
       const newHeight = clamp(angle + deltaY / 8, -25, 25);
       onUpdate(newHeight);

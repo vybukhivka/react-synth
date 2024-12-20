@@ -17,5 +17,9 @@ export default function valueToAngle(angle: number, type: DragElement): number {
     const degrees = (angle / 2) * 50;
     return Number(degrees.toFixed(2));
   }
+  if (type === 'modulator') {
+    const degrees = (angle / 50) * 48;
+    return Number(degrees.toFixed(2));
+  }
   return 0;
 }

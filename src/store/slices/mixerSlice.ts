@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 export type MixerChannelParams = {
   volume: number;
@@ -86,10 +87,8 @@ const mixerSlice = createSlice({
 });
 
 export const { updateMixerParameter, updateFxParameter } = mixerSlice.actions;
-export const selectMixer = (state: { mixer: MixerState }) => state.mixer;
-export const selectMixerChannels = (state: { mixer: MixerState }) =>
-  state.mixer.channels;
-export const selectMixerFx = (state: { mixer: MixerState }) =>
-  state.mixer.returnFx;
+export const selectMixer = (state: RootState) => state.mixer;
+export const selectMixerChannels = (state: RootState) => state.mixer.channels;
+export const selectMixerFx = (state: RootState) => state.mixer.returnFx;
 
 export default mixerSlice.reducer;

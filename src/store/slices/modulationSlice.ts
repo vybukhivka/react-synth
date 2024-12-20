@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 export type ModulationDestinations = {
   P1: number;
@@ -76,9 +77,9 @@ const modulationSlice = createSlice({
 });
 
 export const { updateModulationParameter } = modulationSlice.actions;
-export const selectMatrix = (state: ModulationState): ModulationMatrix =>
+export const selectMatrix = (state: RootState): ModulationMatrix =>
   state.modulation.matrix;
-export const selectSource = (state: ModulationState): ModulationSources =>
+export const selectSources = (state: RootState): ModulationSources =>
   state.modulation.sources;
 
 export default modulationSlice.reducer;

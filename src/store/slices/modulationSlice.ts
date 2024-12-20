@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
 export type ModulationDestinations = {
   P1: number;
@@ -8,28 +7,32 @@ export type ModulationDestinations = {
   P4: number;
 };
 
-export type ModulationSources = {
+export type ModulationMatrixSources = {
   LFO: ModulationDestinations;
   RND: ModulationDestinations;
   SEQ: ModulationDestinations;
   VEL: ModulationDestinations;
 };
 
-export type ModulationState = {
-  matrix: {
-    [trackId: string]: ModulationSources;
+export type ModulationMatrix = {
+  [trackId: string]: ModulationMatrixSources;
+};
+
+export type ModulationSources = {
+  LFO: {
+    freq: number;
   };
-  sources: {
-    LFO: {
-      freq: number;
-    };
-    RND: {
-      freq: number;
-    };
+  RND: {
+    freq: number;
   };
 };
 
-const createMatrix = (): ModulationSources => ({
+export type ModulationState = {
+  matrix: ModulationMatrix;
+  sources: ModulationSources;
+};
+
+const createMatrix = (): ModulationMatrixSources => ({
   LFO: { P1: 0.2, P2: 0, P3: 0, P4: 0 },
   RND: { P1: 0, P2: 0.1, P3: 0, P4: 0 },
   SEQ: { P1: 0, P2: 0, P3: 0, P4: 0 },
@@ -61,7 +64,7 @@ const modulationSlice = createSlice({
       state: ModulationState,
       action: PayloadAction<{
         trackId: keyof ModulationState;
-        modSource: keyof ModulationSources;
+        modSource: keyof ModulationMatrixSources;
         modDestination: keyof ModulationDestinations;
         modValue: number;
       }>,
@@ -73,7 +76,9 @@ const modulationSlice = createSlice({
 });
 
 export const { updateModulationParameter } = modulationSlice.actions;
-export const selectMatrix = (state): ModulationState['matrix'] =>
+export const selectMatrix = (state: ModulationState): ModulationMatrix =>
   state.modulation.matrix;
+export const selectSource = (state: ModulationState): ModulationSources =>
+  state.modulation.sources;
 
 export default modulationSlice.reducer;

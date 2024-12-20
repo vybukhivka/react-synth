@@ -1,1 +1,6 @@
-export type DragElement = 'fader' | 'knob' | 'send' | 'modMatrixCell';
+export type DragElement =
+  | 'fader'
+  | 'knob'
+  | 'send'
+  | 'modMatrixCell'
+  | 'modulator';

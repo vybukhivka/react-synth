@@ -9,12 +9,18 @@ import { cn } from '../../../utils/cn';
 type MixerSendProps = {
   color?: string;
   paramValue?: number;
-  paramName: keyof TrackParams | keyof MixerChannelParams;
+  type: 'modulator' | 'send';
+  paramName:
+    | keyof TrackParams
+    | keyof MixerChannelParams
+    | 'lfoFreq'
+    | 'rndFreq';
   trackId?: keyof MixerState['channels'];
-  fxName?: 'delay' | 'reverb';
+  fxName?: 'delay' | 'reverb' | 'LFO' | 'RND';
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({
+  type,
   color,
   paramName,
   paramValue,
@@ -27,7 +33,7 @@ const MixerSend: React.FC<MixerSendProps> = ({
     startDrag: startRotate,
   } = useDrag({
     initialValue: paramValue,
-    type: 'send',
+    type: type,
     paramName,
     trackId,
     fxName,

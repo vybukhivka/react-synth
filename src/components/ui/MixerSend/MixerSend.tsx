@@ -9,7 +9,7 @@ import { cn } from '../../../utils/cn';
 type MixerSendProps = {
   color?: string;
   paramValue?: number;
-  type: 'modulator' | 'send';
+  type?: 'modulator' | 'send';
   paramName:
     | keyof TrackParams
     | keyof MixerChannelParams
@@ -20,7 +20,7 @@ type MixerSendProps = {
 };
 
 const MixerSend: React.FC<MixerSendProps> = ({
-  type,
+  type = 'send',
   color,
   paramName,
   paramValue,

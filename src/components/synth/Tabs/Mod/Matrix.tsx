@@ -1,29 +1,9 @@
 import { useAppSelector } from '../../../../store/hooks';
-import {
-  ModulationState,
-  selectMatrix,
-} from '../../../../store/slices/modulationSlice';
+import { selectMatrix } from '../../../../store/slices/modulationSlice';
+import readMatrixValues from '../../../../utils/readMatrixValues';
 import ModCell from '../../../ui/ModCell/ModCell';
 
 // const matrixSlots: number[] = Array.from({ length: 16 }, (_, i) => i);
-
-function readMatrixValues(
-  track: keyof ModulationState,
-  matrix: ModulationState,
-) {
-  const modMatirx = Object.entries(matrix[track]);
-  // 1. loop over each mod source
-  const trackMods = modMatirx.flatMap(([source, destination]) =>
-    Object.entries(destination).map(([destination, value]) => ({
-      trackId: track,
-      modDestination: destination,
-      modSource: source,
-      modValue: value,
-    })),
-  );
-  // 2. push values of each track to output array
-  return trackMods.flat();
-}
 
 const Matrix: React.FC = ({ selectedTrack }) => {
   const matrix = useAppSelector(selectMatrix);

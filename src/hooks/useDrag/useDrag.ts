@@ -18,7 +18,10 @@ import calcDelta from '../../utils/calcDelta';
 import updateDraggable from '../../utils/updateDraggable';
 import { DragAction, DragState, UseDragProps, UseDragResults } from './types';
 import {
+  LfoTypes,
   ModulationDestinations,
+  ModulationSources,
+  updateModualorsParameter,
   updateModulationParameter,
 } from '../../store/slices/modulationSlice';
 
@@ -120,13 +123,23 @@ function useDrag({
         );
       }
 
-      if (type === 'modMatrixCell') {
+      if (type === 'modMatrixCell' && trackId) {
         dispatch(
           updateModulationParameter({
             trackId,
-            modSource: fxName,
-            modDestination: paramName,
+            modSource: fxName as keyof ModulationSources,
+            modDestination: paramName as keyof ModulationDestinations,
             modValue: paramValue,
+          }),
+        );
+      }
+
+      if (type === 'modulator') {
+        dispatch(
+          updateModualorsParameter({
+            paramName: paramName as keyof LfoTypes,
+            modulatorName: fxName as keyof ModulationSources,
+            value: value,
           }),
         );
       }

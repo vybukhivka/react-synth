@@ -19,13 +19,17 @@ export type ModulationMatrix = {
   [trackId: string]: ModulationMatrixSources;
 };
 
+export type LfoTypes = {
+  freq: number;
+};
+
+export type RndTypes = {
+  freq: number;
+};
+
 export type ModulationSources = {
-  LFO: {
-    freq: number;
-  };
-  RND: {
-    freq: number;
-  };
+  LFO: LfoTypes;
+  RND: RndTypes;
 };
 
 export type ModulationState = {
@@ -64,7 +68,7 @@ const modulationSlice = createSlice({
     updateModulationParameter: (
       state: ModulationState,
       action: PayloadAction<{
-        trackId: keyof ModulationState;
+        trackId: keyof ModulationMatrix;
         modSource: keyof ModulationMatrixSources;
         modDestination: keyof ModulationDestinations;
         modValue: number;
@@ -73,10 +77,22 @@ const modulationSlice = createSlice({
       const { trackId, modSource, modDestination, modValue } = action.payload;
       state.matrix[trackId][modSource][modDestination] = modValue;
     },
+    updateModualorsParameter: (
+      state: ModulationState,
+      action: PayloadAction<{
+        paramName: keyof LfoTypes | keyof RndTypes;
+        modulatorName: keyof ModulationSources;
+        value: number;
+      }>,
+    ) => {
+      const { paramName, modulatorName, value } = action.payload;
+      state.sources[modulatorName][paramName] = value;
+    },
   },
 });
 
-export const { updateModulationParameter } = modulationSlice.actions;
+export const { updateModulationParameter, updateModualorsParameter } =
+  modulationSlice.actions;
 export const selectMatrix = (state: RootState): ModulationMatrix =>
   state.modulation.matrix;
 export const selectSources = (state: RootState): ModulationSources =>

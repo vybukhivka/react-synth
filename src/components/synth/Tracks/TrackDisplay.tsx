@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { TrackState } from '../../../store/slices/tracksSlice';
 
 type DisplayProps = {
   activeParam: { paramName: keyof TrackState; value: number };
 };
 
-const TrackDisplay: React.FC<DisplayProps> = ({ activeParam }) => {
+const TrackDisplay: React.FC<DisplayProps> = memo(({ activeParam }) => {
   return (
     <div className="bg flex h-[36px] w-[124px] items-center justify-center rounded-md border border-slate-500">
       <span>
@@ -14,6 +15,6 @@ const TrackDisplay: React.FC<DisplayProps> = ({ activeParam }) => {
       </span>
     </div>
   );
-};
+});
 
 export default TrackDisplay;

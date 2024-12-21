@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useAppSelector } from '../../../store/hooks';
 import {
   selectTracks,
@@ -16,15 +15,15 @@ const BORDERS = [
 
 const TracksContainer: React.FC = () => {
   const tracksState: TrackState = useAppSelector(selectTracks);
-  const trackData = useMemo(
-    () => Object.entries(tracksState) as [keyof TrackState, TrackParams][],
-    [tracksState],
-  );
+  const tracksData = Object.entries(tracksState) as [
+    keyof TrackState,
+    TrackParams,
+  ][];
   return (
     <>
       <div className="col-start-1 col-end-5 row-start-1 row-end-3 flex gap-x-[20px]">
         {tracksState &&
-          trackData.map((track, i) => (
+          tracksData.map((track, i) => (
             <Track className={BORDERS[i]} trackData={track} key={i} />
           ))}
       </div>

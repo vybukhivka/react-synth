@@ -12,7 +12,7 @@ export type KnobProps = {
     | keyof MixerDelayParams
     | keyof MixerReverbParams;
   paramValue: number;
-  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
+  onActiveParam: (param: setActiveType) => void;
   size: number;
   fxName: 'reverb' | 'delay';
 };

@@ -3,7 +3,7 @@ import useDrag from '../../../hooks/useDrag/useDrag';
 import { KnobProps } from './types';
 
 const Knob: React.FC<Partial<KnobProps>> = memo(
-  ({ trackId, paramName, paramValue, setActiveParam, fxName }) => {
+  ({ trackId, paramName, paramValue, onActiveParam, fxName }) => {
     const {
       elementRef: knob,
       angle,
@@ -12,7 +12,7 @@ const Knob: React.FC<Partial<KnobProps>> = memo(
       initialValue: paramValue,
       trackId,
       paramName,
-      setActiveParam,
+      setActiveParam: onActiveParam,
       fxName,
     });
 

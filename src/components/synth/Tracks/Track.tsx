@@ -21,10 +21,6 @@ const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
     value: 0,
   });
 
-  const handleActiveParamUpdate = useCallback((param: setActiveType) => {
-    setActiveParam(param);
-  }, []);
-
   return (
     <div className="flex flex-col items-center justify-between">
       <TrackDisplay activeParam={activeParam} />
@@ -41,7 +37,7 @@ const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
               paramName={paramName}
               paramValue={value}
               key={paramName}
-              onActiveParam={handleActiveParamUpdate}
+              onActiveParam={setActiveParam}
             />
           ),
         )}

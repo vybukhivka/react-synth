@@ -24,7 +24,7 @@ export type UseDragProps = {
     | keyof MixerChannelParams
     | keyof LfoTypes
     | keyof RndTypes;
-  setActiveParam: React.Dispatch<React.SetStateAction<setActiveType>>;
+  setActiveParam: (param: setActiveType) => void;
   fxName: 'reverb' | 'delay';
 };
 

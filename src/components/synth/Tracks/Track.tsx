@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
@@ -21,6 +21,10 @@ const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
     value: 0,
   });
 
+  const handleActiveParamUpdate = useCallback((param: setActiveType) => {
+    setActiveParam(param);
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-between">
       <TrackDisplay activeParam={activeParam} />
@@ -37,7 +41,7 @@ const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
               paramName={paramName}
               paramValue={value}
               key={paramName}
-              setActiveParam={setActiveParam}
+              onActiveParam={handleActiveParamUpdate}
             />
           ),
         )}

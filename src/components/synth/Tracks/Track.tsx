@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
@@ -14,7 +14,7 @@ export type setActiveType = {
   value: number;
 };
 
-const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
+const Track: React.FC<TrackProps> = ({ trackData, className }) => {
   const [trackId, trackParams]: [keyof TrackState, TrackParams] = trackData;
   const [activeParam, setActiveParam] = useState<setActiveType>({
     paramName: 'inactive',
@@ -44,6 +44,6 @@ const Track: React.FC<TrackProps> = memo(({ trackData, className }) => {
       </div>
     </div>
   );
-});
+};
 
 export default Track;

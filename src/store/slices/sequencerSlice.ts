@@ -36,66 +36,23 @@ const sequencerSlice = createSlice({
   name: 'sequencer',
   initialState,
   reducers: {
-    updateTrigs: (
+    updateTrackProperty: (
       state: SequencerState,
       action: PayloadAction<{
         trackId: keyof SequencerState;
-        trigs: number[];
+        property: keyof TrackSequencerState;
+        value: number[] | number | string;
       }>,
     ) => {
-      const { trackId, trigs } = action.payload;
-      state[trackId].trigs = trigs;
-    },
-    updateVelocity: (
-      state: SequencerState,
-      action: PayloadAction<{
-        trackId: keyof SequencerState;
-        velocity: number[];
-      }>,
-    ) => {
-      const { trackId, velocity } = action.payload;
-      state[trackId].velocity = velocity;
-    },
-    updateProb: (
-      state: SequencerState,
-      action: PayloadAction<{
-        trackId: keyof SequencerState;
-        probability: number[];
-      }>,
-    ) => {
-      const { trackId, probability } = action.payload;
-      state[trackId].probability = probability;
-    },
-    updateMod: (
-      state: SequencerState,
-      action: PayloadAction<{
-        trackId: keyof SequencerState;
-        modSequence: number[];
-      }>,
-    ) => {
-      const { trackId, modSequence } = action.payload;
-      state[trackId].modSequence = modSequence;
-    },
-    updateRetrig: (
-      state: SequencerState,
-      action: PayloadAction<{
-        trackId: keyof SequencerState;
-        retrig: number[];
-      }>,
-    ) => {
-      const { trackId, retrig } = action.payload;
-      state[trackId].retrig = retrig;
+      const { trackId, property, value } = action.payload;
+      if (!state[trackId])
+        throw new Error(`Wrong trackId of "${state[trackId]}`);
+      state[trackId][property] = value as never;
     },
   },
 });
 
-export const {
-  updateTrigs,
-  updateVelocity,
-  updateProb,
-  updateMod,
-  updateRetrig,
-} = sequencerSlice.actions;
+export const { updateTrackProperty } = sequencerSlice.actions;
 export const selectSequencer = (state: RootState): SequencerState =>
   state.sequencer;
 

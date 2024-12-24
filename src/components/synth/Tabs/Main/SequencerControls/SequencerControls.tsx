@@ -9,7 +9,7 @@ const SequencerControls: React.FC = () => {
         <ButtonThin text="2:1" />
       </div>
       <div className="flex w-[328px] justify-between">
-        <ButtonThin text="PITCH" />
+        <ButtonThin text="RETRIG" />
         <ButtonThin text="VEL" />
         <ButtonThin text="PROB" />
         <ButtonThin text="MOD" />

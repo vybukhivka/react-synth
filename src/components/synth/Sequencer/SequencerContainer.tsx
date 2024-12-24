@@ -1,7 +1,8 @@
+import { SynthTabs } from '../../../types/synthTabs';
 import SequencerRow from './SequencerRow';
 
 type SeqContainerProps = {
-  activeTab: string;
+  activeTab: SynthTabs;
 };
 
 const SequencerContainer: React.FC<SeqContainerProps> = ({ activeTab }) => {

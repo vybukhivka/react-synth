@@ -15,43 +15,21 @@ export type TrackSequencerState = {
   direction: 'forward' | 'backward' | 'forwardBackward';
 };
 
+const defaultTrackState: TrackSequencerState = {
+  trigs: Array(8).fill(0),
+  velocity: Array(8).fill(0),
+  probability: Array(8).fill(0),
+  modSequence: Array(8).fill(0),
+  retrig: Array(8).fill(0),
+  length: 8,
+  direction: 'forward',
+};
+
 const initialState: SequencerState = {
-  track1: {
-    trigs: [0, 0, 0, 0, 0, 0, 0, 0],
-    velocity: [0, 0, 0, 0, 0, 0, 0, 0],
-    probability: [0, 0, 0, 0, 0, 0, 0, 0],
-    modSequence: [0, 0, 0, 0, 0, 0, 0, 0],
-    retrig: [0, 0, 0, 0, 0, 0, 0, 0],
-    length: 8,
-    direction: 'forward',
-  },
-  track2: {
-    trigs: [0, 0, 0, 0, 0, 0, 0, 0],
-    velocity: [0, 0, 0, 0, 0, 0, 0, 0],
-    probability: [0, 0, 0, 0, 0, 0, 0, 0],
-    modSequence: [0, 0, 0, 0, 0, 0, 0, 0],
-    retrig: [0, 0, 0, 0, 0, 0, 0, 0],
-    length: 8,
-    direction: 'forward',
-  },
-  track3: {
-    trigs: [0, 0, 0, 0, 0, 0, 0, 0],
-    velocity: [0, 0, 0, 0, 0, 0, 0, 0],
-    probability: [0, 0, 0, 0, 0, 0, 0, 0],
-    modSequence: [0, 0, 0, 0, 0, 0, 0, 0],
-    retrig: [0, 0, 0, 0, 0, 0, 0, 0],
-    length: 8,
-    direction: 'forward',
-  },
-  track4: {
-    trigs: [0, 0, 0, 0, 0, 0, 0, 0],
-    velocity: [0, 0, 0, 0, 0, 0, 0, 0],
-    probability: [0, 0, 0, 0, 0, 0, 0, 0],
-    modSequence: [0, 0, 0, 0, 0, 0, 0, 0],
-    retrig: [0, 0, 0, 0, 0, 0, 0, 0],
-    length: 8,
-    direction: 'forward',
-  },
+  track1: { ...defaultTrackState },
+  track2: { ...defaultTrackState },
+  track3: { ...defaultTrackState },
+  track4: { ...defaultTrackState },
 };
 
 const sequencerSlice = createSlice({

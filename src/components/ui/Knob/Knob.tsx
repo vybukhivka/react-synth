@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import useDrag from '../../../hooks/useDrag/useDrag';
 import { KnobProps } from './types';
 

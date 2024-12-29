@@ -6,7 +6,7 @@ export type SequencerState = {
 };
 
 export type TrackSequencerState = {
-  trigs: number[];
+  trigs: boolean[];
   velocity: number[];
   probability: number[];
   modSequence: number[];
@@ -16,7 +16,7 @@ export type TrackSequencerState = {
 };
 
 const defaultTrackState: TrackSequencerState = {
-  trigs: Array(8).fill(0),
+  trigs: Array(8).fill(false),
   velocity: Array(8).fill(0),
   probability: Array(8).fill(0),
   modSequence: Array(8).fill(0),
@@ -41,13 +41,15 @@ const sequencerSlice = createSlice({
       action: PayloadAction<{
         trackId: keyof SequencerState;
         property: keyof TrackSequencerState;
-        value: number[] | number | string;
+        step: number;
+        value: number | string | boolean;
       }>,
     ) => {
-      const { trackId, property, value } = action.payload;
+      const { trackId, property, step, value } = action.payload;
       if (!state[trackId])
         throw new Error(`Wrong trackId of "${state[trackId]}`);
-      state[trackId][property] = value as never;
+      console.log(trackId, property, step, value);
+      state[trackId][property][step] = value;
     },
   },
 });

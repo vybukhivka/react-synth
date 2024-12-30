@@ -25,10 +25,6 @@ const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
 }) => {
   const [trigger, setTrigger] = useState(isTriggered);
   const dispatch = useAppDispatch();
-  // trackId: keyof SequencerState;
-  // property: keyof TrackSequencerState;
-  // step: number;
-  // value: number | string | boolean;
 
   const handleTrigger = () => {
     console.log(step);

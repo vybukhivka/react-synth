@@ -48,7 +48,6 @@ const sequencerSlice = createSlice({
       const { trackId, property, step, value } = action.payload;
       if (!state[trackId])
         throw new Error(`Wrong trackId of "${state[trackId]}`);
-      console.log(trackId, property, step, value);
       state[trackId][property][step] = value;
     },
   },

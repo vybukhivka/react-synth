@@ -27,7 +27,6 @@ const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
   const dispatch = useAppDispatch();
 
   const handleTrigger = () => {
-    console.log(step);
     setTrigger(!trigger);
     dispatch(
       updateTrackProperty({

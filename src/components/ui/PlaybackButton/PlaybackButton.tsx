@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import * as Tone from 'tone';
-import { createDummySynth } from '../../../utils/toneHelper';
+import React, { useState } from 'react';
 
 type PlaybackButtonProps = {
   text: string;
 };
 
 const PlaybackButton: React.FC<PlaybackButtonProps> = props => {
-  const synth = createDummySynth();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayback = () => {
     setIsPlaying(!isPlaying);
   };
-
-  useEffect(() => {
-    if (isPlaying) Tone.getTransport().start();
-    else Tone.getTransport().stop();
-  }, [isPlaying]);
 
   return (
     <button

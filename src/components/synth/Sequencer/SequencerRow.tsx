@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../store/hooks';
 import {
-  selectSequencer,
+  selectTrackSequencer,
   SequencerState,
 } from '../../../store/slices/sequencerSlice';
 import { readSequencerValues } from '../../../utils/readSequencerValues';
@@ -12,8 +12,8 @@ type SequencerRowProps = {
 };
 
 const SequencerRow: React.FC<SequencerRowProps> = ({ className, track }) => {
-  const state = useAppSelector(selectSequencer);
-  const steps = readSequencerValues(state[track]);
+  const state = useAppSelector(state => selectTrackSequencer(state, track));
+  const steps = readSequencerValues(state);
 
   return (
     <div className="flex items-end justify-between">

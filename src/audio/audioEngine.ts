@@ -12,7 +12,7 @@ export const audioEngine = {
 
   start: () => {
     Tone.start().then(() => {
-      if (isDebugMode) console.log('Audio Context Started!');
+      if (isDebugMode) console.log('Audio Context Started');
     });
   },
   startClock: () => {
@@ -31,5 +31,11 @@ export const audioEngine = {
   setBPM: (bpm: number) => {
     audioEngine.clock.frequency.value = bpm / 60;
     if (isDebugMode) console.log(`BPM set to ${bpm}`);
+  },
+
+  cleanup: () => {
+    audioEngine.synths.forEach(synths => synths.dispose());
+    audioEngine.clock.dispose();
+    if (isDebugMode) console.log('Audio Engine Cleaned Up');
   },
 };

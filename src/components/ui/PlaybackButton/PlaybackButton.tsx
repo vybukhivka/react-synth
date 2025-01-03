@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { audioEngine } from '../../../audio/audioEngine';
 
 type PlaybackButtonProps = {
   text: string;
@@ -8,7 +9,15 @@ const PlaybackButton: React.FC<PlaybackButtonProps> = props => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlayback = () => {
-    setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      audioEngine.start();
+      audioEngine.startClock();
+      audioEngine.setBPM(130);
+      setIsPlaying(true);
+    } else {
+      audioEngine.stopClock();
+      setIsPlaying(false);
+    }
   };
 
   return (

@@ -15,6 +15,7 @@ type SequencerButtonProps = {
   velocity: number;
   step: number;
   track: keyof SequencerState;
+  currentStep: number;
 };
 
 const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
@@ -22,9 +23,12 @@ const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
   isTriggered,
   step,
   track,
+  currentStep,
 }) => {
   const [trigger, setTrigger] = useState(isTriggered);
   const dispatch = useAppDispatch();
+  const isActive = currentStep === step;
+  // console.log(step, currentStep, isActive);
 
   const handleTrigger = () => {
     setTrigger(!trigger);
@@ -44,6 +48,7 @@ const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
       className={cn(
         'flex h-[68px] w-[68px] items-center justify-center rounded-lg border opacity-60 hover:opacity-80',
         color,
+        isActive && 'opacity-100',
       )}
     >
       {trigger && (

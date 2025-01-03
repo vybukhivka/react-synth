@@ -46,8 +46,13 @@ const sequencerSlice = createSlice({
       }>,
     ) => {
       const { trackId, property, step, value } = action.payload;
+
       if (!state[trackId])
         throw new Error(`Wrong trackId of "${state[trackId]}`);
+
+      if (!Array.isArray(state[trackId][property]))
+        throw new Error(`Invalid property: "${property}" is not an array`);
+
       state[trackId][property][step] = value;
     },
   },
@@ -56,5 +61,9 @@ const sequencerSlice = createSlice({
 export const { updateTrackProperty } = sequencerSlice.actions;
 export const selectSequencer = (state: RootState): SequencerState =>
   state.sequencer;
+export const selectTrackSequencer = (
+  state: RootState,
+  trackId: keyof SequencerState,
+): TrackSequencerState => state.sequencer[trackId];
 
 export default sequencerSlice.reducer;

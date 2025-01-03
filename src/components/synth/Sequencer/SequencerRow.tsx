@@ -17,15 +17,19 @@ const SequencerRow: React.FC<SequencerRowProps> = ({ className, track }) => {
 
   return (
     <div className="flex items-end justify-between">
-      {steps.map((step, i) => (
-        <SequencerButton
-          isTriggered={step.trigs}
-          color={className}
-          step={i}
-          track={track}
-          key={`step${i + 1}`}
-        />
-      ))}
+      {steps.map((step, i) => {
+        // console.log(step);
+        return (
+          <SequencerButton
+            isTriggered={step.trigs}
+            color={className}
+            step={i}
+            currentStep={step.currentStep}
+            track={track}
+            key={`step${i + 1}`}
+          />
+        );
+      })}
     </div>
   );
 };

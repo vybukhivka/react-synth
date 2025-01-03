@@ -6,6 +6,7 @@ export const readSequencerValues = (state: TrackSequencerState) => {
   const velocity = state.velocity;
   const retrig = state.retrig;
   const modSequence = state.modSequence;
+  const currentStep = state.currentStep;
 
   return trigs.map((trig, index) => ({
     trigs: trig,
@@ -13,5 +14,6 @@ export const readSequencerValues = (state: TrackSequencerState) => {
     velocity: velocity[index],
     retrig: retrig[index],
     modSequence: modSequence[index],
+    currentStep,
   }));
 };

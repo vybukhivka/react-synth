@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SynthNavTabs from './Tabs/SynthNavTabs';
 import TracksContainer from './Tracks/TracksContainer';
@@ -8,6 +8,7 @@ import ModTab from './Tabs/Mod/ModTab';
 import SeqTab from './Tabs/Seq/SeqTab';
 import SequencerContainer from './Sequencer/SequencerContainer';
 import { SynthTabs } from '../../types/synthTabs';
+import { audioEngine } from '../../audio/audioEngine';
 
 const SynthContainer: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SynthTabs>('main');
@@ -15,6 +16,15 @@ const SynthContainer: React.FC = () => {
   function updateActiveTab(tabName: SynthTabs) {
     setActiveTab(tabName);
   }
+
+  useEffect(() => {
+    audioEngine.start();
+    audioEngine.startClock();
+
+    return () => {
+      audioEngine.stopClock();
+    };
+  }, []);
 
   return (
     <div className="mt-auto grid h-[600px] w-[1064px] grid-cols-[154px_154px_154px_154px_2fr] grid-rows-[36px_154px_1fr_68px] gap-[20px] rounded-xl border border-slate-700 p-[20px]">

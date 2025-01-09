@@ -18,7 +18,6 @@ const SequencerRow: React.FC<SequencerRowProps> = ({ className, track }) => {
   return (
     <div className="flex items-end justify-between">
       {steps.map((step, i) => {
-        // console.log(step);
         return (
           <SequencerButton
             isTriggered={step.trigs}

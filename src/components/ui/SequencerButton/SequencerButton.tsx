@@ -28,7 +28,6 @@ const SequencerButton: React.FC<Partial<SequencerButtonProps>> = ({
   const [trigger, setTrigger] = useState(isTriggered);
   const dispatch = useAppDispatch();
   const isActive = currentStep === step;
-  // console.log(step, currentStep, isActive);
 
   const handleTrigger = () => {
     setTrigger(!trigger);

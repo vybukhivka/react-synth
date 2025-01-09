@@ -1,8 +1,9 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 import TrackDisplay from './TrackDisplay';
+import { audioEngine } from '../../../audio/audioEngine';
 
 type TrackProps = {
   trackData: [keyof TrackState, TrackParams];
@@ -20,6 +21,12 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     paramName: 'inactive',
     value: 0,
   });
+
+  if (trackId === 'track1') {
+    if (activeParam.paramName === 'param1') {
+      audioEngine.kickSynth.setFrequencer(activeParam.value * 4);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-between">

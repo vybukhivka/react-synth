@@ -14,6 +14,7 @@ export type TrackSequencerState = {
   retrig: number[];
   length: number;
   direction: 'forward' | 'backward' | 'forwardBackward';
+  pingPongDirection: 'forward' | 'backward';
 };
 
 const defaultTrackState: TrackSequencerState = {
@@ -25,6 +26,7 @@ const defaultTrackState: TrackSequencerState = {
   retrig: Array(8).fill(0),
   length: 8,
   direction: 'forward',
+  pingPongDirection: 'forward',
 };
 
 const initialState: SequencerState = {

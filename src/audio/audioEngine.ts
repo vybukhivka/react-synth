@@ -7,34 +7,53 @@ import {
 } from '../store/slices/sequencerSlice';
 
 const isDebugMode = import.meta.env.MODE === 'development';
-let pingPingDirection: 'forward' | 'backward' = 'forward';
 
 const getNextStepIndex = (
   trackState: TrackSequencerState,
   trackId: keyof SequencerState,
 ): number => {
-  const { length, direction } = trackState;
-  let nextStep: number = 1;
+  const { length, direction, pingPongDirection } = trackState;
+  let nextStep: number = 0;
   const currentStep = trackState.currentStep || 0;
 
-  if (direction === 'forward') nextStep = (currentStep + 1) % length;
+  if (direction === 'forward') {
+    nextStep = (currentStep + 1) % length;
+  }
 
   if (direction === 'backward') {
-    nextStep = currentStep - 1;
-    if (nextStep === -1) nextStep = length;
+    nextStep = (currentStep - 1 + length) % length;
   }
 
   if (direction === 'forwardBackward') {
-    if (pingPingDirection === 'forward' && currentStep + 1 !== length)
-      nextStep = currentStep + 1;
-    else if (currentStep + 1 === length) pingPingDirection = 'backward';
-    if (pingPingDirection === 'backward' && currentStep - 1 !== 0)
-      nextStep = currentStep - 1;
-    else if (currentStep - 1 === 0 && pingPingDirection === 'backward') {
-      pingPingDirection = 'forward';
-      nextStep = 0;
+    console.log('trackState:', trackState);
+    if (pingPongDirection === 'forward') {
+      if (currentStep + 1 < length) {
+        nextStep = currentStep + 1;
+      } else {
+        store.dispatch(
+          updateNonArrayTrackProperty({
+            trackId,
+            property: 'pingPongDirection',
+            value: 'backward',
+          }),
+        );
+        nextStep = currentStep - 1;
+      }
+    } else if (pingPongDirection === 'backward') {
+      if (currentStep - 1 >= 0) {
+        nextStep = currentStep - 1;
+      } else {
+        store.dispatch(
+          updateNonArrayTrackProperty({
+            trackId,
+            property: 'pingPongDirection',
+            value: 'forward',
+          }),
+        );
+        nextStep = currentStep + 1;
+      }
     }
-    console.log(pingPingDirection, nextStep);
+    console.log('nextStep:', nextStep);
   }
 
   store.dispatch(

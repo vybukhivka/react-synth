@@ -28,6 +28,18 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     }
   }
 
+  if (trackId === 'track1') {
+    if (activeParam.paramName === 'param2') {
+      audioEngine.kickSynth.setDecay(activeParam.value * 0.06);
+    }
+  }
+
+  if (trackId === 'track1') {
+    if (activeParam.paramName === 'param3') {
+      audioEngine.kickSynth.setPitchEnv(activeParam.value * 0.03);
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <TrackDisplay activeParam={activeParam} />

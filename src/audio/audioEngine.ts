@@ -7,6 +7,7 @@ import {
 } from '../store/slices/sequencerSlice';
 import { createKickSynth } from './kickSynth';
 import { createHitSynth } from './hitSynth';
+import { createHatSynth } from './hatSynth';
 
 // const isDebugMode = import.meta.env.MODE === 'development';
 const isDebugMode = false;
@@ -78,6 +79,11 @@ export const audioEngine = {
     audioEngine.hitSynth.trigger(time);
   },
 
+  hatSynth: createHatSynth(),
+  triggerHat: (time: number) => {
+    audioEngine.hatSynth.trigger(time);
+  },
+
   transport: Tone.getTransport(),
   clock: new Tone.Clock(time => {
     const state = store.getState().sequencer;
@@ -91,6 +97,9 @@ export const audioEngine = {
         }
         if (synthIndex === 1) {
           audioEngine.triggerHit(time);
+        }
+        if (synthIndex === 2) {
+          audioEngine.triggerHat(time);
         }
       }
     });
@@ -124,6 +133,7 @@ export const audioEngine = {
   cleanup: () => {
     audioEngine.kickSynth.dispose();
     audioEngine.hitSynth.dispose();
+    audioEngine.hatSynth.dispose();
     audioEngine.clock.dispose();
     if (isDebugMode) console.log('Audio Engine Cleaned Up');
   },

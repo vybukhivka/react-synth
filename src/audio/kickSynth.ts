@@ -16,7 +16,7 @@ export const createKickSynth = () => {
     volume: -13,
   });
 
-  const noise = new Tone.Noise({ type: 'pink', volume: -12 });
+  const noise = new Tone.Noise({ type: 'pink', volume: -24 });
 
   const bitCrusher = new Tone.BitCrusher(state.track1.param4 * 0.16);
 
@@ -66,24 +66,20 @@ export const createKickSynth = () => {
   const setFrequencer = (frequency: number) => {
     pitchEnvelope.baseFrequency = frequency;
     oscillator1.frequency.value = frequency;
-    console.log('frequency set: ', frequency);
   };
 
   const setDecay = (time: number) => {
     amplitudeEnvelope.decay = time;
     amplitudeEnvelope.release = time;
-    console.log('dec set: ', time);
   };
 
   const setPitchEnv = (time: number) => {
     pitchEnvelope.decay = time;
     pitchEnvelope.release = time;
-    console.log('dec set: ', time);
   };
 
   const setBitReduction = (bits: number) => {
     bitCrusher.bits.value = bits;
-    console.log('dec set: ', bits);
   };
 
   const dispose = () => {

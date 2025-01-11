@@ -6,6 +6,7 @@ import {
   updateNonArrayTrackProperty,
 } from '../store/slices/sequencerSlice';
 import { createKickSynth } from './kickSynth';
+import { createHitSynth } from './hitSynth';
 
 // const isDebugMode = import.meta.env.MODE === 'development';
 const isDebugMode = false;
@@ -72,6 +73,11 @@ export const audioEngine = {
     audioEngine.kickSynth.trigger(time);
   },
 
+  hitSynth: createHitSynth(),
+  triggerHit: (time: number) => {
+    audioEngine.hitSynth.trigger(time);
+  },
+
   transport: Tone.getTransport(),
   clock: new Tone.Clock(time => {
     const state = store.getState().sequencer;
@@ -81,7 +87,10 @@ export const audioEngine = {
       if (trackState.trigs[stepIndex]) {
         const synthIndex = parseInt(trackId.replace('track', ''), 10) - 1;
         if (synthIndex === 0) {
-          audioEngine.triggerKick(time); // Use triggerKick for the kick track
+          audioEngine.triggerKick(time);
+        }
+        if (synthIndex === 1) {
+          audioEngine.triggerHit(time);
         }
       }
     });
@@ -97,9 +106,7 @@ export const audioEngine = {
   startClock: () => {
     if (audioEngine.clock.state !== 'started') {
       audioEngine.clock.start();
-      if (isDebugMode) {
-        console.log('Clock Started');
-      }
+      if (isDebugMode) console.log('Clock Started');
     }
   },
   stopClock: () => {
@@ -116,7 +123,7 @@ export const audioEngine = {
 
   cleanup: () => {
     audioEngine.kickSynth.dispose();
-    // audioEngine.synths.forEach(synths => synths.dispose());
+    audioEngine.hitSynth.dispose();
     audioEngine.clock.dispose();
     if (isDebugMode) console.log('Audio Engine Cleaned Up');
   },

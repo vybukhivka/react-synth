@@ -16,7 +16,7 @@ export const createKickSynth = () => {
     volume: -13,
   });
 
-  const noise = new Tone.Noise({ type: 'pink', volume: -24 });
+  const noise = new Tone.Noise({ type: 'pink', volume: -32 });
 
   const bitCrusher = new Tone.BitCrusher(state.track1.param4 * 0.16);
 

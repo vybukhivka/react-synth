@@ -43,7 +43,30 @@ const useTrackParams = (trackId: keyof TrackState) => {
           break;
 
         case 'param4':
-          audioEngine.hitSynth.setBitReduction(value * 0.16);
+          // audioEngine.hitSynth.setBitReduction(value * 0.16);
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    if (trackId === 'track3') {
+      switch (paramName) {
+        case 'param1':
+          audioEngine.hitSynth.setFrequency(value * 4);
+          break;
+
+        case 'param2':
+          audioEngine.hitSynth.setDecay(value * 0.06);
+          break;
+
+        case 'param3':
+          // audioEngine.hitSynth.setPitchEnv(value * 0.03);
+          break;
+
+        case 'param4':
+          // audioEngine.hitSynth.setBitReduction(value * 0.16);
           break;
 
         default:

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 import TrackDisplay from './TrackDisplay';
-import { audioEngine } from '../../../audio/audioEngine';
+import useTrackParams from '../../../hooks/useDrag/useTrackParam';
 
 type TrackProps = {
   trackData: [keyof TrackState, TrackParams];
@@ -21,24 +21,13 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     paramName: 'inactive',
     value: 0,
   });
+  const updateParam = useTrackParams(trackId);
 
-  if (trackId === 'track1') {
-    if (activeParam.paramName === 'param1') {
-      audioEngine.kickSynth.setFrequencer(activeParam.value * 4);
+  useEffect(() => {
+    if (activeParam.paramName !== 'inactive') {
+      updateParam(activeParam.paramName, activeParam.value);
     }
-  }
-
-  if (trackId === 'track1') {
-    if (activeParam.paramName === 'param2') {
-      audioEngine.kickSynth.setDecay(activeParam.value * 0.06);
-    }
-  }
-
-  if (trackId === 'track1') {
-    if (activeParam.paramName === 'param3') {
-      audioEngine.kickSynth.setPitchEnv(activeParam.value * 0.03);
-    }
-  }
+  }, [activeParam, updateParam]);
 
   return (
     <div className="flex flex-col items-center justify-between">

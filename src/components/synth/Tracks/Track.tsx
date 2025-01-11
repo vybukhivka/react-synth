@@ -1,8 +1,9 @@
-import { memo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TrackParams, TrackState } from '../../../store/slices/tracksSlice';
 import { cn } from '../../../utils/cn';
 import Knob from '../../ui/Knob/Knob';
 import TrackDisplay from './TrackDisplay';
+import useTrackParams from '../../../hooks/useDrag/useTrackParam';
 
 type TrackProps = {
   trackData: [keyof TrackState, TrackParams];
@@ -20,6 +21,13 @@ const Track: React.FC<TrackProps> = ({ trackData, className }) => {
     paramName: 'inactive',
     value: 0,
   });
+  const updateParam = useTrackParams(trackId);
+
+  useEffect(() => {
+    if (activeParam.paramName !== 'inactive') {
+      updateParam(activeParam.paramName, activeParam.value);
+    }
+  }, [activeParam, updateParam]);
 
   return (
     <div className="flex flex-col items-center justify-between">

@@ -5,8 +5,10 @@ import {
   TrackSequencerState,
   updateNonArrayTrackProperty,
 } from '../store/slices/sequencerSlice';
+import { createKickSynth } from './kickSynth';
 
-const isDebugMode = import.meta.env.MODE === 'development';
+// const isDebugMode = import.meta.env.MODE === 'development';
+const isDebugMode = false;
 
 const getNextStepIndex = (
   trackState: TrackSequencerState,
@@ -25,7 +27,6 @@ const getNextStepIndex = (
   }
 
   if (direction === 'forwardBackward') {
-    console.log('trackState:', trackState);
     if (pingPongDirection === 'forward') {
       if (currentStep + 1 < length) {
         nextStep = currentStep + 1;
@@ -53,7 +54,6 @@ const getNextStepIndex = (
         nextStep = currentStep + 1;
       }
     }
-    console.log('nextStep:', nextStep);
   }
 
   store.dispatch(
@@ -67,7 +67,10 @@ const getNextStepIndex = (
 };
 
 export const audioEngine = {
-  synths: Array.from({ length: 4 }, () => new Tone.Synth().toDestination()),
+  kickSynth: createKickSynth(),
+  triggerKick: (time: number) => {
+    audioEngine.kickSynth.trigger(time);
+  },
 
   transport: Tone.getTransport(),
   clock: new Tone.Clock(time => {
@@ -77,7 +80,9 @@ export const audioEngine = {
       const stepIndex = getNextStepIndex(trackState, trackId);
       if (trackState.trigs[stepIndex]) {
         const synthIndex = parseInt(trackId.replace('track', ''), 10) - 1;
-        audioEngine.synths[synthIndex].triggerAttackRelease('C2', '16n', time);
+        if (synthIndex === 0) {
+          audioEngine.triggerKick(time); // Use triggerKick for the kick track
+        }
       }
     });
 
@@ -110,7 +115,8 @@ export const audioEngine = {
   },
 
   cleanup: () => {
-    audioEngine.synths.forEach(synths => synths.dispose());
+    audioEngine.kickSynth.dispose();
+    // audioEngine.synths.forEach(synths => synths.dispose());
     audioEngine.clock.dispose();
     if (isDebugMode) console.log('Audio Engine Cleaned Up');
   },

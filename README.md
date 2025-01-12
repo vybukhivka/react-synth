@@ -8,6 +8,15 @@ It is a straightforward and fun tool for crafting drum patterns and sounds.
 This project is currently in development and will be deployed once the feature list is complete.
 In the meantime, you can follow the build guide below
 
+## Tech Stack
+- TypeScript
+- React
+- Redux
+- React Router
+- Tailwind CSS
+- Vite
+- Tone.js: For audio synthesis and sequencing
+
 ## Features
 
 ### General:

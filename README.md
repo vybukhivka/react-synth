@@ -5,6 +5,9 @@
 QuickDrum is a user-friendly 4-track drum synthesizer with extensive sequencer and modulation capabilities.
 It is a straightforward and fun tool for crafting drum patterns and sounds.
 
+This project is currently in development and will be deployed once the feature list is complete.
+In the meantime, you can follow the build guide below
+
 ## Features
 
 ### General:
@@ -41,3 +44,24 @@ It is a straightforward and fun tool for crafting drum patterns and sounds.
 - Title project for identification.      ❌
 - Share project with the public library. ❌
 - Export project as audio.               ❌
+
+## Installation
+
+1. Clone the repo:
+```bash
+git clone https://github.com/vybukhivka/react-synth.git
+```
+
+2. Navigate to the project directory and install dependencies:
+```bash
+cd QuickDrum && npm i
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests with improvements or new features.

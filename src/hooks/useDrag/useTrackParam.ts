@@ -54,11 +54,11 @@ const useTrackParams = (trackId: keyof TrackState) => {
     if (trackId === 'track3') {
       switch (paramName) {
         case 'param1':
-          audioEngine.hitSynth.setFrequency(value * 4);
+          audioEngine.hatSynth.setFrequency(value * 100);
           break;
 
         case 'param2':
-          audioEngine.hitSynth.setDecay(value * 0.06);
+          audioEngine.hatSynth.setDecay(value * 0.01);
           break;
 
         case 'param3':

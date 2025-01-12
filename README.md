@@ -16,6 +16,7 @@ In the meantime, you can follow the build guide below
 - Tailwind CSS
 - Vite
 - Tone.js: For audio synthesis and sequencing
+(this list may grow as development continues)
 
 ## Features
 
@@ -24,6 +25,8 @@ In the meantime, you can follow the build guide below
 - ✅ Home page with introduction.                          
 - ❌ About page with brief description of the concepts.
 - ❌ Projects page with library of published user projects.
+- ❌ Audio engine tests
+- ❌ UI tests
 
 ### Synth:
 

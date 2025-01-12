@@ -1,43 +1,43 @@
-# React Synth
-
-(temporary name)
+# QuickDrum
 
 ![Synth Image](https://github.com/vybukhivka/react-synth/blob/main/public/initial-design.png?raw=true)
 
-There is a short feature list I will use during development phase.
+QuickDrum is a user-friendly 4-track drum synthesizer with extensive sequencer and modulation capabilities.
+It is a straightforward and fun tool for crafting drum patterns and sounds.
 
 ## Features
 
 ### General:
 
-- Main page with introduction
-- About page with brief description of the concepts
-- Explore page with library of published user projects
-- Contact page, I don't really think it's necessary
+- Main page with introduction.                          ✅
+- About page with brief description of the concepts.    ❌
+- Explore page with library of published user projects. ❌
+- Contact page, I don't really think it's necessary.    ❌
 
 ### Synth:
 
 #### Sound Engines:
-
-- 4 tracks
-- Each track contains 4 knobs
+- Bass Drum Engine.  ✅
+- Snare/Clap Engine. ✅
+- Hi-Hat Engine.     ✅
+- FM Engine.         ✅
 
 #### Sequencer Tab:
 
-- 8 step sequencer for each of the tracks
-- Ratio control. Each track can have 1:2 and 2:1 of the main Tempo (default is 1:1)
-- Offset control. Each track can have unique number of step, as well as sequencer direction (forward, backward, forward-backward)
+- 8 step sequencer for each of the tracks.                                 ✅
+- Independent ratio control for each track (1:2 or 2:1 of the main tempo). ❌
+- Offset control for unique step numbers.                                  ❌
 
 #### Modulations Tab:
 
-- Global LFO with various waveforms
-- Random generator (probably with Slope and Hold options)
-- 4 x 4 modulation matrix for each track
-- Mod. sources: LFO, RND, MOD SEQ, VEL
-- Mod. destinations: All 4 parameters of active synth track
+- Global LFO with various waveforms.                                   ❌
+- Random generator with hold option.                                   ❌
+- 4 x 4 modulation matrix for each track.                              ❌
+- Modulation sources: LFO, RND, modulation sequencer, velocity.        ❌
+- Modulation destinations: All 4 parameters of the active synth track. ❌
 
 #### Project Tab:
 
-- User can provide a title for current project
-- User can share project to public
-- User can export project as audio
+- Title project for identification.      ❌
+- Share project with the public library. ❌
+- Export project as audio.               ❌

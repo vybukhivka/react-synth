@@ -12,38 +12,37 @@ In the meantime, you can follow the build guide below
 
 ### General:
 
-- Main page with introduction.                          ✅
-- About page with brief description of the concepts.    ❌
-- Explore page with library of published user projects. ❌
-- Contact page, I don't really think it's necessary.    ❌
+- ✅ Home page with introduction.                          
+- ❌ About page with brief description of the concepts.
+- ❌ Projects page with library of published user projects.
 
 ### Synth:
 
 #### Sound Engines:
-- Bass Drum Engine.  ✅
-- Snare/Clap Engine. ✅
-- Hi-Hat Engine.     ✅
-- FM Engine.         ✅
+- ✅ Bass Drum Engine.  
+- ✅ Snare/Clap Engine.
+- ✅ Hi-Hat Engine.     
+- ✅ FM Engine.         
 
 #### Sequencer Tab:
 
-- 8 step sequencer for each of the tracks.                                 ✅
-- Independent ratio control for each track (1:2 or 2:1 of the main tempo). ❌
-- Offset control for unique step numbers.                                  ❌
+- ✅ 8 step sequencer for each of the tracks.                                 
+- ❌ Independent ratio control for each track (1:2 or 2:1 of the main tempo). 
+- ❌ Offset control for unique step numbers.                                  
 
 #### Modulations Tab:
 
-- Global LFO with various waveforms.                                   ❌
-- Random generator with hold option.                                   ❌
-- 4 x 4 modulation matrix for each track.                              ❌
-- Modulation sources: LFO, RND, modulation sequencer, velocity.        ❌
-- Modulation destinations: All 4 parameters of the active synth track. ❌
+- ❌ Global LFO with various waveforms.                                   
+- ❌ Random generator with hold option.                                   
+- ❌ 4 x 4 modulation matrix for each track.                              
+- ❌ Modulation sources: LFO, RND, modulation sequencer, velocity.        
+- ❌ Modulation destinations: All 4 parameters of the active synth track. 
 
 #### Project Tab:
 
-- Title project for identification.      ❌
-- Share project with the public library. ❌
-- Export project as audio.               ❌
+- ❌ Title project for identification.      
+- ❌ Share project with the public library. 
+- ❌ Export project as audio.               
 
 ## Installation
 

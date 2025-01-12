@@ -8,6 +8,7 @@ import {
 import { createKickSynth } from './kickSynth';
 import { createHitSynth } from './hitSynth';
 import { createHatSynth } from './hatSynth';
+import { createFmSynth } from './fmSynth';
 
 // const isDebugMode = import.meta.env.MODE === 'development';
 const isDebugMode = false;
@@ -84,6 +85,11 @@ export const audioEngine = {
     audioEngine.hatSynth.trigger(time);
   },
 
+  fmSynth: createFmSynth(),
+  triggerFm: (time: number) => {
+    audioEngine.fmSynth.trigger(time);
+  },
+
   transport: Tone.getTransport(),
   clock: new Tone.Clock(time => {
     const state = store.getState().sequencer;
@@ -100,6 +106,9 @@ export const audioEngine = {
         }
         if (synthIndex === 2) {
           audioEngine.triggerHat(time);
+        }
+        if (synthIndex === 3) {
+          audioEngine.triggerFm(time);
         }
       }
     });

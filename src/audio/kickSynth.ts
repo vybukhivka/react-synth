@@ -10,12 +10,6 @@ export const createKickSynth = () => {
     volume: -12,
   });
 
-  const oscillator2 = new Tone.Oscillator({
-    type: 'sine',
-    frequency: state.track1.param1 + 50,
-    volume: -13,
-  });
-
   const noise = new Tone.Noise({ type: 'pink', volume: -32 });
 
   const bitCrusher = new Tone.BitCrusher(state.track1.param4 * 0.16);
@@ -44,14 +38,12 @@ export const createKickSynth = () => {
 
   pitchEnvelope.connect(oscillator1.frequency);
   oscillator1.connect(filter);
-  oscillator2.connect(filter);
   noise.connect(filter);
   filter.connect(amplitudeEnvelope);
   amplitudeEnvelope.connect(bitCrusher);
   bitCrusher.toDestination();
 
   oscillator1.start();
-  oscillator2.start();
   noise.start();
 
   const trigger = (time = Tone.now()) => {
@@ -84,10 +76,8 @@ export const createKickSynth = () => {
 
   const dispose = () => {
     oscillator1.stop();
-    oscillator2.stop();
     noise.stop();
     oscillator1.dispose();
-    oscillator2.dispose();
     noise.dispose();
     amplitudeEnvelope.dispose();
     pitchEnvelope.dispose();

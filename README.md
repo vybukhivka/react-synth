@@ -1,6 +1,6 @@
 # QuickDrum
 
-![Synth Image](https://github.com/vybukhivka/react-synth/blob/main/public/initial-design.png?raw=true)
+https://github.com/user-attachments/assets/6f7e1172-5488-469b-a858-12c86194ea79
 
 QuickDrum is a user-friendly 4-track drum synthesizer with extensive sequencer and modulation capabilities.
 It is a straightforward and fun tool for crafting drum patterns and sounds.
@@ -18,6 +18,8 @@ In the meantime, you can follow the build guide below
 - Tone.js: For audio synthesis and sequencing
 
 This list may grow as development continues
+
+![Synth Image](https://github.com/vybukhivka/react-synth/blob/main/public/initial-design.png?raw=true)
 
 ## Features
 

@@ -5,8 +5,8 @@ https://github.com/user-attachments/assets/6f7e1172-5488-469b-a858-12c86194ea79
 QuickDrum is a user-friendly 4-track drum synthesizer with extensive sequencer and modulation capabilities.
 It is a straightforward and fun tool for crafting drum patterns and sounds.
 
-This project is currently in development and will be deployed once the feature list is complete.
-In the meantime, you can follow the build guide below
+### This project is currently in development and will be deployed once the feature list is complete. In the meantime, you can follow the build guide below
+
 
 ## Tech Stack
 - TypeScript

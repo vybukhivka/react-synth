@@ -23,6 +23,9 @@ const ModCell: React.FC = ({
       onMouseDown={startDrag}
       className="relative border border-slate-600 text-center"
     >
+      <span className="relative top-1/4 z-10 select-none text-slate-400">
+        {angleToValue(angle, 'modMatrixCell')}
+      </span>
       <div
         ref={modMatrixCell}
         style={{
@@ -30,10 +33,8 @@ const ModCell: React.FC = ({
           transform: `translateY(${angle >= 0 ? 0 : 100}%)`,
           userSelect: 'none',
         }}
-        className="absolute bottom-1/2 left-0 w-full bg-slate-600 opacity-50"
-      >
-        {angleToValue(angle, 'modMatrixCell')}
-      </div>
+        className="absolute bottom-1/2 left-0 w-full bg-slate-600 opacity-30"
+      ></div>
     </div>
   );
 };

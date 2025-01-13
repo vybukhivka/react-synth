@@ -21,7 +21,7 @@ This list may grow as development continues
 
 ## Features
 
-### General:
+#### General:
 
 - ✅ Home page with introduction.                          
 - ❌ About page with brief description of the concepts.
@@ -29,13 +29,17 @@ This list may grow as development continues
 - ❌ Audio engine tests
 - ❌ UI tests
 
-### Synth:
+#### Tracks:
+
+- ❌ Selectable tracks
+- ❌ Mute button on display
+- ❌ Solo button on display
 
 #### Sound Engines:
-- ✅ Bass Drum Engine.  
+- ✅ Bass Drum Engine.
 - ✅ Snare/Clap Engine.
 - ✅ Hi-Hat Engine.     
-- ✅ FM Engine.         
+- ✅ FM Engine.     
 
 #### Sequencer Tab:
 
@@ -61,7 +65,7 @@ This list may grow as development continues
 
 1. Clone the repo:
 ```bash
-git clone https://github.com/vybukhivka/react-synth.git
+https://github.com/vybukhivka/QuickDrum.git
 ```
 
 2. Navigate to the project directory and install dependencies:

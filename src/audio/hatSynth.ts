@@ -23,7 +23,7 @@ export const createHatSynth = () => {
     rolloff: -24,
   });
 
-  const gain = new Tone.Gain(0.1);
+  const gain = new Tone.Gain(0.05);
 
   noise.connect(filter);
   filter.connect(amplitudeEnvelope);

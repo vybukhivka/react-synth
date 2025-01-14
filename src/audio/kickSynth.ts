@@ -7,7 +7,7 @@ export const createKickSynth = () => {
   const oscillator1 = new Tone.Oscillator({
     type: 'sine',
     frequency: state.track1.param1,
-    volume: -12,
+    volume: -14,
   });
 
   const noise = new Tone.Noise({ type: 'pink', volume: -32 });

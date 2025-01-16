@@ -37,14 +37,13 @@ export const createHitSynth = () => {
     rolloff: -24,
   });
 
-  const gain = new Tone.Gain(0.3);
+  const output = new Tone.Gain(0.3).toDestination();
 
   pitchEnvelope.connect(oscillator.frequency);
   oscillator.connect(filter);
   noise.connect(filter);
   filter.connect(amplitudeEnvelope);
-  amplitudeEnvelope.connect(gain);
-  gain.toDestination();
+  amplitudeEnvelope.connect(output);
 
   oscillator.start();
   noise.start();
@@ -83,8 +82,8 @@ export const createHitSynth = () => {
     noise.dispose();
     amplitudeEnvelope.dispose();
     filter.dispose();
-    gain.dispose();
+    output.dispose();
   };
 
-  return { setPitchEnv, trigger, setDecay, dispose, setFrequency };
+  return { setPitchEnv, trigger, setDecay, dispose, setFrequency, output };
 };

@@ -23,12 +23,11 @@ export const createHatSynth = () => {
     rolloff: -24,
   });
 
-  const gain = new Tone.Gain(0.05);
+  const output = new Tone.Gain(0.05).toDestination();
 
   noise.connect(filter);
   filter.connect(amplitudeEnvelope);
-  amplitudeEnvelope.connect(gain);
-  gain.toDestination();
+  amplitudeEnvelope.connect(output);
 
   noise.start();
 
@@ -54,8 +53,8 @@ export const createHatSynth = () => {
     noise.dispose();
     amplitudeEnvelope.dispose();
     filter.dispose();
-    gain.dispose();
+    output.dispose();
   };
 
-  return { trigger, setDecay, dispose, setFrequency };
+  return { trigger, setDecay, dispose, setFrequency, output };
 };

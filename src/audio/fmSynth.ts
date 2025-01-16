@@ -21,7 +21,9 @@ export const createFmSynth = () => {
       release: 0.25,
     },
   });
-  synth.toDestination();
+
+  const output = new Tone.Gain().toDestination();
+  synth.connect(output);
 
   const trigger = (time = Tone.now()) => {
     synth.triggerAttackRelease('c2', '16n', time);
@@ -29,8 +31,8 @@ export const createFmSynth = () => {
 
   const dispose = () => {
     synth.dispose();
-    // gain.dispose();
+    output.dispose();
   };
 
-  return { trigger, synth, dispose };
+  return { trigger, synth, dispose, output };
 };

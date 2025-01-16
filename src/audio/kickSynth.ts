@@ -36,12 +36,14 @@ export const createKickSynth = () => {
     rolloff: -24,
   });
 
+  const output = new Tone.Gain().toDestination();
+
   pitchEnvelope.connect(oscillator1.frequency);
   oscillator1.connect(filter);
   noise.connect(filter);
   filter.connect(amplitudeEnvelope);
   amplitudeEnvelope.connect(bitCrusher);
-  bitCrusher.toDestination();
+  bitCrusher.connect(output);
 
   oscillator1.start();
   noise.start();
@@ -82,6 +84,7 @@ export const createKickSynth = () => {
     amplitudeEnvelope.dispose();
     pitchEnvelope.dispose();
     filter.dispose();
+    output.dispose();
   };
 
   return {
@@ -91,5 +94,6 @@ export const createKickSynth = () => {
     setDecay,
     setFrequencer,
     dispose,
+    output,
   };
 };

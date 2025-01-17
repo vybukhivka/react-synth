@@ -37,6 +37,13 @@ This list may grow as development continues
 - ❌ Mute button on display
 - ❌ Solo button on display
 
+#### Mixer
+
+- ❌ Volume fader for each track
+- ❌ 2 sends for each track
+- ❌ Reverb 
+- ❌ Delay
+
 #### Sound Engines:
 - ✅ Bass Drum Engine.
 - ✅ Snare/Clap Engine.

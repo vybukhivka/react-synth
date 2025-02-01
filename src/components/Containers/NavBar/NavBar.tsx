@@ -12,7 +12,6 @@ function NavBar() {
       <div className="flex justify-between space-x-8 text-lg">
         <NavLink to={'/about'}>About</NavLink>
         <NavLink to={'/explore'}>Explore</NavLink>
-        <NavLink to={'/contact'}>Contact</NavLink>
       </div>
       <div className="flex gap-y-3">
         <NavLink

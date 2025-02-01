@@ -21,11 +21,6 @@ const mainRoutes: RouteObject[] = [
         errorElement: <ErrorBoundary />,
       },
       {
-        path: '/contact',
-        element: <Contact />,
-        errorElement: <ErrorBoundary />,
-      },
-      {
         path: '/synth',
         element: <SynthContainer />,
         children: [{ path: ':patternId', element: <SynthContainer /> }],
